@@ -1,0 +1,5 @@
+git clone https://github.com/SDP-DT04/Embedded-Software 		This saves the folder on the computer. Only do this once.
+cd Embedded-Software/ 						Change directory to Embedded Software
+git checkout Tanner 						Checkout my branch so the changes are on there and not master.
+git commit 							Commits the changes made to my branch Tanner
+git push origin Tanner 						Pushes my changes to the Github account. Put in credentials as requested.
