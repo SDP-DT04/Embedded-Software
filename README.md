@@ -2,7 +2,7 @@
 
 ### Clone repository (only have to do once)
 ```sh
-git clone https://github.com/SDP-DT04/Embedded-Software
+$ git clone https://github.com/SDP-DT04/Embedded-Software
 ```
 
 ### Change directory to cloned repository
@@ -12,13 +12,17 @@ $ cd Embedded-Software/
 
 ### Checkout my personal branch
 ```sh
-git checkout Tanner
+$ git checkout "branch-name"
 ```
+Replace "branch-name" with the name of the branch you are trying to work on.
 
 ### Commit changes to local version of repository
 ```sh
-git commit
+$ git commit
 ```
 
 ### Push changes to the Github repository
-git push origin Tanner
+```sh
+$ git push origin Tanner
+```
+Type in credentials as requested
