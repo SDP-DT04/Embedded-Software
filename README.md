@@ -23,6 +23,6 @@ $ git commit
 
 ### Push changes to the Github repository
 ```sh
-$ git push origin Tanner
+$ git push origin "branch-name"
 ```
-Type in credentials as requested
+Replace "branch-name" with the name of the branch you are trying to work on. Type in credentials as requested.
