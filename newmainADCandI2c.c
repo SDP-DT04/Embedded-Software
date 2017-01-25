@@ -22,7 +22,8 @@ int main(void)
 {
     ConfigureClock();
     I2Cinit(299);
-    ConfigureModuleADC();
+    //ConfigureModuleADC();
+    initAdc1();
     //ChangeChannelADC(1);
     /*_T1IP = 4;//interupt setup
     TMR1 = 0;
@@ -31,8 +32,9 @@ int main(void)
     _T1IF = 0;
     _T1IE = 1;*/
       
-    double ADC_value1 = 0;
-    double ADC_value2 = 0;
+    double ADC_value1 = 0, ADC_value2 = 0, ADC_value3 = 0;
+    //double ADC_value2 = 0;
+    double samp1 = 0, samp2 = 0, samp3 = 0;
     double Voltage1 = 0;
     double Voltage2 = 0;
     int v1 = 0;
@@ -40,22 +42,33 @@ int main(void)
     //int weight = 0;
     //float constant = 40;//constant with voltage to weight relationship
 
-    ANSELAbits.ANSA1 = 1;
-    ANSELAbits.ANSA11 = 1;
-    TRISAbits.TRISA0 = 0;
+//    ANSELAbits.ANSA1 = 1;
+//    ANSELAbits.ANSA11 = 1;
+//    TRISAbits.TRISA0 = 0;
     
     char c1[4]= {"0000"};
     char c2[4]= {"0000"};
     
     while(1)
     {
-        PORTAbits.RA0 = 1;      
-        ADC_value1 = getADC();
-        Voltage1 = (ADC_value1*3250)/(4096);//3250 is 1000 times its value for an easier displayed value
-        //v1 = Voltage1;
-        sprintf(c1, "%04f", Voltage1);//change weight int into char array
-        display(c1, 1);
-        __delay_ms(3000);
+        PORTAbits.RA0 = 1; 
+        AD1CON1bits.SAMP = 1; // Start sampling
+        __delay_us(10); // Wait for sampling time (10 us)
+        AD1CON1bits.SAMP = 0; // Start the conversion
+        while (!AD1CON1bits.DONE); // Wait for the conversion to complete
+        ADC_value1 = ADC1BUF0; // Read the ADC conversion result
+//        ADC_value1 = getADC();
+//        samp1 = (ADC_value1*3.250)/(4096);//3250 is 1000 times its value for an easier displayed value
+//        __delay_us(10);
+//        ADC_value2 = getADC();
+//        samp2 = (ADC_value2*3.250)/(4096);
+//        __delay_us(10);
+//        ADC_value3 = getADC();
+//        samp3 = (ADC_value3*3.250)/(4096);
+//        Voltage1 = (samp1+samp2+samp3)/3;        
+//        sprintf(c1, "%04f", Voltage1);//change weight int into char array
+//        display(c1, 1);
+//        __delay_ms(3000);
 //        PORTAbits.RA0 = 0;
 //        ChangeChannelADC(10);
 //        ADC_value2 = getADC9();
