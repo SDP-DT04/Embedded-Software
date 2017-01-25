@@ -42,6 +42,7 @@ float getADC (void);
 //void msdelay(int N);
 void display(char c[], int dec);
 void ConfigureClock(void);
+void initAdc1(void);
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #define FCY 60000000ULL
@@ -149,7 +150,24 @@ void ConfigureModuleADC(void)
     AD1CHS0bits.CH0NA = 0;
     AD1CON1bits.ADON = 1;
     __delay_us(20);
-}  
+} 
+
+void initAdc1(void)
+{
+/* Set port configuration */
+ANSELAbits.ANSA1 = 1;
+/* Initialize and enable ADC module */
+AD1CON1 = 0x0400;
+AD1CON2 = 0x0000;
+AD1CON3 = 0x000F;
+AD1CON4 = 0x0000;
+AD1CHS0 = 0x0001;
+AD1CHS123 = 0x0000;
+AD1CSSH = 0x0000;
+AD1CSSL = 0x0001;
+AD1CON1bits.ADON = 1;
+__delay_us(20);
+}
     
 void ChangeChannelADC(unsigned char channel)
 {
