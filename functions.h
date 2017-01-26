@@ -145,7 +145,7 @@ void ConfigureModuleADC(void)
     AD1CON3bits.ADCS = 0b00001111;   //Conversion Clock Select
     AD1CON4 = 0x0000;
     AD1CSSH = 0x0000;
-    AD1CSSL = 0x0001;
+    AD1CSSL = 0x0200;
     //AD1CSSL = 0x0202;
     AD1CHS0bits.CH0SA = 0;
     AD1CHS0bits.CH0NA = 0;

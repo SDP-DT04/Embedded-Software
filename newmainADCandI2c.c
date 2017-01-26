@@ -23,11 +23,11 @@ int main(void)
 {
     ConfigureClock();
     I2Cinit(299);
-    //ConfigureModuleADC();
-    initAdc1();
+    ConfigureModuleADC();
+    //initAdc1();
           
-    double ADCv0 = 0, ADCv1 = 0, ADCv2 = 0, ADCv3 = 0, ADCv4 = 0, ADCv5 = 0, ADCv6 = 0, ADCv7 = 0, ADCv8 = 0, ADCv9 = 0;
-    double samp0 = 0, samp1 = 0, samp2 = 0, samp3 = 0, samp4 = 0, samp5 = 0, samp6 = 0, samp7 = 0, samp8 = 0, samp9 = 0;
+    double ADC_value[10] = {0};
+    double samp[10] = {0};
     double Voltage[10] = {0};
     double Voltage1 = 0;
     double Voltage2 = 0;
@@ -43,42 +43,20 @@ int main(void)
     char c1[4]= {"0000"};
     char c2[4]= {"0000"};
     int i = 0;
+    int j = 0;
     while(1)
     {
+        PORTAbits.RA0 = 1;
+        ANSELAbits.ANSA11 = 1;
         for (i= 0; i<10; i++)
         {
-            PORTAbits.RA0 = 1;
-            ADCv0 = getADC();
-            samp0 = (ADCv0 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv1 = getADC();
-            samp1 = (ADCv1 * Volt) / (ADC); //3250 is 1000 times its value for an easier displayed value
-            __delay_ms(10);
-            ADCv2 = getADC();
-            samp2 = (ADCv2 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv3 = getADC();
-            samp3 = (ADCv3 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv4 = getADC();
-            samp4 = (ADCv4 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv5 = getADC();
-            samp5 = (ADCv5 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv6 = getADC();
-            samp6 = (ADCv6 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv7 = getADC();
-            samp7 = (ADCv7 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv8 = getADC();
-            samp8 = (ADCv8 * Volt) / (ADC);
-            __delay_ms(10);
-            ADCv9 = getADC();
-            samp9 = (ADCv9 * Volt) / (ADC);
-            __delay_ms(10);
-            Voltage[i] = ((samp0 + samp1 + samp2 + samp3 + samp4 + samp5 + samp6 + samp7 + samp8 + samp9) / 10);
+            for (j = 0; j<10; j++)
+            {
+                ADC_value[j] = getADC();
+                samp[j] = (ADC_value[j] * Volt) / (ADC);
+                __delay_ms(10);
+            }
+            Voltage[i] = ((samp[0] + samp[1] + samp[2] + samp[3] + samp[4] + samp[5] + samp[6] + samp[7] + samp[8] + samp[9]) / 10);
         }
         Voltage1 = (Voltage[0]+Voltage[1]+Voltage[2]+Voltage[3]+Voltage[4]+Voltage[5]+Voltage[6]+Voltage[7]+Voltage[8]+Voltage[9])/10;
         
