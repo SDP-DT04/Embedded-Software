@@ -1,8 +1,6 @@
 # Embedded-Software
 
-![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png)
-![alt text](https://dwglogo.com/wp-content/uploads/2016/05/mchp-696x391.png)
-<br />
+![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png) <br />
 
 ### Clone repository (only have to do once)
 ```sh
