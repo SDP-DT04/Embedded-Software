@@ -1,6 +1,6 @@
 # Embedded-Software
 
-![alt text][/home/hingle/Downloads/GitHub-Logos/GitHub_Logo.png] <br />
+![alt text][https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png] <br />
 
 ### Clone repository (only have to do once)
 ```sh
