@@ -1,5 +1,7 @@
 # Embedded-Software
 
+![alt text][mongoDB] ![alt text][nodeJS] ![alt text][requireJS] ![alt text][handlebars] ![alt text][UA] <br />
+
 ### Clone repository (only have to do once)
 ```sh
 $ git clone https://github.com/SDP-DT04/Embedded-Software
