@@ -14,9 +14,10 @@
 #include <stdio.h>
 #define FCY 60000000ULL
 #include <libpic30.h>
+#define ADC 4096
+#define Volt 3.25
 int  dSec = 0, Sec = 0; // two  global  variables
 
-//add in interupt
 
 int main(void)
 {
@@ -24,17 +25,10 @@ int main(void)
     I2Cinit(299);
     //ConfigureModuleADC();
     initAdc1();
-    //ChangeChannelADC(1);
-    /*_T1IP = 4;//interupt setup
-    TMR1 = 0;
-    T1CON = 0x8010;
-    PR1 = 16000-1;
-    _T1IF = 0;
-    _T1IE = 1;*/
-      
-    double ADC_value1 = 0, ADC_value2 = 0, ADC_value3 = 0;
-    //double ADC_value2 = 0;
-    double samp1 = 0, samp2 = 0, samp3 = 0;
+          
+    double ADCv0 = 0, ADCv1 = 0, ADCv2 = 0, ADCv3 = 0, ADCv4 = 0, ADCv5 = 0, ADCv6 = 0, ADCv7 = 0, ADCv8 = 0, ADCv9 = 0;
+    double samp0 = 0, samp1 = 0, samp2 = 0, samp3 = 0, samp4 = 0, samp5 = 0, samp6 = 0, samp7 = 0, samp8 = 0, samp9 = 0;
+    double Voltage[10] = {0};
     double Voltage1 = 0;
     double Voltage2 = 0;
     int v1 = 0;
@@ -48,27 +42,49 @@ int main(void)
     
     char c1[4]= {"0000"};
     char c2[4]= {"0000"};
-    
+    int i = 0;
     while(1)
     {
-        PORTAbits.RA0 = 1; 
-        AD1CON1bits.SAMP = 1; // Start sampling
-        __delay_us(10); // Wait for sampling time (10 us)
-        AD1CON1bits.SAMP = 0; // Start the conversion
-        while (!AD1CON1bits.DONE); // Wait for the conversion to complete
-        ADC_value1 = ADC1BUF0; // Read the ADC conversion result
-//        ADC_value1 = getADC();
-//        samp1 = (ADC_value1*3.250)/(4096);//3250 is 1000 times its value for an easier displayed value
-//        __delay_us(10);
-//        ADC_value2 = getADC();
-//        samp2 = (ADC_value2*3.250)/(4096);
-//        __delay_us(10);
-//        ADC_value3 = getADC();
-//        samp3 = (ADC_value3*3.250)/(4096);
-//        Voltage1 = (samp1+samp2+samp3)/3;        
+        for (i= 0; i<10; i++)
+        {
+            PORTAbits.RA0 = 1;
+            ADCv0 = getADC();
+            samp0 = (ADCv0 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv1 = getADC();
+            samp1 = (ADCv1 * Volt) / (ADC); //3250 is 1000 times its value for an easier displayed value
+            __delay_ms(10);
+            ADCv2 = getADC();
+            samp2 = (ADCv2 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv3 = getADC();
+            samp3 = (ADCv3 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv4 = getADC();
+            samp4 = (ADCv4 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv5 = getADC();
+            samp5 = (ADCv5 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv6 = getADC();
+            samp6 = (ADCv6 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv7 = getADC();
+            samp7 = (ADCv7 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv8 = getADC();
+            samp8 = (ADCv8 * Volt) / (ADC);
+            __delay_ms(10);
+            ADCv9 = getADC();
+            samp9 = (ADCv9 * Volt) / (ADC);
+            __delay_ms(10);
+            Voltage[i] = ((samp0 + samp1 + samp2 + samp3 + samp4 + samp5 + samp6 + samp7 + samp8 + samp9) / 10);
+        }
+        Voltage1 = (Voltage[0]+Voltage[1]+Voltage[2]+Voltage[3]+Voltage[4]+Voltage[5]+Voltage[6]+Voltage[7]+Voltage[8]+Voltage[9])/10;
+        
 //        sprintf(c1, "%04f", Voltage1);//change weight int into char array
 //        display(c1, 1);
-//        __delay_ms(3000);
+        __delay_ms(3000);
 //        PORTAbits.RA0 = 0;
 //        ChangeChannelADC(10);
 //        ADC_value2 = getADC9();
@@ -80,7 +96,6 @@ int main(void)
     }
     return 0;
 }
-
                  
 //void sprintf(char Voltagestring, "%f [V]", int Voltage){
 //
