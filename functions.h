@@ -136,15 +136,16 @@ void ConfigureModuleADC(void)
     AD1CON1bits.ADSIDL = 0; //Stop in idle mode (0 = continues module in Idle mode)
     AD1CON1bits.AD12B = 1;  //12-bit sampling operation (0 = disabled)
     AD1CON1bits.FORM = 0b00;    //Data output format (00 = integer)
-    AD1CON1bits.SSRC = 0b111;
+    AD1CON1bits.SSRC = 0b111;   //Sample Trigger Source Select bit (0b111 = auto-convert)
+    AD1CON1bits.SSRCG = 0;  //
     AD1CON1bits.ASAM = 1;   //SAMP is auto-set
-    AD1CON2 = 0x0404;
+    AD1CON2 = 0x0400;
     AD1CON3bits.ADRC = 0;   //ADC1 Conversion Clock Source (0 = clock derived from system clock)
     AD1CON3bits.SAMC = 0b01111;  //Auto-sample time bits (0b01111 = 15TAD)
     AD1CON3bits.ADCS = 0b00001111;   //Conversion Clock Select
     AD1CON4 = 0x0000;
     AD1CSSH = 0x0000;
-    AD1CSSL = 0x0002;
+    AD1CSSL = 0x0001;
     //AD1CSSL = 0x0202;
     AD1CHS0bits.CH0SA = 0;
     AD1CHS0bits.CH0NA = 0;
@@ -161,10 +162,10 @@ AD1CON1 = 0x0400;
 AD1CON2 = 0x0000;
 AD1CON3 = 0x000F;
 AD1CON4 = 0x0000;
-AD1CHS0 = 0x0001;
+AD1CHS0 = 0x0009;
 AD1CHS123 = 0x0000;
 AD1CSSH = 0x0000;
-AD1CSSL = 0x0001;
+AD1CSSL = 0x0000;
 AD1CON1bits.ADON = 1;
 __delay_us(20);
 }
@@ -180,12 +181,19 @@ void ChangeChannelADC(unsigned char channel)
 
 float getADC(void)
 {
-    AD1CON1bits.SAMP = 1;   //ADC1 Sample enable (1 = sampling)
-    while(!AD1CON1bits.SAMP); 
-    AD1CON1bits.SAMP = 0;   //ADC1 Sample enable (0 = holding)
-    while(AD1CON1bits.SAMP)
-    while (!AD1CON1bits.DONE);  //ADC1 Conversion Status (0 = not started/in progress, 1 = completed)
-    return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
+//    AD1CON1bits.SAMP = 1;   //ADC1 Sample enable (1 = sampling)
+//    while(!AD1CON1bits.SAMP); 
+//    AD1CON1bits.SAMP = 0;   //ADC1 Sample enable (0 = holding)
+//    while(AD1CON1bits.SAMP)
+//    while (!AD1CON1bits.DONE);  //ADC1 Conversion Status (0 = not started/in progress, 1 = completed)
+//    return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
+    
+     
+        AD1CON1bits.SAMP = 1; // Start sampling
+        __delay_ms(10); // Wait for sampling time (10 us)
+        AD1CON1bits.SAMP = 0; // Start the conversion
+        while (!AD1CON1bits.DONE); // Wait for the conversion to complete
+        return(ADC1BUF0);
 }
 
 //float getADC10(void)
