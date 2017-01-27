@@ -132,16 +132,23 @@ void display(char c[], int dec){
 void ConfigureModuleADC(void)
 {
     AD1CON1bits.ADON = 0;   //ADC1 Operation Mode (0 = ADC is off)
-    AD1CON3bits.ADRC = 0;   //ADC1 Conversion Clock Source (0 = clock derived from system clock)
-    AD1CON3bits.SAMC = 0b1111;  //Auto-sample time bits (0b1111 = 15TAD)
-    AD1CON3bits.ADCS = 0b0000000;   //Conversion Clock Select
-    AD1CON2 = 0x0000;
-    AD1CON4 = 0x0000;
-    AD1CON1bits.AD12B = 1;  //12-bit sampling operation (1 = enabled)
     AD1CON1bits.ADSIDL = 0; //Stop in idle mode (0 = continues module in Idle mode)
+    AD1CON1bits.AD12B = 1;  //12-bit sampling operation (0 = disabled)
     AD1CON1bits.FORM = 0b00;    //Data output format (00 = integer)
-    AD1CON1bits.SSRC = 0;
-    AD1CON1bits.ASAM = 0;   //Sampling begins when SAMP is set
+    AD1CON1bits.SSRC = 0b111;
+    AD1CON1bits.ASAM = 1;   //SAMP is auto-set
+    AD1CON2 = 0x0404;
+    AD1CON3bits.ADRC = 0;   //ADC1 Conversion Clock Source (0 = clock derived from system clock)
+    AD1CON3bits.SAMC = 0b01111;  //Auto-sample time bits (0b01111 = 15TAD)
+    AD1CON3bits.ADCS = 0b00001111;   //Conversion Clock Select
+    AD1CON4 = 0x0000;
+    AD1CSSH = 0x0000;
+    AD1CSSL = 0x0200;
+    //AD1CSSL = 0x0202;
+    AD1CHS0bits.CH0SA = 0;
+    AD1CHS0bits.CH0NA = 0;
+    AD1CON1bits.ADON = 1;
+    __delay_us(20);
 }  
     
 void ChangeChannelADC(unsigned char channel)
@@ -162,6 +169,16 @@ float getADC(void)
     while (!AD1CON1bits.DONE);  //ADC1 Conversion Status (0 = not started/in progress, 1 = completed)
     return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
 }
+
+//float getADC10(void)
+//{
+//    AD1CON1bits.SAMP = 1;   //ADC1 Sample enable (1 = sampling)
+//    while(!AD1CON1bits.SAMP); 
+//    AD1CON1bits.SAMP = 0;   //ADC1 Sample enable (0 = holding)
+//    while(AD1CON1bits.SAMP)
+//    while (!AD1CON1bits.DONE);  //ADC1 Conversion Status (0 = not started/in progress, 1 = completed)
+//    return(ADC1BUF9);   //ADC1BUF0 = AN0 data buffer
+//}
 
 void ConfigureClock(void)
 {
@@ -192,5 +209,5 @@ void ConfigureClock(void)
     PLLFBDbits.PLLDIV = 0b000111111; //{63} PLL Feedback Divisor bits (M)
     
     //Configure OSCTUN
-    OSCTUNbits.TUN = 0b00000; //FRC Oscillator Tuning bits (0 = (FRC = 7.37[MHz]) 
+    OSCTUNbits.TUN = 0b00100; //FRC Oscillator Tuning bits (4 = (FRC = 7.3838[MHz]) 
 }
