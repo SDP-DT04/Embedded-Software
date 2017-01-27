@@ -12,73 +12,126 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-
+#define FCY 60000000ULL
+#include <libpic30.h>
+#define ADC 4096
+#define Volt 3.25
 int  dSec = 0, Sec = 0; // two  global  variables
 
-//add in interupt
 
 int main(void)
 {
-    /*_T1IP = 4;//interupt setup
-    TMR1 = 0;
-    T1CON = 0x8010;
-    PR1 = 16000-1;
-    _T1IF = 0;
-    _T1IE = 1;*/
-      
-    float ADC_value = 0;
-    float Voltage = 0;
-    int v = 0;
-    int weight = 0;
-    float constant = 40;//constant with voltage to weight relationship
-
-    
-    TRISAbits.TRISA0 = 0;
-    TRISAbits.TRISA1 = 1;
-   
-    I2Cinit(37);
+    ConfigureClock();
+    I2Cinit(299);
     ConfigureModuleADC();
-    ChangeChannelADC(1);
+              
+    double ADC_value[10] = {0};
+    double samp[10] = {0};
+    double Voltage[10] = {0};
+    double Voltage1 = 0, Voltage2 = 0;
+    double ZeroV_value = 0;
+    double low_lim = 0 , upp_lim = 0;
+    char c1[4]= {"0000"};
+    char c2[4]= {"0000"};
+    int i = 0, j = 0, a = 0, b = 0;
     
-    char c[4]= {"0000"} ;
+    ANSELAbits.ANSA11 = 1;
     
+//    Calibrate zero position on scale
+    __delay_ms(2000);
+    for (a=0; a<10; a++)
+        {
+            for (b = 0; b<10; b++)
+            {
+                ADC_value[b] = getADC();
+                samp[b] = (ADC_value[b] * Volt) / (ADC);
+                __delay_us(10);
+            }
+            Voltage[a] = ((samp[0] + samp[1] + samp[2] + samp[3] + samp[4] + samp[5] + samp[6] + samp[7] + samp[8] + samp[9]) / 10);
+        }
+    ZeroV_value = ((Voltage[0]+Voltage[1]+Voltage[2]+Voltage[3]+Voltage[4]+Voltage[5]+Voltage[6]+Voltage[7]+Voltage[8]+Voltage[9])/10);
+    low_lim = ZeroV_value-0.025;
+    upp_lim = ZeroV_value+1;
+        
     while(1)
     {
         PORTAbits.RA0 = 1;
-               
-        ADC_value = getADC();
-        Voltage = (ADC_value*3250)/(4096);//3250 is 1000 times its value for an easier displayed value
-        v = Voltage;
+        for (i= 0; i<10; i++)
+        {
+            for (j = 0; j<10; j++)
+            {
+                ADC_value[j] = getADC();
+                samp[j] = (ADC_value[j] * Volt) / (ADC);
+                __delay_us(10);
+            }
+            Voltage[i] = ((samp[0] + samp[1] + samp[2] + samp[3] + samp[4] + samp[5] + samp[6] + samp[7] + samp[8] + samp[9]) / 10);
+        }
+        Voltage1 = ((Voltage[0]+Voltage[1]+Voltage[2]+Voltage[3]+Voltage[4]+Voltage[5]+Voltage[6]+Voltage[7]+Voltage[8]+Voltage[9])/10);
+        //Voltage1 = Voltage2*1000;
+                
+        if ((Voltage1>(low_lim)) && (Voltage1<(upp_lim)))
+        {
+            char temp[4]={"0000"};
+            strncpy(c1,temp,4);
+            display(c1, 1);
+        }
+        
+        else if ((Voltage1>(low_lim - 0.1)) && (Voltage1<(low_lim - 0.000000000001)))
+        {   
+            char temp[4]={"0005"};
+            strncpy(c1,temp,4);
+            display(c1, 1);
+        }
+            
+        else if ((Voltage1>(low_lim - 0.2)) && (Voltage1<(low_lim - 0.100000000001)))
+        {
+            char temp[4]={"0010"};
+            strncpy(c1,temp,4);
+            display(c1, 1);
+        }
+        
+        else if ((Voltage1>(low_lim - 0.3)) && (Voltage1<(low_lim - 0.200000000001)))
+        {
+            char temp[4]={"0015"};
+            strncpy(c1,temp,4);
+            display(c1, 1);
+        }
+        
+        else if ((Voltage1>(low_lim - 0.4)) && (Voltage1<(low_lim - 0.30000000001)))
+        {
+            char temp[4]={"0020"};
+            strncpy(c1,temp,4);
+            display(c1, 1);
+        }
+        
+        else if (Voltage1>(upp_lim))
+        {
+            char temp[4]={"9999"}; //Voltage1 too high
+            strncpy(c1,temp,4);
+            display(c1, 1);   
+        }
+        
+        else    //(Voltage1<(low_lim-.321)
+        {
+            char temp[4]={"1111"}; //Voltage1 too low
+            strncpy(c1,temp,4);
+            display(c1, 1);   
+        }
 
-        //weight = constant*v;
-        
-        sprintf(c, "%04d", v);//change weight int into char array
-        msdelay(100); 
-        
-        I2CStart();
-        I2Csendbyte(0xE2);//shows write
-        msdelay(3);
-        I2Csendbyte(0x76);//clears screen
-        msdelay(3);
-        I2Csendbyte(0x77);//change decimal command
-        msdelay(3);
-        I2Csendbyte(0x01);//display decimal digit, 1 for far left and so on, 4 for colon, 5 for apostraphy     more here https://github.com/sparkfun/Serial7SegmentDisplay/wiki/Special-Commands
-        msdelay(3);
-        I2Csendbyte(c[0]);
-        msdelay(3);
-        I2Csendbyte(c[1]);
-        msdelay(3);
-        I2Csendbyte(c[2]);
-        msdelay(3);
-        I2Csendbyte(c[3]);
-        msdelay(3);
-        
-        I2CStop(); 
-        msdelay(100);
+//        sprintf(c1, "%04f", Voltage1);//change weight int into char array
+//        display(c1, 1);
+        __delay_ms(500);
+//        PORTAbits.RA0 = 0;
+//        ChangeChannelADC(10);
+//        ADC_value2 = getADC9();
+//        Voltage2 = (ADC_value2*3250)/(4096);//3250 is 1000 times its value for an easier displayed value
+//        //v2 = Voltage2;
+//        sprintf(c2, "%04f", Voltage2);//change weight int into char array
+//        display(c2, 1);
+//        __delay_ms(3000);
     }
     return 0;
 }
-
                  
 //void sprintf(char Voltagestring, "%f [V]", int Voltage){
 //
@@ -89,10 +142,3 @@ int main(void)
 //        while(PMMODEbits.BUSY); // wait for PMP to be available
 //        msdelay(50);
 //}
-
-
-
-    
-   
-    
- 
