@@ -1,6 +1,6 @@
 # Embedded-Software
 
-![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png) ![alt text](http://www.usanetwork.com/sites/usanetwork/files/styles/629x720/public/wwe_profiles_hero_cena_3.jpg?itok=ICL6JoxZ) <br />
+![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png) ![alt text] <br />
 
 ### Clone repository (only have to do once)
 ```sh
