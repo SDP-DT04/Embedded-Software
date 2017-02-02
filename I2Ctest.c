@@ -57,43 +57,85 @@ void _10usDelay(int N);
 int main(void) {
     char c[16]= {"0123456789AbCdEF"} ;
     I2Cinit(37);
-
+    
+    I2CStart();   
+    I2Csendbyte(0xE0); //Address
+    ms_delay(3);
+    I2Csendbyte(0x21); //Clock turn on
+    ms_delay(3);
+    I2CStop();
+    ms_delay(1);
+    
+    I2CStart();    
+    I2Csendbyte(0xE0); //Address
+    ms_delay(3);    
+    I2Csendbyte(0xA0); //ACT ROW/INT
+    ms_delay(3);
+    I2CStop();
+    ms_delay(1);
+    
+    I2CStart();    
+    I2Csendbyte(0xE0); //Address
+    ms_delay(3);
+    I2Csendbyte(0x0E); //EF MAX Brightness
+    ms_delay(3);
+    I2CStop();
+    ms_delay(1);
+    
+    I2CStart();    
+    I2Csendbyte(0xE0); //Address
+    ms_delay(3);    
+    I2Csendbyte(0x81); //Display on with no blink
+    ms_delay(3);
+    I2CStop();
+    ms_delay(1);
+    
+    while(1){
+    I2CStart();    
+    I2Csendbyte(0xE0); //Address
+    ms_delay(3);    
+    I2Csendbyte(0x00); //show 0
+    ms_delay(3);
+    I2Csendbyte(0xAA);
+    ms_delay(3);
+    I2CStop();
+    ms_delay(50);    
+    }
     int i=0;
     int j=1;
     int k=2;
     int l=3;
-while(1)
-{
-    I2CStart();
-    I2Csendbyte(0xE2);
-    ms_delay(3);
-    I2Csendbyte(0x76);
-    ms_delay(3);
-    I2Csendbyte(c[i]);
-    ms_delay(3);
-    I2Csendbyte(c[j]);
-    ms_delay(3);
-    I2Csendbyte(c[k]);
-    ms_delay(3);
-    I2Csendbyte(c[l]);
-    ms_delay(3);
-    i++;
-    j++;
-    k++;
-    l++;
-    if(i==16){
-        i=0;
-    }else if(j==16){
-        j=0;
-    }else if(k==16){
-        k=0;
-    }else if(l==16){
-         l=0;
-    }else{
-    }
-       
-    I2CStop(); ms_delay(500);
-    }
+//while(1)
+//{
+//    I2CStart();    
+//    I2Csendbyte(0xE0); //Address
+//    
+//    I2Csendbyte(c[i]);
+//    ms_delay(3);
+//    I2Csendbyte(c[j]);
+//    ms_delay(3);
+//    I2Csendbyte(c[k]);
+//    ms_delay(3);
+//    I2Csendbyte(c[l]);
+//    ms_delay(3);
+//    
+//    i++;
+//    j++;
+//    k++;
+//    l++;
+//    if(i==16){
+//        i=0;
+//    }else if(j==16){
+//        j=0;
+//    }else if(k==16){
+//        k=0;
+//    }else if(l==16){
+//         l=0;
+//    }else{
+//    }
+//       
+//    I2CStop(); ms_delay(500);
+//    }
     return 0;
 }
 void I2CStart(void)
@@ -120,6 +162,7 @@ void I2Cinit(int BRG)
 {
     I2C1BRG = BRG;
     I2C1CONbits.I2CEN = 1;
+ 
 }
 void ms_delay(int N){
     T1CON = 0b1000000000110000;
