@@ -7,96 +7,90 @@
 
 #include "config.h"
 #include "functions.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
 #include "xc.h"
-#define FCY 60000000ULL
-#include <libpic30.h>
+//#define FCY 8000000ULL
+//#include <libpic30.h>
 
-int displaybuffer[8] = {0,0,0,0,0,0,0,0};
-int i = 0;
-int numbertable[] = {
-  0x3F, /* 0 */
-  0x06, /* 1 */
-  0x5B, /* 2 */
-  0x4F, /* 3 */
-  0x66, /* 4 */
-  0x6D, /* 5 */
-  0x7D, /* 6 */
-  0x07, /* 7 */
-  0x7F, /* 8 */
-  0x6F, /* 9 */
-  0x77, /* a */
-  0x7C, /* b */
-  0x39, /* C */
-  0x5E, /* d */
-  0x79, /* E */
-  0x71, /* F */
+#define HT16K33 0xE0 // I2C bus address for Ht16K33 backpack
+#define HT16K33_ON 0x21 // turn device oscillator on
+#define HT16K33_STANDBY 0x20 // turn device oscillator off
+#define HT16K33_DISPLAYON 0x81 // turn on output pins
+#define HT16K33_DISPLAYOFF 0x80 // turn off output pins
+#define HT16K33_BLINKON 0x85 // blink rate 1 Hz (-2 for 2 Hz)
+#define HT16K33_BLINKOFF 0x81 // same as display on
+#define HT16K33_DIM 0xE0 // add level (15=max) to byte
+
+typedef uint8_t byte;
+
+static const byte numberTable[] = // convert number to lit-segments
+{
+ 0x3F, // 0
+ 0x06, // 1
+ 0x5B, // 2
+ 0x4F, // 3
+ 0x66, // 4
+ 0x6D, // 5
+ 0x7D, // 6
+ 0x07, // 7
+ 0x7F, // 8
+ 0x6F, // 9
+ 0x77, // A
+ 0x7C, // b
+ 0x39, // C
+ 0x5E, // d
+ 0x79, // E
+ 0x71, // F
+ 0x00, //<blank>
 };
 
-int main(void) 
+void I2C_Init(int BRG)
 {
-    ConfigureClock();
-    I2Cinit(9600);
-    
-/*Configure 7-Segment Display Oscillator*/    
-    I2CStart();
-    I2Csendbyte(0xE0);//Address E0
-    I2Csendbyte(0x21);//Turn oscillator on
-    I2CStop();
-    __delay_ms(10);
-
-/*Configure 7-Segment Display Blinker Speed*/    
-    I2CStart();
-    I2Csendbyte(0xE0);//Address E0
-    I2Csendbyte(0x81);//Set blinker to off and display on
-    I2CStop();
-    __delay_ms(10);
-
-/*Configure 7-Segment Display Brightness Level*/    
-    I2CStart();
-    I2Csendbyte(0xE0);//Address E0
-    I2Csendbyte(0xE1);//Set brightness to max value
-    I2CStop();
-    __delay_ms(10);
-
-    while(1)
-    {
-        displaybuffer[0] = numbertable[1];
-        displaybuffer[1] = numbertable[4];
-        displaybuffer[3] = numbertable[5];
-        displaybuffer[4] = numbertable[3];
-
-        I2CStart();
-        I2Csendbyte(0xE0);//Address E0
-        I2Csendbyte(0x00);//Start at address 0x00
-
-        for (i=0; i<8; i++)
-        {
-            I2Csendbyte(displaybuffer[i]);
-            I2Csendbyte(displaybuffer[i]);
-        }
-        I2CStop();
-        __delay_ms(1000);
-    }
-    return 0;
+    I2C2BRG = BRG;
+    I2C2CONbits.I2CEN = 1;
 }
 
+void I2C_Start (byte slaveAddr)
+{
+    I2C2CONbits.SEN = 1;
+    while(I2C2STATbits.TBF);
+    I2C2TRN = 0xE0;
+}
+void I2C_Stop ()
+{
+    I2C2CONbits.PEN = 1;
+}
 
-//int main(void)
-//{
-//    ConfigureClock();
-//    I2Cinit(115200);
-//    while(1)
-//    {
-//    I2CStart();
-//    I2Csendbyte(0xE0);
-//    __delay_ms(1000);
-//    I2Csendbyte(0x21);
-//    __delay_ms(1000);
-//    I2Csendbyte(0x80);
-//    __delay_ms(1000);
-//    I2Csendbyte(0xEF);
-//    __delay_ms(1000);
-//    I2CStop();
-//    }
-//    return 0;
-//}
+void I2C_Write (byte data) // sends a data byte to slave
+{
+    while(I2C2STATbits.TBF)
+    I2C2TRN = data; // load data to be sent
+}
+
+void I2C_WriteByte(byte busAddr, byte data)
+{
+ I2C_Start(busAddr); // send bus address
+ I2C_Write(data); // then send the data byte
+ I2C_Stop();
+}
+
+void SS_Init()
+{
+ I2C_WriteByte(HT16K33,HT16K33_ON); // turn on device oscillator
+ I2C_WriteByte(HT16K33,HT16K33_DISPLAYON); // turn on display, no blink
+ I2C_WriteByte(HT16K33,HT16K33_DIM + 15); // set max brightness
+}
+
+int main(void)
+{
+    __delay_ms(1000);
+    while(1)
+    {
+        I2C_Init(50); // set I2C clock frequency
+        SS_Init(); // initialize HT16K33 LED controller
+    }
+    
+    return 0;
+}

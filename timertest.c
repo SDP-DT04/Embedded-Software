@@ -32,9 +32,10 @@ void  _ISR  _T3Interrupt(void)
     else if(Start==1)
     {
         Sec++;
+        display(c, 16);
     }
 
-    display(c, 16);
+    
     _T3IF = 0;//clear  the  flag
 
 }

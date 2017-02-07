@@ -1,24 +1,3 @@
-/* Microchip Technology Inc. and its subsidiaries.  You may use this software 
- * and any derivatives exclusively with Microchip products. 
- * 
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER 
- * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
- * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A 
- * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION 
- * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION. 
- *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE 
- * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS 
- * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF 
- * ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
- * TERMS. 
- */
-
 /* 
  * File:   
  * Author: 
@@ -37,14 +16,12 @@ void I2Csendbyte(char data);
 void I2Cinit(int BRG);
 void ConfigureModuleADC(void);
 void ChangeChannelADC(unsigned char channel);
-float getADC (void);
-//void _10usDelay(int N);
-//void msdelay(int N);
 void display(char c[], int dec);
 void ConfigureClock(void);
+void ConfigureClockSlow(void);
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-#define FCY 60000000ULL
+#define FCY 8000000ULL
 #include <libpic30.h>
 
 #ifdef	__cplusplus
@@ -63,30 +40,30 @@ extern "C" {
 void I2CStart(void)
 {
     __delay_us(10);
-    I2C1CONbits.SEN = 1;
-    while (I2C1CONbits.SEN);
+    I2C2CONbits.SEN = 1;
+    while (I2C2CONbits.SEN);
     __delay_us(10);
 }
 
 void I2CStop(void)
 {
     __delay_us(10);
-    I2C1CONbits.PEN = 1;
-    while (I2C1CONbits.PEN);
+    I2C2CONbits.PEN = 1;
+    while (I2C2CONbits.PEN);
     __delay_us(10);
 }
 
 void I2Csendbyte(char data)
 {
-    while (I2C1STATbits.TBF);
-    I2C1TRN = data;
+    while (I2C2STATbits.TBF);
+    I2C2TRN = data;
     __delay_us(10);
 }
 
 void I2Cinit(int BRG)
 {
-    I2C1BRG = BRG;
-    I2C1CONbits.I2CEN = 1;
+    I2C2BRG = BRG;
+    I2C2CONbits.I2CEN = 1;
 }
 
 void display(char c[], int dec)
@@ -95,7 +72,7 @@ void display(char c[], int dec)
     I2Csendbyte(0xE2);//shows write
     __delay_us(200);
     I2Csendbyte(0x76);//clears screen
-   __delay_us(200);
+    __delay_us(200);
     I2Csendbyte(0x77);//change decimal command
     __delay_us(200);
     I2Csendbyte(dec);//display decimal digit, 1 for far left, 2 for next, 4 for the next, 8 for next, 16 for colon, 32 for apostraphy     more here https://github.com/sparkfun/Serial7SegmentDisplay/wiki/Special-Commands
@@ -198,6 +175,38 @@ void ConfigureClock(void)
     
     //Configure PLLFBD
     PLLFBDbits.PLLDIV = 0b000111111; //{63} PLL Feedback Divisor bits (M)
+    
+    //Configure OSCTUN
+    OSCTUNbits.TUN = 0b00100; //FRC Oscillator Tuning bits (4 = (FRC = 7.3838[MHz]) 
+}
+
+void ConfigureClockSlow(void)
+{
+/*  FRC (default) = 7.37[MHz]
+    Fosc = (FRC*M)/[FRCDIV*(N1*N2)]
+    M = PLLFBDbits.PLLDIV + 2
+    N1 = CLKDIVbits.PLLPRE + 2
+    N2 = 2*(CLKDIVbits.PLLPOST + 1)
+    Fosc = [(7.37E6)*(65)]/[1*(2*2)] = 119.7625[MHz]
+    Fcyc = Fosc/2 = 59.88125[MHz] ? 60[MHz]
+*/
+    //Configure OSSCON
+    OSCCONbits.COSC = 0b001; //Sets Oscillator in mode with FRC, divide by N, and PLL mode
+    OSCCONbits.NOSC = 0b001; //Sets new Oscillator in mode with FRC, divide by N, and PLL mode
+    OSCCONbits.CLKLOCK = 0b0; //Clock Lock Enable bit (0 = may be modified)
+    OSCCONbits.IOLOCK = 0b0; //I/O Lock Enable bit (0 = I/O lock is not active)
+    OSCCONbits.LOCK = 0b1; //PLL Lock Status bit (1 = PLL in lock or start-up timer is satisfied)
+    
+    //Configure CLKDIV
+    CLKDIVbits.ROI = 0; //Recover on Interrupt bit (0 = Interrupts have no effect on the DOZEN bit)
+    CLKDIVbits.DOZE = 0; //Processor Clock Reduction Select bits (000 = Fcy/1)
+    CLKDIVbits.DOZEN = 0; //Doze Mode Enable bit (0 = Fcy=Fp)
+    CLKDIVbits.FRCDIV = 0b001; //Internal Fast RC Oscillator Postscaler bits (0 = 1)
+    CLKDIVbits.PLLPOST = 0b00; //PLL VCO Output Divider Select bits (N2)
+    CLKDIVbits.PLLPRE = 0b00000; //PLL Phase Detector Input Divider Select bits (N1)
+    
+    //Configure PLLFBD
+    PLLFBDbits.PLLDIV = 0b000001110; //{63} PLL Feedback Divisor bits (M)
     
     //Configure OSCTUN
     OSCTUNbits.TUN = 0b00100; //FRC Oscillator Tuning bits (4 = (FRC = 7.3838[MHz]) 

@@ -51,6 +51,7 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
+<<<<<<< HEAD
 SOURCEFILES_QUOTED_IF_SPACED=display.c
 
 # Object Files Quoted if spaced
@@ -62,6 +63,19 @@ OBJECTFILES=${OBJECTDIR}/display.o
 
 # Source Files
 SOURCEFILES=display.c
+=======
+SOURCEFILES_QUOTED_IF_SPACED=
+
+# Object Files Quoted if spaced
+OBJECTFILES_QUOTED_IF_SPACED=
+POSSIBLE_DEPFILES=
+
+# Object Files
+OBJECTFILES=
+
+# Source Files
+SOURCEFILES=
+>>>>>>> fd15c8c0921e659c1ccf7cbc7fada1abf147c4b8
 
 
 CFLAGS=
@@ -88,6 +102,7 @@ MP_LINKER_FILE_OPTION=,--script=p33EP256MC506.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+<<<<<<< HEAD
 ${OBJECTDIR}/display.o: display.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/display.o.d 
@@ -103,6 +118,9 @@ ${OBJECTDIR}/display.o: display.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  display.c  -o ${OBJECTDIR}/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/display.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+=======
+else
+>>>>>>> fd15c8c0921e659c1ccf7cbc7fada1abf147c4b8
 endif
 
 # ------------------------------------------------------------------------------------
@@ -128,7 +146,11 @@ else
 dist/${CND_CONF}/${IMAGE_TYPE}/Embedded-Software.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
 	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/Embedded-Software.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}      -mcpu=$(MP_PROCESSOR_OPTION)        -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -Wl,--local-stack,--defsym=__MPLAB_BUILD=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem,--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml$(MP_EXTRA_LD_POST) 
+<<<<<<< HEAD
 	${MP_CC_DIR}/xc16-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/Embedded-Software.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} -a  -omf=elf  
+=======
+	${MP_CC_DIR}\\xc16-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/Embedded-Software.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} -a  -omf=elf  
+>>>>>>> fd15c8c0921e659c1ccf7cbc7fada1abf147c4b8
 	
 endif
 
