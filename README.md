@@ -1,8 +1,8 @@
-#                                                  Embedded-Software
+# Embedded-Software
 
 ![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png) <br />
   <br />
-  <br />
+  
 ## Cloning and accessing repository into system
 #### Clone repository (only have to do once)
 ```sh
@@ -32,7 +32,7 @@ $ git push origin "branch-name"
 Replace "branch-name" with the name of the branch you are trying to work on. Type in credentials as requested.<br />
   <br />
 
-##                                              Other useful information
+## Other useful information
 #### Check to see if differences are online compared to local version
 ```sh
 $ git diff
