@@ -31,7 +31,7 @@ $ git push origin "branch-name"
 ```
 Replace "branch-name" with the name of the branch you are trying to work on. Type in credentials as requested.
 
-```actionscript
+```java
 Other useful information
 ```
 
