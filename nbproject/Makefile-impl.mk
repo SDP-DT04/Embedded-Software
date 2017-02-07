@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Swim_Pull_Number_1.X
+PROJECTNAME=Embedded-Software
 
 # Active Configuration
 DEFAULTCONF=default

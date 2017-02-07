@@ -18,6 +18,7 @@ void ConfigureModuleADC(void);
 void ChangeChannelADC(unsigned char channel);
 void display(char c[], int dec);
 void ConfigureClock(void);
+void ConfigureClockSlow(void);
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #define FCY 8000000ULL
