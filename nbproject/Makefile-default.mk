@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/ADCtest.c ../Embedded-Software/FixDisplay.c ../Embedded-Software/I2Ctest.c ../Embedded-Software/TestI2C.c ../Embedded-Software/display.c ../Embedded-Software/display_new.c ../Embedded-Software/main1.c ../Embedded-Software/newmainADCandI2c.c ../Embedded-Software/timertest.c
+SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/display_new.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/ADCtest.o ${OBJECTDIR}/_ext/1344191749/FixDisplay.o ${OBJECTDIR}/_ext/1344191749/I2Ctest.o ${OBJECTDIR}/_ext/1344191749/TestI2C.o ${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/display_new.o ${OBJECTDIR}/_ext/1344191749/main1.o ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o ${OBJECTDIR}/_ext/1344191749/timertest.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/ADCtest.o.d ${OBJECTDIR}/_ext/1344191749/FixDisplay.o.d ${OBJECTDIR}/_ext/1344191749/I2Ctest.o.d ${OBJECTDIR}/_ext/1344191749/TestI2C.o.d ${OBJECTDIR}/_ext/1344191749/display.o.d ${OBJECTDIR}/_ext/1344191749/display_new.o.d ${OBJECTDIR}/_ext/1344191749/main1.o.d ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o.d ${OBJECTDIR}/_ext/1344191749/timertest.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/display_new.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/display_new.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1344191749/ADCtest.o ${OBJECTDIR}/_ext/1344191749/FixDisplay.o ${OBJECTDIR}/_ext/1344191749/I2Ctest.o ${OBJECTDIR}/_ext/1344191749/TestI2C.o ${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/display_new.o ${OBJECTDIR}/_ext/1344191749/main1.o ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o ${OBJECTDIR}/_ext/1344191749/timertest.o
+OBJECTFILES=${OBJECTDIR}/_ext/1344191749/display_new.o
 
 # Source Files
-SOURCEFILES=../Embedded-Software/ADCtest.c ../Embedded-Software/FixDisplay.c ../Embedded-Software/I2Ctest.c ../Embedded-Software/TestI2C.c ../Embedded-Software/display.c ../Embedded-Software/display_new.c ../Embedded-Software/main1.c ../Embedded-Software/newmainADCandI2c.c ../Embedded-Software/timertest.c
+SOURCEFILES=../Embedded-Software/display_new.c
 
 
 CFLAGS=
@@ -88,41 +88,6 @@ MP_LINKER_FILE_OPTION=,--script=p33EP256MC506.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1344191749/ADCtest.o: ../Embedded-Software/ADCtest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/ADCtest.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/ADCtest.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/ADCtest.c  -o ${OBJECTDIR}/_ext/1344191749/ADCtest.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/ADCtest.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/ADCtest.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/FixDisplay.o: ../Embedded-Software/FixDisplay.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/FixDisplay.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/FixDisplay.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/FixDisplay.c  -o ${OBJECTDIR}/_ext/1344191749/FixDisplay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/FixDisplay.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/FixDisplay.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/I2Ctest.o: ../Embedded-Software/I2Ctest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/I2Ctest.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/I2Ctest.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/I2Ctest.c  -o ${OBJECTDIR}/_ext/1344191749/I2Ctest.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/I2Ctest.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/I2Ctest.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/TestI2C.o: ../Embedded-Software/TestI2C.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/TestI2C.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/TestI2C.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/TestI2C.c  -o ${OBJECTDIR}/_ext/1344191749/TestI2C.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/TestI2C.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/TestI2C.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/display.o: ../Embedded-Software/display.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display.c  -o ${OBJECTDIR}/_ext/1344191749/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/1344191749/display_new.o: ../Embedded-Software/display_new.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
 	@${RM} ${OBJECTDIR}/_ext/1344191749/display_new.o.d 
@@ -130,90 +95,13 @@ ${OBJECTDIR}/_ext/1344191749/display_new.o: ../Embedded-Software/display_new.c  
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display_new.c  -o ${OBJECTDIR}/_ext/1344191749/display_new.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display_new.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display_new.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-${OBJECTDIR}/_ext/1344191749/main1.o: ../Embedded-Software/main1.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/main1.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/main1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/main1.c  -o ${OBJECTDIR}/_ext/1344191749/main1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/main1.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/main1.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o: ../Embedded-Software/newmainADCandI2c.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/newmainADCandI2c.c  -o ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/timertest.o: ../Embedded-Software/timertest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/timertest.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/timertest.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/timertest.c  -o ${OBJECTDIR}/_ext/1344191749/timertest.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/timertest.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/timertest.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 else
-${OBJECTDIR}/_ext/1344191749/ADCtest.o: ../Embedded-Software/ADCtest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/ADCtest.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/ADCtest.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/ADCtest.c  -o ${OBJECTDIR}/_ext/1344191749/ADCtest.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/ADCtest.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/ADCtest.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/FixDisplay.o: ../Embedded-Software/FixDisplay.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/FixDisplay.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/FixDisplay.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/FixDisplay.c  -o ${OBJECTDIR}/_ext/1344191749/FixDisplay.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/FixDisplay.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/FixDisplay.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/I2Ctest.o: ../Embedded-Software/I2Ctest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/I2Ctest.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/I2Ctest.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/I2Ctest.c  -o ${OBJECTDIR}/_ext/1344191749/I2Ctest.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/I2Ctest.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/I2Ctest.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/TestI2C.o: ../Embedded-Software/TestI2C.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/TestI2C.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/TestI2C.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/TestI2C.c  -o ${OBJECTDIR}/_ext/1344191749/TestI2C.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/TestI2C.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/TestI2C.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/display.o: ../Embedded-Software/display.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display.c  -o ${OBJECTDIR}/_ext/1344191749/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/1344191749/display_new.o: ../Embedded-Software/display_new.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
 	@${RM} ${OBJECTDIR}/_ext/1344191749/display_new.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1344191749/display_new.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display_new.c  -o ${OBJECTDIR}/_ext/1344191749/display_new.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display_new.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display_new.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/main1.o: ../Embedded-Software/main1.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/main1.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/main1.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/main1.c  -o ${OBJECTDIR}/_ext/1344191749/main1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/main1.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/main1.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o: ../Embedded-Software/newmainADCandI2c.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/newmainADCandI2c.c  -o ${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/newmainADCandI2c.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1344191749/timertest.o: ../Embedded-Software/timertest.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/timertest.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/timertest.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/timertest.c  -o ${OBJECTDIR}/_ext/1344191749/timertest.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/timertest.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/timertest.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

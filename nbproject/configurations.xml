@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>../Embedded-Software/config.h</itemPath>
+      <itemPath>../Embedded-Software/functions.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -16,10 +18,8 @@
       <itemPath>../Embedded-Software/FixDisplay.c</itemPath>
       <itemPath>../Embedded-Software/I2Ctest.c</itemPath>
       <itemPath>../Embedded-Software/TestI2C.c</itemPath>
-      <itemPath>../Embedded-Software/config.h</itemPath>
       <itemPath>../Embedded-Software/display.c</itemPath>
       <itemPath>../Embedded-Software/display_new.c</itemPath>
-      <itemPath>../Embedded-Software/functions.h</itemPath>
       <itemPath>../Embedded-Software/main1.c</itemPath>
       <itemPath>../Embedded-Software/newmainADCandI2c.c</itemPath>
       <itemPath>../Embedded-Software/timertest.c</itemPath>
@@ -68,6 +68,24 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <item path="../Embedded-Software/ADCtest.c" ex="true" overriding="false">
+      </item>
+      <item path="../Embedded-Software/FixDisplay.c" ex="true" overriding="false">
+      </item>
+      <item path="../Embedded-Software/I2Ctest.c" ex="true" overriding="false">
+      </item>
+      <item path="../Embedded-Software/TestI2C.c" ex="true" overriding="false">
+      </item>
+      <item path="../Embedded-Software/display.c" ex="true" overriding="false">
+      </item>
+      <item path="../Embedded-Software/main1.c" ex="true" overriding="false">
+      </item>
+      <item path="../Embedded-Software/newmainADCandI2c.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="../Embedded-Software/timertest.c" ex="true" overriding="false">
+      </item>
       <C30>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>

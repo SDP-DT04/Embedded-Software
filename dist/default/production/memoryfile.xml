@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/Swim_Pull_Number_1.X.production.elf">
+  <executable name="dist/default/production/Embedded-Software.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>32768</length>
-      <used>74</used>
-      <free>32694</free>
+      <used>10</used>
+      <free>32758</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>263394</length>
-      <used>5568</used>
-      <free>257826</free>
+      <used>1845</used>
+      <free>261549</free>
     </memory>
   </executable>
 </project>
