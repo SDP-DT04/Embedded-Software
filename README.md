@@ -25,7 +25,7 @@ Replace "branch-name" with the name of the branch you are trying to work on.
 $ git commit
 ```
 
-### Push changes to the Github repository
+#### Push changes to the Github repository
 ```sh
 $ git push origin "branch-name"
 ```
@@ -35,17 +35,17 @@ Replace "branch-name" with the name of the branch you are trying to work on. Typ
 ##Other useful information
 
 
-### Check to see if differences are online compared to local version
+#### Check to see if differences are online compared to local version
 ```sh
 $ git diff
 ```
 
-### If differences and you want to include them then run
+#### If differences and you want to include them then run
 ```sh
 $ git checkout -A "branch-name"
 ```
 
-### Commit and Push individual files to branch rather than entire project
+#### Commit and Push individual files to branch rather than entire project
 ```sh
 $ git commit "file".<extension>
 $ git push origin "branch-name"
