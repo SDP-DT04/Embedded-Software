@@ -56,7 +56,7 @@ void _10usDelay(int N);
 
 int main(void) {
     char c[16]= {"0123456789AbCdEF"} ;
-    I2Cinit(37);
+    I2Cinit(9600);
     
     I2CStart();   
     I2Csendbyte(0xE0); //Address
@@ -66,26 +66,26 @@ int main(void) {
     I2CStop();
     ms_delay(1);
     
+//    I2CStart();    
+//    I2Csendbyte(0xE0); //Address
+//    ms_delay(3);    
+//    I2Csendbyte(0xA0); //ACT ROW/INT
+//    ms_delay(3);
+//    I2CStop();
+//    ms_delay(1);
+    
     I2CStart();    
     I2Csendbyte(0xE0); //Address
-    ms_delay(3);    
-    I2Csendbyte(0xA0); //ACT ROW/INT
+    ms_delay(3);
+    I2Csendbyte(0xE0); //EF MAX Brightness
     ms_delay(3);
     I2CStop();
     ms_delay(1);
     
     I2CStart();    
     I2Csendbyte(0xE0); //Address
-    ms_delay(3);
-    I2Csendbyte(0x0E); //EF MAX Brightness
-    ms_delay(3);
-    I2CStop();
-    ms_delay(1);
-    
-    I2CStart();    
-    I2Csendbyte(0xE0); //Address
     ms_delay(3);    
-    I2Csendbyte(0x81); //Display on with no blink
+    I2Csendbyte(0x80); //Display on with no blink
     ms_delay(3);
     I2CStop();
     ms_delay(1);
