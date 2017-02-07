@@ -1,8 +1,7 @@
 # Embedded-Software
 
 ![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png) <br />
-
-
+<br />
 ## Cloning and accessing repository into system
 
 #### Clone repository (only have to do once)
