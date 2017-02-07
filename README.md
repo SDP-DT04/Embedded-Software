@@ -1,7 +1,6 @@
 # Embedded-Software
 
-![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png) <br />
-<br />
+![alt text](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png) <br /><br />
 
 ## Cloning and accessing repository into system
 
@@ -30,11 +29,9 @@ $ git commit
 ```sh
 $ git push origin "branch-name"
 ```
-Replace "branch-name" with the name of the branch you are trying to work on. Type in credentials as requested.
-<br />
+Replace "branch-name" with the name of the branch you are trying to work on. Type in credentials as requested.<br />
 
 ##Other useful information
-<br />
 
 #### Check to see if differences are online compared to local version
 ```sh
