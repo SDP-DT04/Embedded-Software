@@ -31,7 +31,9 @@ $ git push origin "branch-name"
 ```
 Replace "branch-name" with the name of the branch you are trying to work on. Type in credentials as requested.
 
-## Other useful information
+```diff
+## +Other useful information
+```
 
 ### Check to see if differences are online compared to local version
 ```sh
