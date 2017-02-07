@@ -31,9 +31,9 @@ $ git push origin "branch-name"
 ```
 Replace "branch-name" with the name of the branch you are trying to work on. Type in credentials as requested.
 
-```text
-Other useful information
-```
+
+##Other useful information
+
 
 ### Check to see if differences are online compared to local version
 ```sh
@@ -49,9 +49,4 @@ $ git checkout -A "branch-name"
 ```sh
 $ git commit "file".<extension>
 $ git push origin "branch-name"
-```
-
-```diff
-+ this will be highlighted in green
-- this will be highlighted in red
 ```
