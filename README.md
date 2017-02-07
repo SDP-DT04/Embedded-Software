@@ -48,3 +48,8 @@ $ git checkout -A "branch-name"
 $ git commit "file".<extension>
 $ git push origin "branch-name"
 ```
+
+```diff
++ this will be highlighted in green
+- this will be highlighted in red
+```
