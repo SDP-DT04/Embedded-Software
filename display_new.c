@@ -10,6 +10,7 @@
 #include "config.h"
 #include "functions.h"
 #include "xc.h"
+#include "stdbool.h"
 #define FCY 8000000ULL
 #include <libpic30.h>
 
@@ -23,149 +24,188 @@ enum I2C_State{
     IDLE
 };
 
-unsigned char commands[] = {
-    0x76,
-    0x77,
-    0x38,
-    0x00
+unsigned char dispaly_commands[] = {
+    0x7C,
+    0x7C,
+    0x79,
+    0x79,
+    0x00,
+    0x00,
+    0x79,
+    0x79,
+    0x71,
+    0x71,
+    0x99
+    
 };
 
-//unsigned char* cmd = commands; 
-//unsigned char data = 0;
-//
-//enum I2C_State _state = INIT; 
-//
-//void display_tasks()
-//{  
-//    switch (_state)
-//    {
-//        case INIT:
-//        {
-//            // config
-//            I2C2BRG = 299;
-//            I2C2CONbits.I2CEN = 1;
-//            _state = SEND_START;
-//            break;
-//        }
-//        case SEND_START:
-//        {
-//            // send start
-//            I2C2CONbits.SEN = 1;
-//            _state = SEND_ADDR; 
-//            break;
-//        }
-//        case SEND_ADDR:
-//        {
-//            if (I2C2CONbits.SEN == 0)
-//            {
-//                while(I2C2STATbits.TBF);
-//                I2C2TRN = 0xE2;
-//                _state = SEND_BYTE;
-//            }
-//            break;
-//        }
-//        case SEND_BYTE:
-//        {   
-//            if (I2C2STATbits.ACKSTAT == 0)
-//            {
-//                // we have address ack
-//                data = *cmd;
-//                while(I2C2STATbits.TBF);
-//                I2C2TRN = *cmd;
-//                _state = SEND_STOP;
-//            }
-//            break;
-//        }
-//        case SEND_STOP:
-//        {
-//            if (I2C2STATbits.ACKSTAT == 0)
-//            {
-//                I2C2CONbits.PEN = 1;
-//                _state = NEXT_COMMAND; 
-//            }
-//            break;
-//        }
-//        case NEXT_COMMAND:
-//        {
-//            if (I2C2CONbits.PEN == 0)
-//            {
-//                cmd++; 
-//                if (*cmd == 0x00)
-//                    _state = IDLE;
-//                
-//                _state = SEND_START;
-//            }   
-//            break; 
-//        }
-//        case IDLE:
-//        {
-//            
-//        }
-//    }
-//}
+unsigned char config_commands[] = {
+    0x21,
+    0x81,
+    0xEF,
+    0x99
+};
+
+unsigned char i = 0; 
+unsigned char data = 0;
+
+static enum I2C_State _state = INIT; 
+static bool is_setup = true;
+void config_tasks()
+{  
+    if (I2C1STATbits.TBF)
+        return;
+    
+    switch (_state)
+    {
+        case INIT:
+        {
+            i = 0;
+            // config
+            I2C1BRG = 50;
+            I2C1CONbits.I2CEN = 1;
+            _state = SEND_START;
+            break;
+        }
+        case SEND_START:
+        {
+            // send start
+            I2C1CONbits.SEN = 1;
+            _state = SEND_ADDR; 
+            break;
+        }
+        case SEND_ADDR:
+        {
+            if (I2C1CONbits.SEN == 0)
+            {                
+                I2C1TRN = 0xE0;
+                _state = SEND_BYTE;
+            }
+            break;
+        }
+        case SEND_BYTE:
+        {   
+            if (I2C1STATbits.ACKSTAT == 0)
+            {
+                // we have address ack
+                //data = *cmd;
+                I2C1TRN = config_commands[i];
+                _state = SEND_STOP;
+            }
+            break;
+        }
+        case SEND_STOP:
+        {
+            if (I2C1STATbits.ACKSTAT == 0)
+            {
+                I2C1CONbits.PEN = 1;
+                _state = NEXT_COMMAND; 
+            }
+            break;
+        }
+        case NEXT_COMMAND:
+        {
+            if (I2C1CONbits.PEN == 0)
+            {
+                i++; 
+                if (config_commands[i] == 0x99)
+                    _state = IDLE;
+                
+                else
+                {_state = SEND_START;}
+            }   
+            break; 
+        }
+        case IDLE:
+        {
+            
+        }
+    }
+}
+
+void display_tasks()
+{
+    
+    
+}
 
 void main(void)
 {
     ConfigureClockSlow();
     __delay_ms(1000);
-    I2C1BRG = 50;
-    I2C1CONbits.I2CEN = 1;
-   while (1)
+    //__delay_ms(100);
+    while(1)
     {
-        I2C1CONbits.SEN = 1;
-        __delay_ms(100);
-        I2C1TRN = 0xE0;
-        __delay_ms(10);
-        I2C1TRN = 0x21;
-        __delay_ms(10);
-        I2C1CONbits.PEN = 1;
-        __delay_ms(100);
-        
-        I2C1CONbits.SEN = 1;
-        __delay_ms(100);
-        I2C1TRN = 0xE0;
-        __delay_ms(10);
-        I2C1TRN = 0x81;
-        __delay_ms(10);
-        I2C1CONbits.PEN = 1;
-        __delay_ms(100);
-        
-        I2C1CONbits.SEN = 1;
-        __delay_ms(100);
-        I2C1TRN = 0xE0;
-        __delay_ms(10);
-        I2C1TRN = 0xEF;
-        __delay_ms(10);
-        I2C1CONbits.PEN = 1;
-        __delay_ms(100);
-        
-        I2C1CONbits.SEN = 1;
-        __delay_ms(100);
-        I2C1TRN = 0xE0;
-        __delay_ms(10);
-        I2C1TRN = 0x00;
-        __delay_ms(10);
-        I2C1TRN = 0x7C;
-        __delay_ms(10);
-        I2C1TRN = 0x7C;
-        __delay_ms(10);
-        I2C1TRN = 0x79;
-        __delay_ms(10);
-        I2C1TRN = 0x79;
-        __delay_ms(10);
-        I2C1TRN = 0x00;
-        __delay_ms(10);
-        I2C1TRN = 0x00;
-        __delay_ms(10);
-        I2C1TRN = 0x79;
-        __delay_ms(10);
-        I2C1TRN = 0x79;
-        __delay_ms(10);
-        I2C1TRN = 0x71;
-        __delay_ms(10);
-        I2C1TRN = 0x71;
-        __delay_ms(10);
-        I2C1CONbits.PEN = 1;
-        __delay_ms(100);
+     display_tasks();
     }
+
+
+//    I2C1BRG = 50;
+//    I2C1CONbits.I2CEN = 1;
+//    while (1)
+//    {
+//        PORTAbits.RA0 = 1;
+//        I2C1CONbits.SEN = 1; //Start bit
+//        __delay_ms(10);
+//        I2C1TRN = 0xE0; //Address display
+//        if (I2C1STATbits.ACKSTAT == 0)
+//        {
+//            I2C1TRN = 0x21; //Turn oscillator on
+//        }
+//        __delay_ms(10);
+//        I2C1CONbits.PEN = 1; //Stop bit
+//        __delay_ms(100);
+//        
+//        I2C1CONbits.SEN = 1; //Start bit
+//        __delay_ms(100);
+//        I2C1TRN = 0xE0; //Address display
+//        if (I2C1STATbits.ACKSTAT == 0)
+//        {
+//            I2C1TRN = 0x81; //Turn display on, set no blink
+//        }
+//        __delay_ms(10);
+//        I2C1CONbits.PEN = 1; //Stop bit
+//        __delay_ms(100);
+//        
+//        I2C1CONbits.SEN = 1; //Start bit
+//        __delay_ms(100);
+//        I2C1TRN = 0xE0; //Address display
+//        if (I2C1STATbits.ACKSTAT == 0)
+//        {
+//            I2C1TRN = 0xEF; //Set brightness level
+//        }
+//        __delay_ms(10);
+//        I2C1CONbits.PEN = 1; //Stop bit
+//        __delay_ms(100);
+//        
+//        I2C1CONbits.SEN = 1; //Start bit
+//        __delay_ms(100);
+//        I2C1TRN = 0xE0; //Address display
+//        __delay_ms(10);
+//        I2C1TRN = 0x00; //Address RAM location
+//        __delay_ms(10);
+//        I2C1TRN = 0x7C; //Send first character
+//        __delay_ms(10);
+//        I2C1TRN = 0x7C; //Send first character
+//        __delay_ms(10);
+//        I2C1TRN = 0x79; //Send second character
+//        __delay_ms(10);
+//        I2C1TRN = 0x79; //Send second character
+//        __delay_ms(10);
+//        I2C1TRN = 0x00; //Send decimal places
+//        __delay_ms(10);
+//        I2C1TRN = 0x00; //Send decimal places
+//        __delay_ms(10);
+//        I2C1TRN = 0x79; //Send third character
+//        __delay_ms(10);
+//        I2C1TRN = 0x79; //Send third character
+//        __delay_ms(10);
+//        I2C1TRN = 0x71; //Send fourth character
+//        __delay_ms(10);
+//        I2C1TRN = 0x71; //Send fourth character
+//        __delay_ms(10);
+//        I2C1CONbits.PEN = 1; //Stop bit
+//        __delay_ms(100);
+//        PORTAbits.RA0 = 0;
+//    }
 }

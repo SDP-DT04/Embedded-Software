@@ -107,10 +107,11 @@ void display_tasks()
 void main(void)
 {
     ConfigureClockSlow();
-    
+    __delay_ms(1000);
     int i = 4; 
     while (1)
     {
         display_tasks();
+        __delay_ms(100);
     }
 }
