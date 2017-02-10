@@ -48,25 +48,25 @@ static const byte numberTable[] = // convert number to lit-segments
 
 void I2C_Init(int BRG)
 {
-    I2C2BRG = BRG;
-    I2C2CONbits.I2CEN = 1;
+    I2C1BRG = BRG;
+    I2C1CONbits.I2CEN = 1;
 }
 
 void I2C_Start (byte slaveAddr)
 {
-    I2C2CONbits.SEN = 1;
-    while(I2C2STATbits.TBF);
-    I2C2TRN = 0xE0;
+    I2C1CONbits.SEN = 1;
+    while(I2C1STATbits.TBF);
+    I2C1TRN = 0xE0;
 }
 void I2C_Stop ()
 {
-    I2C2CONbits.PEN = 1;
+    I2C1CONbits.PEN = 1;
 }
 
 void I2C_Write (byte data) // sends a data byte to slave
 {
-    while(I2C2STATbits.TBF)
-    I2C2TRN = data; // load data to be sent
+    while(I2C1STATbits.TBF)
+    I2C1TRN = data; // load data to be sent
 }
 
 void I2C_WriteByte(byte busAddr, byte data)
