@@ -24,7 +24,7 @@ enum I2C_State{
     IDLE
 };
 
-unsigned char dispaly_commands[] = {
+unsigned char display_commands[] = {
     0x7C,
     0x7C,
     0x79,
