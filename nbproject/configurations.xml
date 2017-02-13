@@ -23,6 +23,8 @@
       <itemPath>../Embedded-Software/main1.c</itemPath>
       <itemPath>../Embedded-Software/newmainADCandI2c.c</itemPath>
       <itemPath>../Embedded-Software/timertest.c</itemPath>
+      <itemPath>XBEE_Test.c</itemPath>
+      <itemPath>display_lee.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -117,6 +119,18 @@
         </C30Global>
       </item>
       <item path="../Embedded-Software/display.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AR>
+        </C30-AR>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
+      </item>
+      <item path="../Embedded-Software/display_new.c" ex="false" overriding="false">
         <C30>
         </C30>
         <C30-AR>
@@ -265,6 +279,13 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
       </C30Global>
+      <PICkit3PlatformTool>
+        <property key="firmware.download.all" value="false"/>
+      </PICkit3PlatformTool>
+      <item path="XBEE_Test.c" ex="true" overriding="false">
+      </item>
+      <item path="display_lee.c" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

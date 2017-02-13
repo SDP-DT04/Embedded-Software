@@ -181,7 +181,8 @@ void config_tasks()
         }
         case IDLE:
         {
-            //display_time(3333);
+            display_commands = lee_commands;
+            new_data = true;
         }
     }
 }
@@ -258,7 +259,7 @@ void display_tasks()
                 {
                     // we have address ack
                     //data = *cmd;
-                    I2C1TRN = numberTable[display_commands[i]];
+                    I2C1TRN = display_commands[i];
                     if (!resend)
                     {
                         ++i;
@@ -307,10 +308,10 @@ void display_tasks()
 int dSec = 0;
 void  _ISR  _T3Interrupt(void)
 {
-    dSec++;
-    display_time(dSec);
-    
-    _T3IF = 0;//clear  the  flag
+//    dSec++;
+//    display_time(dSec);
+//    
+//    _T3IF = 0;//clear  the  flag
 
 }
 
@@ -338,3 +339,4 @@ void main(void)
     }
 
 }
+

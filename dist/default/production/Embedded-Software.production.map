@@ -80,29 +80,31 @@ Program Memory  [Origin = 0x200, Length = 0x2adec]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x192           0x25b  (603)
-.text                        0x392               0x304           0x486  (1158)
-.init.delay32                0x696                0x1c            0x2a  (42)
-.dinit                       0x6b2                0x1a            0x27  (39)
-.shared.dinit                0x6cc                 0x2             0x3  (3)
+.const                       0x392                0x12            0x1b  (27)
+.text                        0x3a4               0x51c           0x7aa  (1962)
+.dinit                       0x8c0                0x26            0x39  (57)
+.init.delay32                0x8e6                0x1c            0x2a  (42)
+.shared.dinit                0x902                 0x2             0x3  (3)
 
-                 Total program memory used (bytes):          0x735  (1845) <1%
+                 Total program memory used (bytes):          0xa86  (2694) 1%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0x1fc]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
+.ivt._T3Interrupt             0x24                 0x2             0x3  (3)
 
 
 Data Memory  [Origin = 0x1000, Length = 0x8000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0             0x4  (4)
-.ndata                      0x1004                   0             0x2  (2)
-.data                       0x1006                   0             0x4  (4)
+.nbss                       0x1000                   0             0xc  (12)
+.ndata                      0x100c                   0             0x2  (2)
+.data                       0x100e                   0            0x16  (22)
 
-                 Total data memory used (bytes):            0xa  (10) <1%
+                 Total data memory used (bytes):           0x24  (36) <1%
 
 
 Dynamic Memory Usage
@@ -110,24 +112,40 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x100a                              0x7ff6  (32758)
+stack                       0x1024                              0x6fdc  (28636)
 
-                 Maximum dynamic memory (bytes):         0x7ff6  (32758)
+                 Maximum dynamic memory (bytes):         0x6fdc  (28636)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x1000                  _data
-                    0x1002                  __state
-                    0x1004                  _cmd
-                    0x1006                  _commands
+                    0x1000                  _display_commands
+                    0x1002                  _i
+                    0x1003                  _data
+                    0x1004                  __display_state
+                    0x1006                  __config_state
+                    0x1008                  _new_data
+                    0x100a                  _dSec
+                    0x100c                  _resend
+                    0x100e                  _beef_commands
+                    0x1014                  _nums
+                    0x101a                  _lee_commands
+                    0x1020                  _config_commands
 
 External Symbols in Data Memory (by name):
 
-                    0x1002                  __state
-                    0x1004                  _cmd
-                    0x1006                  _commands
-                    0x1000                  _data
+                    0x1006                  __config_state
+                    0x1004                  __display_state
+                    0x100e                  _beef_commands
+                    0x1020                  _config_commands
+                    0x100a                  _dSec
+                    0x1003                  _data
+                    0x1000                  _display_commands
+                    0x1002                  _i
+                    0x101a                  _lee_commands
+                    0x1008                  _new_data
+                    0x1014                  _nums
+                    0x100c                  _resend
 
 External Symbols in Program Memory (by address):
 
@@ -139,34 +157,38 @@ External Symbols in Program Memory (by address):
                   0x0002e4                  ___floatunsisf
                   0x0002e8                  ___floatundisf
                   0x000346                  __fpack
-                  0x000392                  _I2CStart
-                  0x0003b0                  _I2CStop
-                  0x0003ce                  _I2Csendbyte
-                  0x0003ea                  _I2Cinit
-                  0x0003f8                  _display
-                  0x000462                  _ConfigureModuleADC
-                  0x0004b2                  _ChangeChannelADC
-                  0x0004dc                  _getADC
-                  0x00050a                  _ConfigureClock
-                  0x000568                  _ConfigureClockSlow
-                  0x0005c4                  _display_tasks
-                  0x000684                  _main
-                  0x000696                  ___delay32
+                  0x0003a4                  _I2CStart
+                  0x0003c2                  _I2CStop
+                  0x0003e0                  _I2Csendbyte
+                  0x0003fc                  _I2Cinit
+                  0x00040a                  _display
+                  0x000474                  _ConfigureModuleADC
+                  0x0004c4                  _ChangeChannelADC
+                  0x0004ee                  _getADC
+                  0x00051c                  _ConfigureClock
+                  0x00057a                  _ConfigureClockSlow
+                  0x0005d6                  _config_tasks
+                  0x0006ba                  _display_time
+                  0x000732                  _display_tasks
+                  0x000858                  __T3Interrupt
+                  0x000890                  _main
+                  0x0008e6                  ___delay32
                   0x02affa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x0004b2                  _ChangeChannelADC
-                  0x00050a                  _ConfigureClock
-                  0x000568                  _ConfigureClockSlow
-                  0x000462                  _ConfigureModuleADC
-                  0x000392                  _I2CStart
-                  0x0003b0                  _I2CStop
-                  0x0003ea                  _I2Cinit
-                  0x0003ce                  _I2Csendbyte
+                  0x0004c4                  _ChangeChannelADC
+                  0x00051c                  _ConfigureClock
+                  0x00057a                  _ConfigureClockSlow
+                  0x000474                  _ConfigureModuleADC
+                  0x0003a4                  _I2CStart
+                  0x0003c2                  _I2CStop
+                  0x0003fc                  _I2Cinit
+                  0x0003e0                  _I2Csendbyte
                   0x0002e0                  __DefaultInterrupt
                   0x02affa                  __FGS.sec
-                  0x000696                  ___delay32
+                  0x000858                  __T3Interrupt
+                  0x0008e6                  ___delay32
                   0x0002e8                  ___floatundisf
                   0x0002e4                  ___floatunsisf
                   0x000238                  __data_init
@@ -174,10 +196,12 @@ External Symbols in Program Memory (by name):
                   0x000346                  __fpack
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0003f8                  _display
-                  0x0005c4                  _display_tasks
-                  0x0004dc                  _getADC
-                  0x000684                  _main
+                  0x0005d6                  _config_tasks
+                  0x00040a                  _display
+                  0x000732                  _display_tasks
+                  0x0006ba                  _display_time
+                  0x0004ee                  _getADC
+                  0x000890                  _main
 
 Memory Configuration
 
@@ -293,26 +317,26 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x125c
+.debug_info       0x000000       0x1fab
  *(.debug_info)
- .debug_info      0x000000       0x125c build/default/production/_ext/1344191749/display_new.o
+ .debug_info      0x000000       0x1fab build/default/production/_ext/1344191749/display_new.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x18e
+.debug_abbrev     0x000000        0x1bb
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x18e build/default/production/_ext/1344191749/display_new.o
+ .debug_abbrev    0x000000        0x1bb build/default/production/_ext/1344191749/display_new.o
 
-.debug_line       0x000000        0x167
+.debug_line       0x000000        0x1da
  *(.debug_line)
- .debug_line      0x000000        0x167 build/default/production/_ext/1344191749/display_new.o
+ .debug_line      0x000000        0x1da build/default/production/_ext/1344191749/display_new.o
 
-.debug_frame      0x000000        0x164
+.debug_frame      0x000000        0x1e0
  *(.debug_frame)
- .debug_frame     0x000000        0x164 build/default/production/_ext/1344191749/display_new.o
+ .debug_frame     0x000000        0x1e0 build/default/production/_ext/1344191749/display_new.o
 
-.debug_str        0x000000         0x7b
+.debug_str        0x000000        0x10a
  *(.debug_str)
- .debug_str       0x000000         0x7b build/default/production/_ext/1344191749/display_new.o
+ .debug_str       0x000000        0x10a build/default/production/_ext/1344191749/display_new.o
 
 .debug_loc
  *(.debug_loc)
@@ -321,10 +345,10 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0xf8
+                  0x000000        0x1ac
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0xf8 build/default/production/_ext/1344191749/display_new.o
+                  0x000000        0x1ac build/default/production/_ext/1344191749/display_new.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1749,39 +1773,47 @@ LOAD data_init
 LOAD shared_data_init
 
 .debug_pubtypes
-                  0x000018        0x155
+                  0x000018        0x26c
  .debug_pubtypes
-                  0x000018        0x155 build/default/production/_ext/1344191749/display_new.o
+                  0x000018        0x26c build/default/production/_ext/1344191749/display_new.o
 
 __c30_signature
-                  0x00016d         0x2a
+                  0x000284         0x2a
  __c30_signature
-                  0x00016d          0x6 build/default/production/_ext/1344191749/display_new.o
+                  0x000284          0x6 build/default/production/_ext/1344191749/display_new.o
  __c30_signature
-                  0x000173          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                  0x00028a          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
-                  0x000179          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
+                  0x000290          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
  __c30_signature
-                  0x00017f          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x000296          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
  __c30_signature
-                  0x000185          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
+                  0x00029c          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
  __c30_signature
-                  0x00018b          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
+                  0x0002a2          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
  __c30_signature
-                  0x000191          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
+                  0x0002a8          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
 
-.nbss               0x1000          0x4
- .nbss              0x1000          0x4 build/default/production/_ext/1344191749/display_new.o
-                    0x1000                  _data
-                    0x1002                  __state
+.nbss               0x1000          0xc
+ .nbss              0x1000          0xc build/default/production/_ext/1344191749/display_new.o
+                    0x1000                  _display_commands
+                    0x1002                  _i
+                    0x1003                  _data
+                    0x1004                  __display_state
+                    0x1006                  __config_state
+                    0x1008                  _new_data
+                    0x100a                  _dSec
 
-.ndata              0x1004          0x2
- .ndata             0x1004          0x2 build/default/production/_ext/1344191749/display_new.o
-                    0x1004                  _cmd
+.ndata              0x100c          0x2
+ .ndata             0x100c          0x2 build/default/production/_ext/1344191749/display_new.o
+                    0x100c                  _resend
 
-.data               0x1006          0x4
- .data              0x1006          0x4 build/default/production/_ext/1344191749/display_new.o
-                    0x1006                  _commands
+.data               0x100e         0x16
+ .data              0x100e         0x16 build/default/production/_ext/1344191749/display_new.o
+                    0x100e                  _beef_commands
+                    0x1014                  _nums
+                    0x101a                  _lee_commands
+                    0x1020                  _config_commands
 
 .config_IESO      0x02aff8          0x2
  .config_IESO     0x02aff8          0x2 build/default/production/_ext/1344191749/display_new.o
@@ -1801,27 +1833,38 @@ __c30_signature
  .config_JTAGEN
                   0x02aff0          0x2 build/default/production/_ext/1344191749/display_new.o
 
-.text             0x000392        0x304
- .text            0x000392        0x304 build/default/production/_ext/1344191749/display_new.o
-                  0x000392                  _I2CStart
-                  0x0003b0                  _I2CStop
-                  0x0003ce                  _I2Csendbyte
-                  0x0003ea                  _I2Cinit
-                  0x0003f8                  _display
-                  0x000462                  _ConfigureModuleADC
-                  0x0004b2                  _ChangeChannelADC
-                  0x0004dc                  _getADC
-                  0x00050a                  _ConfigureClock
-                  0x000568                  _ConfigureClockSlow
-                  0x0005c4                  _display_tasks
-                  0x000684                  _main
+.ivt._T3Interrupt
+                  0x000024          0x2
+ .ivt._T3Interrupt
+                  0x000024          0x2 build/default/production/_ext/1344191749/display_new.o
 
-.init.delay32     0x000696         0x1c
- .init.delay32    0x000696         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                  0x000696                  ___delay32
+.const              0x8392         0x12 load address 0x000392  
+ .const             0x8392         0x12 build/default/production/_ext/1344191749/display_new.o
 
-.dinit            0x0006b2         0x1a
- .dinit           0x0006b2         0x1a data_init
+.text             0x0003a4        0x51c
+ .text            0x0003a4        0x51c build/default/production/_ext/1344191749/display_new.o
+                  0x0003a4                  _I2CStart
+                  0x0003c2                  _I2CStop
+                  0x0003e0                  _I2Csendbyte
+                  0x0003fc                  _I2Cinit
+                  0x00040a                  _display
+                  0x000474                  _ConfigureModuleADC
+                  0x0004c4                  _ChangeChannelADC
+                  0x0004ee                  _getADC
+                  0x00051c                  _ConfigureClock
+                  0x00057a                  _ConfigureClockSlow
+                  0x0005d6                  _config_tasks
+                  0x0006ba                  _display_time
+                  0x000732                  _display_tasks
+                  0x000858                  __T3Interrupt
+                  0x000890                  _main
 
-.shared.dinit     0x0006cc          0x2
- .shared.dinit    0x0006cc          0x2 shared_data_init
+.dinit            0x0008c0         0x26
+ .dinit           0x0008c0         0x26 data_init
+
+.init.delay32     0x0008e6         0x1c
+ .init.delay32    0x0008e6         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x0008e6                  ___delay32
+
+.shared.dinit     0x000902          0x2
+ .shared.dinit    0x000902          0x2 shared_data_init

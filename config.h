@@ -62,7 +62,7 @@ extern "C" {
 #pragma config WDTPRE = PR128           // Watchdog Timer Prescaler bit (1:128)
 #pragma config PLLKEN = ON              // PLL Lock Enable bit (Clock switch to PLL source will wait until the PLL lock signal is valid.)
 #pragma config WINDIS = OFF             // Watchdog Timer Window Enable bit (Watchdog Timer in Non-Window mode)
-#pragma config FWDTEN = ON              // Watchdog Timer Enable bit (Watchdog timer always enabled)
+#pragma config FWDTEN = OFF              // Watchdog Timer Enable bit (Watchdog timer always enabled)
 
 // FOSC
 #pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
