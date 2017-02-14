@@ -22,7 +22,7 @@ void ConfigureClockSlow(void);
 
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-#define FCY 60000000ULL
+#define FCY 8000000ULL
 #include <libpic30.h>
 
 #ifdef	__cplusplus
@@ -202,12 +202,12 @@ void ConfigureClockSlow(void)
     CLKDIVbits.ROI = 0; //Recover on Interrupt bit (0 = Interrupts have no effect on the DOZEN bit)
     CLKDIVbits.DOZE = 0; //Processor Clock Reduction Select bits (000 = Fcy/1)
     CLKDIVbits.DOZEN = 0; //Doze Mode Enable bit (0 = Fcy=Fp)
-    CLKDIVbits.FRCDIV = 0b001; //Internal Fast RC Oscillator Postscaler bits (0 = 1)
-    CLKDIVbits.PLLPOST = 0b00; //PLL VCO Output Divider Select bits (N2)
-    CLKDIVbits.PLLPRE = 0b00000; //PLL Phase Detector Input Divider Select bits (N1)
+    CLKDIVbits.FRCDIV = 0b000; //Internal Fast RC Oscillator Postscaler bits (0 = 1)
+    CLKDIVbits.PLLPOST = 0b11; //PLL VCO Output Divider Select bits (N2)
+    CLKDIVbits.PLLPRE = 0b00110; //PLL Phase Detector Input Divider Select bits (N1)
     
     //Configure PLLFBD
-    PLLFBDbits.PLLDIV = 0b000001110; //{63} PLL Feedback Divisor bits (M)
+    PLLFBDbits.PLLDIV = 0b010001001; //{63} PLL Feedback Divisor bits (M)
     
     //Configure OSCTUN
     OSCTUNbits.TUN = 0b00100; //FRC Oscillator Tuning bits (4 = (FRC = 7.3838[MHz]) 

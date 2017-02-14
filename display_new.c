@@ -11,10 +11,12 @@
 #include "functions.h"
 #include "xc.h"
 #include "stdbool.h"
-#define FCY 60000000ULL
+#define FCY 8000000ULL
 //#define FCY 8000000ULL
 #include <libpic30.h>
 
+
+//16
 static const unsigned char numberTable[] = // convert number to lit-segments
 {
  0x3F, // 0
@@ -98,6 +100,7 @@ bool resend = true;
 enum I2C_Display_State _display_state = WAIT; 
 enum I2C_Config_State _config_state = INIT; 
 bool new_data = false;
+bool displaying = false; 
 void config_tasks()
 {  
     if (I2C1STATbits.TBF)
@@ -144,7 +147,7 @@ void config_tasks()
                 }
                 else
                 {
-                    _config_state = SEND_ADDR; 
+                    _config_state = SEND_START; 
                 }
             }
             break;
@@ -181,7 +184,7 @@ void config_tasks()
         }
         case IDLE:
         {
-            //display_time(3333);
+           // display_time(5690);
         }
     }
 }
@@ -198,6 +201,12 @@ void display_time(int mstime)
     nums[4] = mstime; 
     
     display_commands = nums; 
+//    int j=0;
+//    for(j=0;j<5;j++)
+//    {
+//        
+//        display_commands[j]=nums[j];
+//    }
     new_data = true; 
 }
 
@@ -210,6 +219,7 @@ void display_tasks()
             if (new_data)
             {
                 i = 0; 
+                displaying = true; 
                 new_data = false; 
                 _display_state = SEND_START_D; 
             }
@@ -245,7 +255,8 @@ void display_tasks()
                 }
                 else
                 {
-                    _display_state = SEND_RAM; 
+                    _display_state = SEND_START_D; 
+                    __delay_ms(5);
                 }
             }
             break; 
@@ -291,6 +302,7 @@ void display_tasks()
                 {
                     I2C1CONbits.PEN = 1;
                     _display_state = WAIT;
+                    displaying = false; 
                 }
                 else
                 {
@@ -307,22 +319,40 @@ void display_tasks()
 int dSec = 0;
 void  _ISR  _T3Interrupt(void)
 {
-    dSec++;
-    display_time(dSec);
+    if(dSec<65530)
+        dSec++;
+    
+    if (!displaying)
+        display_time(dSec);
     
     _T3IF = 0;//clear  the  flag
 
 }
 
-void main(void)
+int main(void)
 {
-    RCONbits.SWDTEN = 0;
-     TRISAbits.TRISA0 = 0;
+    //RCONbits.SWDTEN = 0;
     ConfigureClockSlow();
-     PORTAbits.RA0 = 1; 
+    new_data = false; 
+    TRISAbits.TRISA0 = 0;
+    LATAbits.LATA0 = 0; 
     __delay_ms(100);
-     PORTAbits.RA0 = 0; 
+    LATAbits.LATA0 = 1; 
     //__delay_ms(100);
+    if(RCONbits.SWR == 1)
+    {
+        LATAbits.LATA0 = 0;
+    }
+    
+    
+//    RCONbits.SWR = 0;
+//    RCONbits.BOR = 0;
+//    RCONbits.POR = 0;
+//     while(1)
+//     {         
+//        LATAbits.LATA0 ^= 1; 
+//        __delay_ms(10);
+//     }
      
     _T3IP = 4;//interrupt setup
     TMR3 = 0;//set timer 1 to zero
@@ -333,8 +363,10 @@ void main(void)
     
     while(1)
     {
+     //LATAbits.LATA0 ^= 1; 
      config_tasks();
      display_tasks();
+    //__delay_ms(5);
     }
 
 }

@@ -11,7 +11,7 @@
 #include "functions.h"
 #include "xc.h"
 #include "stdbool.h"
-#define FCY 60000000ULL
+#define FCY 8000000ULL
 //#define FCY 8000000ULL
 #include <libpic30.h>
 
@@ -87,7 +87,7 @@ unsigned char lee_commands[] = {
 unsigned char config_commands[] = {
     0x21,
     0x81,
-    0xE5,
+    0xEF,
     0x99
 };
 
@@ -144,7 +144,8 @@ void config_tasks()
                 }
                 else
                 {
-                    _config_state = SEND_ADDR; 
+                    _config_state = SEND_START; 
+                    __delay_ms(100);
                 }
             }
             break;
@@ -160,7 +161,8 @@ void config_tasks()
                 }
                 else
                 {
-                    _config_state = SEND_BYTE;
+                    _config_state = SEND_START;
+                     __delay_ms(100);
                 }
             }
             break;
@@ -176,6 +178,7 @@ void config_tasks()
                 }
                 else
                 {_config_state = SEND_START;}
+                __delay_ms(100);
             }   
             break; 
         }
@@ -246,7 +249,7 @@ void display_tasks()
                 }
                 else
                 {
-                    _display_state = SEND_RAM; 
+                    _display_state = SEND_START_D; 
                 }
             }
             break; 
@@ -305,15 +308,15 @@ void display_tasks()
     }
 }
 
-int dSec = 0;
-void  _ISR  _T3Interrupt(void)
-{
-//    dSec++;
-//    display_time(dSec);
-//    
-//    _T3IF = 0;//clear  the  flag
-
-}
+//int dSec = 0;
+//void  _ISR  _T3Interrupt(void)
+//{
+////    dSec++;
+////    display_time(dSec);
+////    
+////    _T3IF = 0;//clear  the  flag
+//
+//}
 
 void main(void)
 {
@@ -325,12 +328,12 @@ void main(void)
      PORTAbits.RA0 = 0; 
     //__delay_ms(100);
      
-    _T3IP = 4;//interrupt setup
-    TMR3 = 0;//set timer 1 to zero
-    T3CON = 0x8030; //
-    PR3 = 2343;//creates one 10 millisecond timer
-    _T3IF = 0;
-    _T3IE = 1;
+//    _T3IP = 4;//interrupt setup
+//    TMR3 = 0;//set timer 1 to zero
+//    T3CON = 0x8030; //
+//    PR3 = 2343;//creates one 10 millisecond timer
+//    _T3IF = 0;
+   // _T3IE = 1;
     
     while(1)
     {
