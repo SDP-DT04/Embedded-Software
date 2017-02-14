@@ -11,12 +11,11 @@
 #include "functions.h"
 #include "xc.h"
 #include "stdbool.h"
-#define FCY 8000000ULL
+#define FCY 60000000ULL
 //#define FCY 8000000ULL
 #include <libpic30.h>
 
 
-//16
 static const unsigned char numberTable[] = // convert number to lit-segments
 {
  0x3F, // 0
@@ -36,6 +35,7 @@ static const unsigned char numberTable[] = // convert number to lit-segments
  0x79, // E
  0x71, // F
  0x00, //<blank>
+ 0x02, //Center Colon
 };
 
 enum I2C_Config_State{
@@ -71,7 +71,7 @@ unsigned char beef_commands[] = {
 unsigned char nums[] = {
     1,
     2,
-    16,
+    1,
     3,
     4,
     0x99
@@ -89,13 +89,14 @@ unsigned char lee_commands[] = {
 unsigned char config_commands[] = {
     0x21,
     0x81,
-    0xE5,
+    0xEF,
     0x99
 };
 
 unsigned char i = 0; 
 unsigned char data = 0;
 bool resend = true; 
+bool Start = false;
 
 enum I2C_Display_State _display_state = WAIT; 
 enum I2C_Config_State _config_state = INIT; 
@@ -112,7 +113,8 @@ void config_tasks()
         {
             i = 0;
             // config
-            I2C1BRG = 50;
+            //I2C1BRG = 75; // for 8[MHz]
+            I2C1BRG = 500; // for 60[MHz]
          
             I2C1CONbits.I2CEN = 1;
             _config_state = SEND_START;
@@ -194,7 +196,7 @@ void display_time(int mstime)
     nums[0] = mstime / 1000;
     mstime = mstime % 1000; 
     nums[1] = mstime / 100;
-    nums[2] = 16;
+    nums[2] = 17;
     mstime = mstime % 100; 
     nums[3] = mstime / 10; 
     mstime = mstime % 10; 
@@ -256,7 +258,7 @@ void display_tasks()
                 else
                 {
                     _display_state = SEND_START_D; 
-                    __delay_ms(5);
+                    //__delay_ms(5);
                 }
             }
             break; 
@@ -319,11 +321,15 @@ void display_tasks()
 int dSec = 0;
 void  _ISR  _T3Interrupt(void)
 {
-    if(dSec<65530)
+    if(dSec<9999)
         dSec++;
+    else
+        dSec = 0;
     
     if (!displaying)
         display_time(dSec);
+    
+    
     
     _T3IF = 0;//clear  the  flag
 
@@ -332,41 +338,36 @@ void  _ISR  _T3Interrupt(void)
 int main(void)
 {
     //RCONbits.SWDTEN = 0;
-    ConfigureClockSlow();
+    ConfigureClock();
     new_data = false; 
-    TRISAbits.TRISA0 = 0;
-    LATAbits.LATA0 = 0; 
-    __delay_ms(100);
-    LATAbits.LATA0 = 1; 
-    //__delay_ms(100);
-    if(RCONbits.SWR == 1)
-    {
-        LATAbits.LATA0 = 0;
-    }
     
-    
-//    RCONbits.SWR = 0;
-//    RCONbits.BOR = 0;
-//    RCONbits.POR = 0;
-//     while(1)
-//     {         
-//        LATAbits.LATA0 ^= 1; 
-//        __delay_ms(10);
-//     }
-     
+/*---------------Configure GPIO pins as either Analog pins or Digital pins----*/    
+ANSELAbits.ANSA12=0;//Analog Select to off
+TRISAbits.TRISA12 = 1;//set port A12 as an input
+TRISAbits.TRISA0 = 0;//set port A0 as an output
+LATAbits.LATA12 = 0;//Set initial state to LOW
+LATAbits.LATA0 = 1;//Set initial state to LOW
+  
     _T3IP = 4;//interrupt setup
     TMR3 = 0;//set timer 1 to zero
     T3CON = 0x8030; //
-    PR3 = 2343;//creates one 10 millisecond timer
+    PR3 = 2343;//creates one 10 millisecond timer for 60[MHz]
+    //PR3 = 312; //creates 10[ms] timer for 8[MHz]
     _T3IF = 0;
     _T3IE = 1;
     
     while(1)
     {
-     //LATAbits.LATA0 ^= 1; 
-     config_tasks();
-     display_tasks();
-    //__delay_ms(5);
+        if (PORTAbits.RA12 == 1)
+        {
+            LATAbits.LATA0 == 0;
+            config_tasks();
+            display_tasks();
+        }
+        else
+        {
+            PORTAbits.RA0 == 1;
+        }
     }
-
+    return 0;
 }

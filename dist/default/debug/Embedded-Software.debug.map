@@ -6,7 +6,7 @@ Tool Name:
 Command:
   -p33EP256MC506 \
   -o \
-  dist/default/production/Embedded-Software.production.elf \
+  dist/default/debug/Embedded-Software.debug.elf \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/.. \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/PIC24E/gld \
@@ -15,10 +15,20 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC30F/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC33F/gld \
-  build/default/production/_ext/1344191749/display_new.o \
+  build/default/debug/_ext/1344191749/display_new.o \
+  -TC:\\Users\\DT04\\AppData\\Local\\Temp\\tmp000022dc.00 \
+  -TC:\\Users\\DT04\\AppData\\Local\\Temp\\tmp000022dc.01 \
+  -TC:\\Users\\DT04\\AppData\\Local\\Temp\\tmp000022dc.02 \
+  -TC:\\Users\\DT04\\AppData\\Local\\Temp\\tmp000022dc.03 \
+  -TC:\\Users\\DT04\\AppData\\Local\\Temp\\tmp000022dc.04 \
+  -TC:\\Users\\DT04\\AppData\\Local\\Temp\\tmp000022dc.05 \
+  -TC:\\Users\\DT04\\AppData\\Local\\Temp\\tmp000022dc.06 \
   --local-stack \
   --defsym=__MPLAB_BUILD=1 \
-  -Tp33EP256MC506.gld.00 \
+  --defsym=__MPLAB_DEBUG=1 \
+  --defsym=__DEBUG=1 \
+  --defsym=__MPLAB_DEBUGGER_PK3=1 \
+  -Tp33EP256MC506.gld.07 \
   --stack=16 \
   --check-sections \
   --data-init \
@@ -30,10 +40,10 @@ Command:
   --stackguard=16 \
   --no-force-link \
   --smart-io \
-  -Map=dist/default/production/Embedded-Software.production.map \
+  -Map=dist/default/debug/Embedded-Software.debug.map \
   --report-mem \
   --memorysummary \
-  dist/default/production/memoryfile.xml \
+  dist/default/debug/memoryfile.xml \
   -start-group \
   --library=lega-pic30-elf \
   --library=m-elf \
@@ -49,9 +59,9 @@ c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
                               c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o) (__data_init_extended)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                              build/default/production/_ext/1344191749/display_new.o (___delay32)
+                              build/default/debug/_ext/1344191749/display_new.o (___delay32)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
-                              build/default/production/_ext/1344191749/display_new.o (___floatunsisf)
+                              build/default/debug/_ext/1344191749/display_new.o (___floatunsisf)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
                               c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo) (___floatundisf)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
@@ -100,11 +110,18 @@ Data Memory  [Origin = 0x1000, Length = 0x8000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0             0xe  (14)
-.ndata                      0x100e                   0             0x2  (2)
-.data                       0x1010                   0            0x16  (22)
+reserve_data_0x1000         0x1000                0x1c            0x1c  (28)
+reserve_data_0x101c         0x101c                 0x2             0x2  (2)
+reserve_data_0x101e         0x101e                 0x2             0x2  (2)
+reserve_data_0x1020         0x1020                 0x2             0x2  (2)
+reserve_data_0x1022         0x1022                 0x2             0x2  (2)
+reserve_data_0x1024         0x1024                 0x4             0x4  (4)
+reserve_data_0x1028         0x1028                0x28            0x28  (40)
+.nbss                       0x1050                   0             0xe  (14)
+.ndata                      0x105e                   0             0x2  (2)
+.data                       0x1060                   0            0x16  (22)
 
-                 Total data memory used (bytes):           0x26  (38) <1%
+                 Total data memory used (bytes):           0x76  (118) <1%
 
 
 Dynamic Memory Usage
@@ -112,44 +129,44 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1026                              0x6fda  (28634)
+stack                       0x1076                              0x6f8a  (28554)
 
-                 Maximum dynamic memory (bytes):         0x6fda  (28634)
+                 Maximum dynamic memory (bytes):         0x6f8a  (28554)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x1000                  _display_commands
-                    0x1002                  _i
-                    0x1003                  _data
-                    0x1004                  _Start
-                    0x1006                  __display_state
-                    0x1008                  __config_state
-                    0x100a                  _new_data
-                    0x100b                  _displaying
-                    0x100c                  _dSec
-                    0x100e                  _resend
-                    0x1010                  _beef_commands
-                    0x1016                  _nums
-                    0x101c                  _lee_commands
-                    0x1022                  _config_commands
+                    0x1050                  _display_commands
+                    0x1052                  _i
+                    0x1053                  _data
+                    0x1054                  _Start
+                    0x1056                  __display_state
+                    0x1058                  __config_state
+                    0x105a                  _new_data
+                    0x105b                  _displaying
+                    0x105c                  _dSec
+                    0x105e                  _resend
+                    0x1060                  _beef_commands
+                    0x1066                  _nums
+                    0x106c                  _lee_commands
+                    0x1072                  _config_commands
 
 External Symbols in Data Memory (by name):
 
-                    0x1004                  _Start
-                    0x1008                  __config_state
-                    0x1006                  __display_state
-                    0x1010                  _beef_commands
-                    0x1022                  _config_commands
-                    0x100c                  _dSec
-                    0x1003                  _data
-                    0x1000                  _display_commands
-                    0x100b                  _displaying
-                    0x1002                  _i
-                    0x101c                  _lee_commands
-                    0x100a                  _new_data
-                    0x1016                  _nums
-                    0x100e                  _resend
+                    0x1054                  _Start
+                    0x1058                  __config_state
+                    0x1056                  __display_state
+                    0x1060                  _beef_commands
+                    0x1072                  _config_commands
+                    0x105c                  _dSec
+                    0x1053                  _data
+                    0x1050                  _display_commands
+                    0x105b                  _displaying
+                    0x1052                  _i
+                    0x106c                  _lee_commands
+                    0x105a                  _new_data
+                    0x1066                  _nums
+                    0x105e                  _resend
 
 External Symbols in Program Memory (by address):
 
@@ -229,8 +246,46 @@ aivt             0x000000           0xffffffff
 
 Linker script and memory map
 
-LOAD build/default/production/_ext/1344191749/display_new.o
+LOAD build/default/debug/_ext/1344191749/display_new.o
+
+reserve_data_0x1000
+                    0x1000         0x1c
+                    0x101c                  . = 0x1c
+ *fill*             0x1000         0x1c00
+
+reserve_data_0x101c
+                    0x101c          0x2
+                    0x101e                  . = 0x2
+ *fill*             0x101c          0x200
+
+reserve_data_0x101e
+                    0x101e          0x2
+                    0x1020                  . = 0x2
+ *fill*             0x101e          0x200
+
+reserve_data_0x1020
+                    0x1020          0x2
+                    0x1022                  . = 0x2
+ *fill*             0x1020          0x200
+
+reserve_data_0x1022
+                    0x1022          0x2
+                    0x1024                  . = 0x2
+ *fill*             0x1022          0x200
+
+reserve_data_0x1024
+                    0x1024          0x4
+                    0x1028                  . = 0x4
+ *fill*             0x1024          0x400
+
+reserve_data_0x1028
+                    0x1028         0x28
+                    0x1050                  . = 0x28
+ *fill*             0x1028         0x2800
                     0x0001                  __MPLAB_BUILD = 0x1
+                    0x0001                  __MPLAB_DEBUG = 0x1
+                    0x0001                  __DEBUG = 0x1
+                    0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
 LOAD p33EP256MC506
 LOAD c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libfx-elf.a
                     0x2aff0                  __FICD = 0x2aff0
@@ -323,24 +378,24 @@ __FUID3
 
 .debug_info       0x000000       0x2050
  *(.debug_info)
- .debug_info      0x000000       0x2050 build/default/production/_ext/1344191749/display_new.o
+ .debug_info      0x000000       0x2050 build/default/debug/_ext/1344191749/display_new.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x1d2
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x1d2 build/default/production/_ext/1344191749/display_new.o
+ .debug_abbrev    0x000000        0x1d2 build/default/debug/_ext/1344191749/display_new.o
 
 .debug_line       0x000000        0x1e4
  *(.debug_line)
- .debug_line      0x000000        0x1e4 build/default/production/_ext/1344191749/display_new.o
+ .debug_line      0x000000        0x1e4 build/default/debug/_ext/1344191749/display_new.o
 
 .debug_frame      0x000000        0x1e0
  *(.debug_frame)
- .debug_frame     0x000000        0x1e0 build/default/production/_ext/1344191749/display_new.o
+ .debug_frame     0x000000        0x1e0 build/default/debug/_ext/1344191749/display_new.o
 
 .debug_str        0x000000        0x120
  *(.debug_str)
- .debug_str       0x000000        0x120 build/default/production/_ext/1344191749/display_new.o
+ .debug_str       0x000000        0x120 build/default/debug/_ext/1344191749/display_new.o
 
 .debug_loc
  *(.debug_loc)
@@ -352,7 +407,7 @@ __FUID3
                   0x000000        0x1c5
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x1c5 build/default/production/_ext/1344191749/display_new.o
+                  0x000000        0x1c5 build/default/debug/_ext/1344191749/display_new.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -360,7 +415,7 @@ __FUID3
 .debug_aranges    0x000000         0x18
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/production/_ext/1344191749/display_new.o
+                  0x000000         0x18 build/default/debug/_ext/1344191749/display_new.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1770,7 +1825,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30
 LOAD c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
-OUTPUT(dist/default/production/Embedded-Software.production.elf elf32-pic30)
+OUTPUT(dist/default/debug/Embedded-Software.debug.elf elf32-pic30)
 LOAD FGS
 LOAD default_isr
 LOAD data_init
@@ -1779,12 +1834,12 @@ LOAD shared_data_init
 .debug_pubtypes
                   0x000018        0x28d
  .debug_pubtypes
-                  0x000018        0x28d build/default/production/_ext/1344191749/display_new.o
+                  0x000018        0x28d build/default/debug/_ext/1344191749/display_new.o
 
 __c30_signature
                   0x0002a5         0x2a
  __c30_signature
-                  0x0002a5          0x6 build/default/production/_ext/1344191749/display_new.o
+                  0x0002a5          0x6 build/default/debug/_ext/1344191749/display_new.o
  __c30_signature
                   0x0002ab          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
@@ -1798,57 +1853,57 @@ __c30_signature
  __c30_signature
                   0x0002c9          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
 
-.nbss               0x1000          0xe
- .nbss              0x1000          0xe build/default/production/_ext/1344191749/display_new.o
-                    0x1000                  _display_commands
-                    0x1002                  _i
-                    0x1003                  _data
-                    0x1004                  _Start
-                    0x1006                  __display_state
-                    0x1008                  __config_state
-                    0x100a                  _new_data
-                    0x100b                  _displaying
-                    0x100c                  _dSec
+.nbss               0x1050          0xe
+ .nbss              0x1050          0xe build/default/debug/_ext/1344191749/display_new.o
+                    0x1050                  _display_commands
+                    0x1052                  _i
+                    0x1053                  _data
+                    0x1054                  _Start
+                    0x1056                  __display_state
+                    0x1058                  __config_state
+                    0x105a                  _new_data
+                    0x105b                  _displaying
+                    0x105c                  _dSec
 
-.ndata              0x100e          0x2
- .ndata             0x100e          0x2 build/default/production/_ext/1344191749/display_new.o
-                    0x100e                  _resend
+.ndata              0x105e          0x2
+ .ndata             0x105e          0x2 build/default/debug/_ext/1344191749/display_new.o
+                    0x105e                  _resend
 
-.data               0x1010         0x16
- .data              0x1010         0x16 build/default/production/_ext/1344191749/display_new.o
-                    0x1010                  _beef_commands
-                    0x1016                  _nums
-                    0x101c                  _lee_commands
-                    0x1022                  _config_commands
+.data               0x1060         0x16
+ .data              0x1060         0x16 build/default/debug/_ext/1344191749/display_new.o
+                    0x1060                  _beef_commands
+                    0x1066                  _nums
+                    0x106c                  _lee_commands
+                    0x1072                  _config_commands
 
 .config_IESO      0x02aff8          0x2
- .config_IESO     0x02aff8          0x2 build/default/production/_ext/1344191749/display_new.o
+ .config_IESO     0x02aff8          0x2 build/default/debug/_ext/1344191749/display_new.o
 
 .config_FCKSM     0x02aff6          0x2
- .config_FCKSM    0x02aff6          0x2 build/default/production/_ext/1344191749/display_new.o
+ .config_FCKSM    0x02aff6          0x2 build/default/debug/_ext/1344191749/display_new.o
 
 .config_FWDTEN    0x02aff4          0x2
  .config_FWDTEN
-                  0x02aff4          0x2 build/default/production/_ext/1344191749/display_new.o
+                  0x02aff4          0x2 build/default/debug/_ext/1344191749/display_new.o
 
 .config_WDTWIN    0x02aff2          0x2
  .config_WDTWIN
-                  0x02aff2          0x2 build/default/production/_ext/1344191749/display_new.o
+                  0x02aff2          0x2 build/default/debug/_ext/1344191749/display_new.o
 
 .config_JTAGEN    0x02aff0          0x2
  .config_JTAGEN
-                  0x02aff0          0x2 build/default/production/_ext/1344191749/display_new.o
+                  0x02aff0          0x2 build/default/debug/_ext/1344191749/display_new.o
 
 .ivt._T3Interrupt
                   0x000024          0x2
  .ivt._T3Interrupt
-                  0x000024          0x2 build/default/production/_ext/1344191749/display_new.o
+                  0x000024          0x2 build/default/debug/_ext/1344191749/display_new.o
 
 .const              0x8392         0x12 load address 0x000392  
- .const             0x8392         0x12 build/default/production/_ext/1344191749/display_new.o
+ .const             0x8392         0x12 build/default/debug/_ext/1344191749/display_new.o
 
 .text             0x0003a4        0x548
- .text            0x0003a4        0x548 build/default/production/_ext/1344191749/display_new.o
+ .text            0x0003a4        0x548 build/default/debug/_ext/1344191749/display_new.o
                   0x0003a4                  _I2CStart
                   0x0003c2                  _I2CStop
                   0x0003e0                  _I2Csendbyte
