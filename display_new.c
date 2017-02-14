@@ -11,7 +11,7 @@
 #include "functions.h"
 #include "xc.h"
 #include "stdbool.h"
-#define FCY 60000000ULL
+#define FCY 8000000ULL
 //#define FCY 8000000ULL
 #include <libpic30.h>
 
@@ -113,8 +113,8 @@ void config_tasks()
         {
             i = 0;
             // config
-            //I2C1BRG = 75; // for 8[MHz]
-            I2C1BRG = 500; // for 60[MHz]
+            I2C1BRG = 75; // for 8[MHz]
+            //I2C1BRG = 500; // for 60[MHz]
          
             I2C1CONbits.I2CEN = 1;
             _config_state = SEND_START;
@@ -338,36 +338,23 @@ void  _ISR  _T3Interrupt(void)
 int main(void)
 {
     //RCONbits.SWDTEN = 0;
-    ConfigureClock();
+    ConfigureClockSlow();
     new_data = false; 
-    
-/*---------------Configure GPIO pins as either Analog pins or Digital pins----*/    
-ANSELAbits.ANSA12=0;//Analog Select to off
-TRISAbits.TRISA12 = 1;//set port A12 as an input
-TRISAbits.TRISA0 = 0;//set port A0 as an output
-LATAbits.LATA12 = 0;//Set initial state to LOW
-LATAbits.LATA0 = 1;//Set initial state to LOW
   
     _T3IP = 4;//interrupt setup
     TMR3 = 0;//set timer 1 to zero
     T3CON = 0x8030; //
-    PR3 = 2343;//creates one 10 millisecond timer for 60[MHz]
-    //PR3 = 312; //creates 10[ms] timer for 8[MHz]
+    //PR3 = 2343;//creates 10[ms] timer for 60[MHz]
+    PR3 = 312; //creates 10[ms] timer for 8[MHz]
     _T3IF = 0;
     _T3IE = 1;
     
+    //__delay_ms(100);
+    
     while(1)
     {
-        if (PORTAbits.RA12 == 1)
-        {
-            LATAbits.LATA0 == 0;
-            config_tasks();
-            display_tasks();
-        }
-        else
-        {
-            PORTAbits.RA0 == 1;
-        }
+        config_tasks();
+        display_tasks();
     }
     return 0;
 }
