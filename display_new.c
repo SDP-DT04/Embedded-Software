@@ -209,6 +209,7 @@ void display_time(int mstime)
 //        
 //        display_commands[j]=nums[j];
 //    }
+//    _display_state = WAIT; 
     new_data = true; 
 }
 
@@ -318,6 +319,7 @@ void display_tasks()
     }
 }
 
+int error_counter = 0; 
 int dSec = 0;
 void  _ISR  _T3Interrupt(void)
 {
@@ -327,8 +329,17 @@ void  _ISR  _T3Interrupt(void)
         dSec = 0;
     
     if (!displaying)
+    {
         display_time(dSec);
+        error_counter = 0; 
+    }
+    else
+        error_counter++; 
     
+    if (error_counter > 5)
+    {
+        _display_state = SEND_STOP_D; 
+    }
     
     
     _T3IF = 0;//clear  the  flag
@@ -337,8 +348,10 @@ void  _ISR  _T3Interrupt(void)
 
 int main(void)
 {
+
     //RCONbits.SWDTEN = 0;
     ConfigureClockSlow();
+    __delay_ms(1000);
     new_data = false; 
   
     _T3IP = 4;//interrupt setup
