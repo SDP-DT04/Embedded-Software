@@ -11,8 +11,8 @@
 #include "functions.h"
 #include "xc.h"
 #include "stdbool.h"
+//#define FCY 60000000ULL
 #define FCY 8000000ULL
-//#define FCY 8000000ULL
 #include <libpic30.h>
 
 
@@ -321,7 +321,7 @@ void display_tasks()
 
 int error_counter = 0; 
 int dSec = 0;
-void  _ISR  _T3Interrupt(void)
+void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
 {
 //    if(dSec<9999)
 //        dSec++;
@@ -340,16 +340,37 @@ void  _ISR  _T3Interrupt(void)
 //    {
 //        _display_state = SEND_STOP_D; 
 //    }
-    if (Start == 0)
+    
+    if(Start == false)
+        {
+            if(PORTCbits.RC13 == 1)
+            {
+                Start = true;
+                TMR1=0;
+                dSec=0;
+            }
+        }
+    
+        else if(Start == true)
+        {
+            if(PORTCbits.RC13 == 0)
+            {
+                Start = false;
+                TMR1=0;
+            }
+            else{}    
+        }
+    
+    if (Start == false)
     {}
-    else if (Start == 1)
+    else if (Start == true)
     {
         dSec++;
         display_time(dSec);
     }
     
     
-    _T3IF = 0;//clear  the  flag
+    _T1IF = 0;//clear  the  flag
 
 }
 
@@ -362,41 +383,20 @@ int main(void)
     TRISCbits.TRISC13 = 0b1;
     __delay_ms(1000);
     new_data = false; 
+    SRbits.IPL = 0b000;
   
-    _T3IP = 4;//interrupt setup
-    TMR3 = 0;//set timer 1 to zero
-    T3CON = 0x8030; //
+    _T1IP = 4;//interrupt setup
+    TMR1 = 0;//set timer 1 to zero
+    T1CON = 0x8030; //
     //PR3 = 2343;//creates 10[ms] timer for 60[MHz]
-    PR3 = 300; //creates 10[ms] timer for 8[MHz]
-    _T3IF = 0;
-    _T3IE = 1;
+    PR1= 313; //creates 10[ms] timer for 8[MHz]
+    _T1IF = 0;
+    _T1IE = 1;
     
     while(1)
     {
         config_tasks();
         display_tasks();
-        
-        if(Start == false)
-        {
-            if(PORTCbits.RC13 == 1)
-            {
-                Start = true;
-                TMR3=0;
-                dSec=0;
-            }
-            else{}
-        }
-    
-        else if(Start == true)
-        {
-            if(PORTCbits.RC13 == 0)
-            {
-                Start = false;
-                TMR3=0;
-            }
-            else{}    
-        }
-    
     }
     return 0;
 }
