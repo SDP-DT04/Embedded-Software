@@ -323,22 +323,29 @@ int error_counter = 0;
 int dSec = 0;
 void  _ISR  _T3Interrupt(void)
 {
-    if(dSec<9999)
+//    if(dSec<9999)
+//        dSec++;
+//    else
+//        dSec = 0;
+//    
+//    if (!displaying)
+//    {
+//        display_time(dSec);
+//        error_counter = 0; 
+//    }
+//    else
+//        error_counter++; 
+//    
+//    if (error_counter > 5)
+//    {
+//        _display_state = SEND_STOP_D; 
+//    }
+    if (Start == 0)
+    {}
+    else if (Start == 1)
+    {
         dSec++;
-    else
-        dSec = 0;
-    
-    if (!displaying)
-    {
         display_time(dSec);
-        error_counter = 0; 
-    }
-    else
-        error_counter++; 
-    
-    if (error_counter > 5)
-    {
-        _display_state = SEND_STOP_D; 
     }
     
     
@@ -351,6 +358,8 @@ int main(void)
 
     //RCONbits.SWDTEN = 0;
     ConfigureClockSlow();
+    ANSELAbits.ANSA12=0;
+    TRISCbits.TRISC13 = 0b1;
     __delay_ms(1000);
     new_data = false; 
   
@@ -358,16 +367,36 @@ int main(void)
     TMR3 = 0;//set timer 1 to zero
     T3CON = 0x8030; //
     //PR3 = 2343;//creates 10[ms] timer for 60[MHz]
-    PR3 = 312; //creates 10[ms] timer for 8[MHz]
+    PR3 = 300; //creates 10[ms] timer for 8[MHz]
     _T3IF = 0;
     _T3IE = 1;
-    
-    //__delay_ms(100);
     
     while(1)
     {
         config_tasks();
         display_tasks();
+        
+        if(Start == false)
+        {
+            if(PORTCbits.RC13 == 1)
+            {
+                Start = true;
+                TMR3=0;
+                dSec=0;
+            }
+            else{}
+        }
+    
+        else if(Start == true)
+        {
+            if(PORTCbits.RC13 == 0)
+            {
+                Start = false;
+                TMR3=0;
+            }
+            else{}    
+        }
+    
     }
     return 0;
 }

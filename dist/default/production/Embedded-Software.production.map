@@ -81,12 +81,12 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x192           0x25b  (603)
 .const                       0x392                0x12            0x1b  (27)
-.text                        0x3a4               0x548           0x7ec  (2028)
-.dinit                       0x8ec                0x26            0x39  (57)
-.init.delay32                0x912                0x1c            0x2a  (42)
-.shared.dinit                0x92e                 0x2             0x3  (3)
+.text                        0x3a4               0x56e           0x825  (2085)
+.dinit                       0x912                0x26            0x39  (57)
+.init.delay32                0x938                0x1c            0x2a  (42)
+.shared.dinit                0x954                 0x2             0x3  (3)
 
-                 Total program memory used (bytes):          0xac8  (2760) 1%
+                 Total program memory used (bytes):          0xb01  (2817) 1%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0x1fc]
@@ -177,8 +177,8 @@ External Symbols in Program Memory (by address):
                   0x0006be                  _display_time
                   0x000736                  _display_tasks
                   0x000862                  __T3Interrupt
-                  0x0008c2                  _main
-                  0x000912                  ___delay32
+                  0x0008a8                  _main
+                  0x000938                  ___delay32
                   0x02affa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
@@ -194,7 +194,7 @@ External Symbols in Program Memory (by name):
                   0x0002e0                  __DefaultInterrupt
                   0x02affa                  __FGS.sec
                   0x000862                  __T3Interrupt
-                  0x000912                  ___delay32
+                  0x000938                  ___delay32
                   0x0002e8                  ___floatundisf
                   0x0002e4                  ___floatunsisf
                   0x000238                  __data_init
@@ -207,7 +207,7 @@ External Symbols in Program Memory (by name):
                   0x000736                  _display_tasks
                   0x0006be                  _display_time
                   0x0004ee                  _getADC
-                  0x0008c2                  _main
+                  0x0008a8                  _main
 
 Memory Configuration
 
@@ -323,26 +323,26 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1cc7
+.debug_info       0x000000       0x206b
  *(.debug_info)
- .debug_info      0x000000       0x1cc7 build/default/production/_ext/1344191749/display_new.o
+ .debug_info      0x000000       0x206b build/default/production/_ext/1344191749/display_new.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x1e3
+.debug_abbrev     0x000000        0x1d2
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x1e3 build/default/production/_ext/1344191749/display_new.o
+ .debug_abbrev    0x000000        0x1d2 build/default/production/_ext/1344191749/display_new.o
 
-.debug_line       0x000000        0x1e0
+.debug_line       0x000000        0x1f2
  *(.debug_line)
- .debug_line      0x000000        0x1e0 build/default/production/_ext/1344191749/display_new.o
+ .debug_line      0x000000        0x1f2 build/default/production/_ext/1344191749/display_new.o
 
 .debug_frame      0x000000        0x1e0
  *(.debug_frame)
  .debug_frame     0x000000        0x1e0 build/default/production/_ext/1344191749/display_new.o
 
-.debug_str        0x000000        0x106
+.debug_str        0x000000        0x117
  *(.debug_str)
- .debug_str       0x000000        0x106 build/default/production/_ext/1344191749/display_new.o
+ .debug_str       0x000000        0x117 build/default/production/_ext/1344191749/display_new.o
 
 .debug_loc
  *(.debug_loc)
@@ -1779,26 +1779,26 @@ LOAD data_init
 LOAD shared_data_init
 
 .debug_pubtypes
-                  0x000018        0x211
+                  0x000018        0x270
  .debug_pubtypes
-                  0x000018        0x211 build/default/production/_ext/1344191749/display_new.o
+                  0x000018        0x270 build/default/production/_ext/1344191749/display_new.o
 
 __c30_signature
-                  0x000229         0x2a
+                  0x000288         0x2a
  __c30_signature
-                  0x000229          0x6 build/default/production/_ext/1344191749/display_new.o
+                  0x000288          0x6 build/default/production/_ext/1344191749/display_new.o
  __c30_signature
-                  0x00022f          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                  0x00028e          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
-                  0x000235          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
+                  0x000294          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
  __c30_signature
-                  0x00023b          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x00029a          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
  __c30_signature
-                  0x000241          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
+                  0x0002a0          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
  __c30_signature
-                  0x000247          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
+                  0x0002a6          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
  __c30_signature
-                  0x00024d          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
+                  0x0002ac          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
 
 .nbss               0x1000         0x10
  .nbss              0x1000         0x10 build/default/production/_ext/1344191749/display_new.o
@@ -1850,8 +1850,8 @@ __c30_signature
 .const              0x8392         0x12 load address 0x000392  
  .const             0x8392         0x12 build/default/production/_ext/1344191749/display_new.o
 
-.text             0x0003a4        0x548
- .text            0x0003a4        0x548 build/default/production/_ext/1344191749/display_new.o
+.text             0x0003a4        0x56e
+ .text            0x0003a4        0x56e build/default/production/_ext/1344191749/display_new.o
                   0x0003a4                  _I2CStart
                   0x0003c2                  _I2CStop
                   0x0003e0                  _I2Csendbyte
@@ -1866,14 +1866,14 @@ __c30_signature
                   0x0006be                  _display_time
                   0x000736                  _display_tasks
                   0x000862                  __T3Interrupt
-                  0x0008c2                  _main
+                  0x0008a8                  _main
 
-.dinit            0x0008ec         0x26
- .dinit           0x0008ec         0x26 data_init
+.dinit            0x000912         0x26
+ .dinit           0x000912         0x26 data_init
 
-.init.delay32     0x000912         0x1c
- .init.delay32    0x000912         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                  0x000912                  ___delay32
+.init.delay32     0x000938         0x1c
+ .init.delay32    0x000938         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x000938                  ___delay32
 
-.shared.dinit     0x00092e          0x2
- .shared.dinit    0x00092e          0x2 shared_data_init
+.shared.dinit     0x000954          0x2
+ .shared.dinit    0x000954          0x2 shared_data_init
