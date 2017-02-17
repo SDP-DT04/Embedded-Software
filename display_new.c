@@ -11,8 +11,8 @@
 #include "functions.h"
 #include "xc.h"
 #include "stdbool.h"
-//#define FCY 60000000ULL
-#define FCY 8000000ULL
+#define FCY 60000000ULL
+//#define FCY 8000000ULL
 #include <libpic30.h>
 
 
@@ -113,8 +113,8 @@ void config_tasks()
         {
             i = 0;
             // config
-            I2C1BRG = 75; // for 8[MHz]
-            //I2C1BRG = 500; // for 60[MHz]
+            //I2C1BRG = 75; // for 8[MHz]
+            I2C1BRG = 500; // for 60[MHz]
          
             I2C1CONbits.I2CEN = 1;
             _config_state = SEND_START;
@@ -378,7 +378,7 @@ int main(void)
 {
 
     //RCONbits.SWDTEN = 0;
-    ConfigureClockSlow();
+    ConfigureClock();
     ANSELAbits.ANSA12=0;
     TRISCbits.TRISC13 = 0b1;
     __delay_ms(1000);
@@ -388,8 +388,8 @@ int main(void)
     _T1IP = 4;//interrupt setup
     TMR1 = 0;//set timer 1 to zero
     T1CON = 0x8030; //
-    //PR3 = 2343;//creates 10[ms] timer for 60[MHz]
-    PR1= 313; //creates 10[ms] timer for 8[MHz]
+    PR1 = 2360;//creates 10[ms] timer for 60[MHz]
+    //PR1= 313; //creates 10[ms] timer for 8[MHz]
     _T1IF = 0;
     _T1IE = 1;
     

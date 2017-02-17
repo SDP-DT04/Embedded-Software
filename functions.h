@@ -22,8 +22,8 @@ void ConfigureClockSlow(void);
 
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-//#define FCY 60000000ULL
-#define FCY 8000000ULL
+#define FCY 60000000ULL
+//#define FCY 8000000ULL
 #include <libpic30.h>
 
 #ifdef	__cplusplus

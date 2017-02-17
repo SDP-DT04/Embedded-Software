@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/display_new.c
+SOURCEFILES_QUOTED_IF_SPACED=RFID.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/display_new.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/display_new.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/RFID.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/RFID.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1344191749/display_new.o
+OBJECTFILES=${OBJECTDIR}/RFID.o
 
 # Source Files
-SOURCEFILES=../Embedded-Software/display_new.c
+SOURCEFILES=RFID.c
 
 
 CFLAGS=
@@ -88,20 +88,20 @@ MP_LINKER_FILE_OPTION=,--script=p33EP256MC506.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1344191749/display_new.o: ../Embedded-Software/display_new.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display_new.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display_new.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display_new.c  -o ${OBJECTDIR}/_ext/1344191749/display_new.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display_new.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display_new.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+${OBJECTDIR}/RFID.o: RFID.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/RFID.o.d 
+	@${RM} ${OBJECTDIR}/RFID.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  RFID.c  -o ${OBJECTDIR}/RFID.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/RFID.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/RFID.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
-${OBJECTDIR}/_ext/1344191749/display_new.o: ../Embedded-Software/display_new.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display_new.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display_new.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display_new.c  -o ${OBJECTDIR}/_ext/1344191749/display_new.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display_new.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display_new.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+${OBJECTDIR}/RFID.o: RFID.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/RFID.o.d 
+	@${RM} ${OBJECTDIR}/RFID.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  RFID.c  -o ${OBJECTDIR}/RFID.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/RFID.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/RFID.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
