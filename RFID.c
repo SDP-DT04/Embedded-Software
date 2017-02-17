@@ -16,7 +16,7 @@
 #include <libpic30.h>
 
 char ReceivedChar[16] = {"0000000000000000"};
-int i = 0, j = 0, k = 0, m = 0, n = 0;
+int i = 0, j = 0, k = 0, m = 0, n = 0, c=0;
 const int tagLen = 16;
 const int idLen = 13; //idLen = 13  because 12 data plus NULL
 const int kTags = 4; //total number of tags
@@ -24,8 +24,8 @@ char nTag[12];
 char oTag[12];
 char knownTags[12] = {"82003BE82372"};
 
-char newTag[16]; //idLen = 13  because 12 data plus NULL
-char tagData[12];
+char newTag[16]={"0000000000000000"}; //idLen = 13  because 12 data plus NULL
+char tagData[12]={"000000000000"};
 char test[12] = {"82003BE82372"};
 //test[0] = 0x02;
 //test[13] = 0x0D;
@@ -48,8 +48,10 @@ int main(void)
     U1STAbits.URXISEL = 0b11; //load 4 bytes in U1RXREG
     
     U1MODEbits.UARTEN = 1; //Enable UART
+    U1STAbits.UTXEN = 1;
     
     RPINR18bits.U1RXR = 0b0100111; //Set pin 46 (RP39) to U1RX pin
+    RPOR5bits.RP54R = 0b000001; //Set pin 50 (RP54) as U1TX pin
     PORTDbits.RD8 = 1;
     //LATDbits.LATD8 = 1;
     
@@ -107,17 +109,20 @@ int main(void)
                             newTag[m] = readByte;
                             m++;
                         }
-                        
                         for (n = 0; n<idLen; n++)
                         {
-                            tagData[n] = newTag[n+1];
+                            tagData[n] = newTag[n];
                         }
-
                         if (k == 16) //If we see ASCII 3, ETX, the tag is over
                         {
                             tag == false;
                         }
                         k++;
+//                        for(c=0,c<8,c++){
+//                            U1TXREG = tagData[c];
+                        }
+                        
+                                
                     }
                 }
             }
@@ -129,17 +134,13 @@ int main(void)
 
             else 
             {
-                int total = 0;
-                                
+                int total = 0;                               
                 total += checkTag(tagData, knownTags);
-                
-
                 if (total > 0) // If newTag matched any of the tag swe checked against, total will be 1
                 {
                     //LATDbits.LATD8 = 0;
                     PORTDbits.RD8 = 0;
                 }
-
                 else 
                 {
                     //LATDbits.LATD8 = 1;
@@ -147,7 +148,7 @@ int main(void)
                 }
             }
         }
-    }
+
 int checkTag(char nTag[12], char oTag[12])
 {
     for (i = 0; i < idLen; i++)

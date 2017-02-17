@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/Users/DT04/MPLABXProjects/Embedded-Software/display_new.c</file>
             <file>file:/C:/Users/DT04/MPLABXProjects/Embedded-Software/functions.h</file>
-            <file>file:/C:/Users/DT04/MPLABXProjects/Embedded-Software/config.h</file>
-            <file>file:/C:/Users/DT04/MPLABXProjects/Embedded-Software/timertest.c</file>
+            <file>file:/C:/Users/DT04/MPLABXProjects/Embedded-Software/newmainADCandI2c.c</file>
+            <file>file:/C:/Users/DT04/MPLABXProjects/Embedded-Software/RFID.c</file>
         </group>
     </open-files>
 </project-private>

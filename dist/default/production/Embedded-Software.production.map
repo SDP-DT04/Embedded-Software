@@ -15,7 +15,7 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC30F/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC33F/gld \
-  build/default/production/RFID.o \
+  build/default/production/RX_TX_Test.o \
   --local-stack \
   --defsym=__MPLAB_BUILD=1 \
   -Tp33EP256MC506.gld.00 \
@@ -49,9 +49,9 @@ c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
                               c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o) (__data_init_extended)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                              build/default/production/RFID.o (___delay32)
+                              build/default/production/RX_TX_Test.o (___delay32)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
-                              build/default/production/RFID.o (___floatunsisf)
+                              build/default/production/RX_TX_Test.o (___floatunsisf)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
                               c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo) (___floatundisf)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
@@ -81,23 +81,30 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x192           0x25b  (603)
 .const                       0x392                 0x6             0x9  (9)
-.text                        0x398               0x33c           0x4da  (1242)
-.dinit                       0x6d4                0x30            0x48  (72)
-.init.delay32                0x704                0x1c            0x2a  (42)
-.shared.dinit                0x720                 0x2             0x3  (3)
+.text                        0x398               0x2da           0x447  (1095)
+.dinit                       0x672                0x42            0x63  (99)
+.init.delay32                0x6b4                0x1c            0x2a  (42)
+.shared.dinit                0x6d0                 0x2             0x3  (3)
 
-                 Total program memory used (bytes):          0x7b3  (1971) <1%
+                 Total program memory used (bytes):          0x73b  (1851) <1%
+
+
+Ivt Memory  [Origin = 0x4, Length = 0x1fc]
+
+section                    address   length (PC units)   length (bytes) (dec)
+-------                    -------   -----------------   --------------------
+.ivt._U1RXInterrupt           0x2a                 0x2             0x3  (3)
 
 
 Data Memory  [Origin = 0x1000, Length = 0x8000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0             0xa  (10)
-.bss                        0x100a                   0            0x34  (52)
-.data                       0x103e                   0            0x28  (40)
+.nbss                       0x1000                   0            0x12  (18)
+.data                       0x1012                   0            0x44  (68)
+.bss                        0x1056                   0            0x18  (24)
 
-                 Total data memory used (bytes):           0x66  (102) <1%
+                 Total data memory used (bytes):           0x6e  (110) <1%
 
 
 Dynamic Memory Usage
@@ -105,40 +112,46 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1066                              0x6f9a  (28570)
+stack                       0x106e                              0x6f92  (28562)
 
-                 Maximum dynamic memory (bytes):         0x6f9a  (28570)
+                 Maximum dynamic memory (bytes):         0x6f92  (28562)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x1000                  _i
+                    0x1000                  _p
                     0x1002                  _j
                     0x1004                  _k
                     0x1006                  _m
                     0x1008                  _n
-                    0x100a                  _nTag
-                    0x1016                  _oTag
-                    0x1022                  _newTag
-                    0x1032                  _tagData
-                    0x103e                  _ReceivedChar
-                    0x104e                  _knownTags
-                    0x105a                  _test
+                    0x100a                  _c
+                    0x100c                  _success
+                    0x100e                  _byteRead
+                    0x1012                  _ReceivedChar
+                    0x1022                  _knownTags
+                    0x102e                  _newTag
+                    0x103e                  _tagData
+                    0x104a                  _test
+                    0x1056                  _nTag
+                    0x1062                  _oTag
 
 External Symbols in Data Memory (by name):
 
-                    0x103e                  _ReceivedChar
-                    0x1000                  _i
+                    0x1012                  _ReceivedChar
+                    0x100e                  _byteRead
+                    0x100a                  _c
                     0x1002                  _j
                     0x1004                  _k
-                    0x104e                  _knownTags
+                    0x1022                  _knownTags
                     0x1006                  _m
                     0x1008                  _n
-                    0x100a                  _nTag
-                    0x1022                  _newTag
-                    0x1016                  _oTag
-                    0x1032                  _tagData
-                    0x105a                  _test
+                    0x1056                  _nTag
+                    0x102e                  _newTag
+                    0x1062                  _oTag
+                    0x1000                  _p
+                    0x100c                  _success
+                    0x103e                  _tagData
+                    0x104a                  _test
 
 External Symbols in Program Memory (by address):
 
@@ -164,8 +177,8 @@ External Symbols in Program Memory (by address):
                   0x000510                  _ConfigureClock
                   0x00056e                  _ConfigureClockSlow
                   0x0005ce                  _main
-                  0x0006a0                  _checkTag
-                  0x000704                  ___delay32
+                  0x000610                  __U1RXInterrupt
+                  0x0006b4                  ___delay32
                   0x02affa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
@@ -180,7 +193,8 @@ External Symbols in Program Memory (by name):
                   0x0003d4                  _I2Csendbyte
                   0x0002e0                  __DefaultInterrupt
                   0x02affa                  __FGS.sec
-                  0x000704                  ___delay32
+                  0x000610                  __U1RXInterrupt
+                  0x0006b4                  ___delay32
                   0x0002e8                  ___floatundisf
                   0x0002e4                  ___floatunsisf
                   0x000238                  __data_init
@@ -188,7 +202,6 @@ External Symbols in Program Memory (by name):
                   0x000346                  __fpack
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0006a0                  _checkTag
                   0x0003fe                  _display
                   0x0004e2                  _getADC
                   0x000394                  _idLen
@@ -218,7 +231,7 @@ aivt             0x000000           0xffffffff
 
 Linker script and memory map
 
-LOAD build/default/production/RFID.o
+LOAD build/default/production/RX_TX_Test.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p33EP256MC506
 LOAD c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libfx-elf.a
@@ -310,26 +323,26 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1ad5
+.debug_info       0x000000       0x1f17
  *(.debug_info)
- .debug_info      0x000000       0x1ad5 build/default/production/RFID.o
+ .debug_info      0x000000       0x1f17 build/default/production/RX_TX_Test.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x1bb
+.debug_abbrev     0x000000        0x16a
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x1bb build/default/production/RFID.o
+ .debug_abbrev    0x000000        0x16a build/default/production/RX_TX_Test.o
 
-.debug_line       0x000000        0x15a
+.debug_line       0x000000        0x141
  *(.debug_line)
- .debug_line      0x000000        0x15a build/default/production/RFID.o
+ .debug_line      0x000000        0x141 build/default/production/RX_TX_Test.o
 
-.debug_frame      0x000000        0x164
+.debug_frame      0x000000        0x17a
  *(.debug_frame)
- .debug_frame     0x000000        0x164 build/default/production/RFID.o
+ .debug_frame     0x000000        0x17a build/default/production/RX_TX_Test.o
 
-.debug_str        0x000000         0xc4
+.debug_str        0x000000         0xd6
  *(.debug_str)
- .debug_str       0x000000         0xc4 build/default/production/RFID.o
+ .debug_str       0x000000         0xd6 build/default/production/RX_TX_Test.o
 
 .debug_loc
  *(.debug_loc)
@@ -338,10 +351,10 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x158
+                  0x000000        0x17d
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x158 build/default/production/RFID.o
+                  0x000000        0x17d build/default/production/RX_TX_Test.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -349,7 +362,7 @@ __FUID3
 .debug_aranges    0x000000         0x18
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/production/RFID.o
+                  0x000000         0x18 build/default/production/RX_TX_Test.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1766,74 +1779,82 @@ LOAD data_init
 LOAD shared_data_init
 
 .debug_pubtypes
-                  0x000018        0x207
+                  0x000018        0x260
  .debug_pubtypes
-                  0x000018        0x207 build/default/production/RFID.o
+                  0x000018        0x260 build/default/production/RX_TX_Test.o
 
 __c30_signature
-                  0x00021f         0x2a
+                  0x000278         0x2a
  __c30_signature
-                  0x00021f          0x6 build/default/production/RFID.o
+                  0x000278          0x6 build/default/production/RX_TX_Test.o
  __c30_signature
-                  0x000225          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                  0x00027e          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
-                  0x00022b          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
+                  0x000284          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
  __c30_signature
-                  0x000231          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x00028a          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
  __c30_signature
-                  0x000237          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
+                  0x000290          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
  __c30_signature
-                  0x00023d          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
+                  0x000296          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
  __c30_signature
-                  0x000243          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
+                  0x00029c          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
 
-.nbss               0x1000          0xa
- .nbss              0x1000          0xa build/default/production/RFID.o
-                    0x1000                  _i
+.nbss               0x1000         0x12
+ .nbss              0x1000         0x12 build/default/production/RX_TX_Test.o
+                    0x1000                  _p
                     0x1002                  _j
                     0x1004                  _k
                     0x1006                  _m
                     0x1008                  _n
+                    0x100a                  _c
+                    0x100c                  _success
+                    0x100e                  _byteRead
 
-.bss                0x100a         0x34
- .bss               0x100a         0x34 build/default/production/RFID.o
-                    0x100a                  _nTag
-                    0x1016                  _oTag
-                    0x1022                  _newTag
-                    0x1032                  _tagData
+.data               0x1012         0x44
+ .data              0x1012         0x44 build/default/production/RX_TX_Test.o
+                    0x1012                  _ReceivedChar
+                    0x1022                  _knownTags
+                    0x102e                  _newTag
+                    0x103e                  _tagData
+                    0x104a                  _test
 
-.data               0x103e         0x28
- .data              0x103e         0x28 build/default/production/RFID.o
-                    0x103e                  _ReceivedChar
-                    0x104e                  _knownTags
-                    0x105a                  _test
+.bss                0x1056         0x18
+ .bss               0x1056         0x18 build/default/production/RX_TX_Test.o
+                    0x1056                  _nTag
+                    0x1062                  _oTag
 
 .config_IESO      0x02aff8          0x2
- .config_IESO     0x02aff8          0x2 build/default/production/RFID.o
+ .config_IESO     0x02aff8          0x2 build/default/production/RX_TX_Test.o
 
 .config_FCKSM     0x02aff6          0x2
- .config_FCKSM    0x02aff6          0x2 build/default/production/RFID.o
+ .config_FCKSM    0x02aff6          0x2 build/default/production/RX_TX_Test.o
 
 .config_FWDTEN    0x02aff4          0x2
  .config_FWDTEN
-                  0x02aff4          0x2 build/default/production/RFID.o
+                  0x02aff4          0x2 build/default/production/RX_TX_Test.o
 
 .config_WDTWIN    0x02aff2          0x2
  .config_WDTWIN
-                  0x02aff2          0x2 build/default/production/RFID.o
+                  0x02aff2          0x2 build/default/production/RX_TX_Test.o
 
 .config_JTAGEN    0x02aff0          0x2
  .config_JTAGEN
-                  0x02aff0          0x2 build/default/production/RFID.o
+                  0x02aff0          0x2 build/default/production/RX_TX_Test.o
+
+.ivt._U1RXInterrupt
+                  0x00002a          0x2
+ .ivt._U1RXInterrupt
+                  0x00002a          0x2 build/default/production/RX_TX_Test.o
 
 .const              0x8392          0x6 load address 0x000392  
- .const             0x8392          0x6 build/default/production/RFID.o
+ .const             0x8392          0x6 build/default/production/RX_TX_Test.o
                     0x8392                  _tagLen
                     0x8394                  _idLen
                     0x8396                  _kTags
 
-.text             0x000398        0x33c
- .text            0x000398        0x33c build/default/production/RFID.o
+.text             0x000398        0x2da
+ .text            0x000398        0x2da build/default/production/RX_TX_Test.o
                   0x000398                  _I2CStart
                   0x0003b6                  _I2CStop
                   0x0003d4                  _I2Csendbyte
@@ -1845,14 +1866,14 @@ __c30_signature
                   0x000510                  _ConfigureClock
                   0x00056e                  _ConfigureClockSlow
                   0x0005ce                  _main
-                  0x0006a0                  _checkTag
+                  0x000610                  __U1RXInterrupt
 
-.dinit            0x0006d4         0x30
- .dinit           0x0006d4         0x30 data_init
+.dinit            0x000672         0x42
+ .dinit           0x000672         0x42 data_init
 
-.init.delay32     0x000704         0x1c
- .init.delay32    0x000704         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                  0x000704                  ___delay32
+.init.delay32     0x0006b4         0x1c
+ .init.delay32    0x0006b4         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x0006b4                  ___delay32
 
-.shared.dinit     0x000720          0x2
- .shared.dinit    0x000720          0x2 shared_data_init
+.shared.dinit     0x0006d0          0x2
+ .shared.dinit    0x0006d0          0x2 shared_data_init
