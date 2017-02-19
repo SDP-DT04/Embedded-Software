@@ -99,6 +99,11 @@ void __attribute__((__interrupt__)) _U1RXInterrupt(void)
         newTag[i]=byteRead;
         i++;
     }
+//    if(i>15){
+//        i=0;
+//    }else{
+//        
+//    }
 
     IFS0bits.U1RXIF = 0;    //Clear Flag
 }
