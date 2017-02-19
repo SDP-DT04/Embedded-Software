@@ -15,7 +15,7 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC30F/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC33F/gld \
-  build/default/production/RX_TX_Test.o \
+  build/default/production/_ext/1344191749/main.o \
   --local-stack \
   --defsym=__MPLAB_BUILD=1 \
   -Tp33EP256MC506.gld.00 \
@@ -49,9 +49,9 @@ c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
                               c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o) (__data_init_extended)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                              build/default/production/RX_TX_Test.o (___delay32)
+                              build/default/production/_ext/1344191749/main.o (___delay32)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
-                              build/default/production/RX_TX_Test.o (___floatunsisf)
+                              build/default/production/_ext/1344191749/main.o (___floatunsisf)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
                               c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo) (___floatundisf)
 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
@@ -80,19 +80,20 @@ Program Memory  [Origin = 0x200, Length = 0x2adec]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x192           0x25b  (603)
-.const                       0x392                 0x6             0x9  (9)
-.text                        0x398               0x2da           0x447  (1095)
-.dinit                       0x672                0x42            0x63  (99)
-.init.delay32                0x6b4                0x1c            0x2a  (42)
-.shared.dinit                0x6d0                 0x2             0x3  (3)
+.const                       0x392                0x18            0x24  (36)
+.text                        0x3aa               0x62a           0x93f  (2367)
+.dinit                       0x9d4                0x58            0x84  (132)
+.init.delay32                0xa2c                0x1c            0x2a  (42)
+.shared.dinit                0xa48                 0x2             0x3  (3)
 
-                 Total program memory used (bytes):          0x73b  (1851) <1%
+                 Total program memory used (bytes):          0xc6f  (3183) 1%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0x1fc]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
+.ivt._T1Interrupt             0x1a                 0x2             0x3  (3)
 .ivt._U1RXInterrupt           0x2a                 0x2             0x3  (3)
 
 
@@ -100,11 +101,12 @@ Data Memory  [Origin = 0x1000, Length = 0x8000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0            0x12  (18)
-.data                       0x1012                   0            0x44  (68)
-.bss                        0x1056                   0            0x18  (24)
+.nbss                       0x1000                   0            0x22  (34)
+.ndata                      0x1022                   0             0x2  (2)
+.data                       0x1024                   0            0x5a  (90)
+.bss                        0x107e                   0            0x18  (24)
 
-                 Total data memory used (bytes):           0x6e  (110) <1%
+                 Total data memory used (bytes):           0x96  (150) <1%
 
 
 Dynamic Memory Usage
@@ -112,9 +114,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x106e                              0x6f92  (28562)
+stack                       0x1096                              0x6f6a  (28522)
 
-                 Maximum dynamic memory (bytes):         0x6f92  (28562)
+                 Maximum dynamic memory (bytes):         0x6f6a  (28522)
 
 
 External Symbols in Data Memory (by address):
@@ -127,31 +129,61 @@ External Symbols in Data Memory (by address):
                     0x100a                  _c
                     0x100c                  _success
                     0x100e                  _byteRead
-                    0x1012                  _ReceivedChar
-                    0x1022                  _knownTags
-                    0x102e                  _newTag
-                    0x103e                  _tagData
-                    0x104a                  _test
-                    0x1056                  _nTag
-                    0x1062                  _oTag
+                    0x1010                  _display_commands
+                    0x1012                  _i
+                    0x1013                  _data
+                    0x1014                  _Start
+                    0x1016                  __display_state
+                    0x1018                  __config_state
+                    0x101a                  _new_data
+                    0x101b                  _displaying
+                    0x101c                  _error_counter
+                    0x101e                  _dSec
+                    0x1022                  _resend
+                    0x1024                  _ReceivedChar
+                    0x1034                  _knownTags
+                    0x1040                  _newTag
+                    0x1050                  _tagData
+                    0x105c                  _test
+                    0x1068                  _beef_commands
+                    0x106e                  _nums
+                    0x1074                  _lee_commands
+                    0x107a                  _config_commands
+                    0x107e                  _nTag
+                    0x108a                  _oTag
 
 External Symbols in Data Memory (by name):
 
-                    0x1012                  _ReceivedChar
+                    0x1024                  _ReceivedChar
+                    0x1014                  _Start
+                    0x1018                  __config_state
+                    0x1016                  __display_state
+                    0x1068                  _beef_commands
                     0x100e                  _byteRead
                     0x100a                  _c
+                    0x107a                  _config_commands
+                    0x101e                  _dSec
+                    0x1013                  _data
+                    0x1010                  _display_commands
+                    0x101b                  _displaying
+                    0x101c                  _error_counter
+                    0x1012                  _i
                     0x1002                  _j
                     0x1004                  _k
-                    0x1022                  _knownTags
+                    0x1034                  _knownTags
+                    0x1074                  _lee_commands
                     0x1006                  _m
                     0x1008                  _n
-                    0x1056                  _nTag
-                    0x102e                  _newTag
-                    0x1062                  _oTag
+                    0x107e                  _nTag
+                    0x1040                  _newTag
+                    0x101a                  _new_data
+                    0x106e                  _nums
+                    0x108a                  _oTag
                     0x1000                  _p
+                    0x1022                  _resend
                     0x100c                  _success
-                    0x103e                  _tagData
-                    0x104a                  _test
+                    0x1050                  _tagData
+                    0x105c                  _test
 
 External Symbols in Program Memory (by address):
 
@@ -166,35 +198,40 @@ External Symbols in Program Memory (by address):
                   0x000392                  _tagLen
                   0x000394                  _idLen
                   0x000396                  _kTags
-                  0x000398                  _I2CStart
-                  0x0003b6                  _I2CStop
-                  0x0003d4                  _I2Csendbyte
-                  0x0003f0                  _I2Cinit
-                  0x0003fe                  _display
-                  0x000468                  _ConfigureModuleADC
-                  0x0004b8                  _ChangeChannelADC
-                  0x0004e2                  _getADC
-                  0x000510                  _ConfigureClock
-                  0x00056e                  _ConfigureClockSlow
-                  0x0005ce                  _main
-                  0x000610                  __U1RXInterrupt
-                  0x0006b4                  ___delay32
+                  0x0003aa                  _I2CStart
+                  0x0003c8                  _I2CStop
+                  0x0003e6                  _I2Csendbyte
+                  0x000402                  _I2Cinit
+                  0x000410                  _display
+                  0x00047a                  _ConfigureModuleADC
+                  0x0004ca                  _ChangeChannelADC
+                  0x0004f4                  _getADC
+                  0x000522                  _ConfigureClock
+                  0x000580                  _ConfigureClockSlow
+                  0x0005e0                  _config_tasks
+                  0x0006c4                  _display_time
+                  0x00073c                  _display_tasks
+                  0x000868                  __T1Interrupt
+                  0x000908                  _main
+                  0x000972                  __U1RXInterrupt
+                  0x000a2c                  ___delay32
                   0x02affa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x0004b8                  _ChangeChannelADC
-                  0x000510                  _ConfigureClock
-                  0x00056e                  _ConfigureClockSlow
-                  0x000468                  _ConfigureModuleADC
-                  0x000398                  _I2CStart
-                  0x0003b6                  _I2CStop
-                  0x0003f0                  _I2Cinit
-                  0x0003d4                  _I2Csendbyte
+                  0x0004ca                  _ChangeChannelADC
+                  0x000522                  _ConfigureClock
+                  0x000580                  _ConfigureClockSlow
+                  0x00047a                  _ConfigureModuleADC
+                  0x0003aa                  _I2CStart
+                  0x0003c8                  _I2CStop
+                  0x000402                  _I2Cinit
+                  0x0003e6                  _I2Csendbyte
                   0x0002e0                  __DefaultInterrupt
                   0x02affa                  __FGS.sec
-                  0x000610                  __U1RXInterrupt
-                  0x0006b4                  ___delay32
+                  0x000868                  __T1Interrupt
+                  0x000972                  __U1RXInterrupt
+                  0x000a2c                  ___delay32
                   0x0002e8                  ___floatundisf
                   0x0002e4                  ___floatunsisf
                   0x000238                  __data_init
@@ -202,11 +239,14 @@ External Symbols in Program Memory (by name):
                   0x000346                  __fpack
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0003fe                  _display
-                  0x0004e2                  _getADC
+                  0x0005e0                  _config_tasks
+                  0x000410                  _display
+                  0x00073c                  _display_tasks
+                  0x0006c4                  _display_time
+                  0x0004f4                  _getADC
                   0x000394                  _idLen
                   0x000396                  _kTags
-                  0x0005ce                  _main
+                  0x000908                  _main
                   0x000392                  _tagLen
 
 Memory Configuration
@@ -231,7 +271,7 @@ aivt             0x000000           0xffffffff
 
 Linker script and memory map
 
-LOAD build/default/production/RX_TX_Test.o
+LOAD build/default/production/_ext/1344191749/main.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p33EP256MC506
 LOAD c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libfx-elf.a
@@ -323,26 +363,26 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1f17
+.debug_info       0x000000       0x2b14
  *(.debug_info)
- .debug_info      0x000000       0x1f17 build/default/production/RX_TX_Test.o
+ .debug_info      0x000000       0x2b14 build/default/production/_ext/1344191749/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x16a
+.debug_abbrev     0x000000        0x209
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x16a build/default/production/RX_TX_Test.o
+ .debug_abbrev    0x000000        0x209 build/default/production/_ext/1344191749/main.o
 
-.debug_line       0x000000        0x141
+.debug_line       0x000000        0x204
  *(.debug_line)
- .debug_line      0x000000        0x141 build/default/production/RX_TX_Test.o
+ .debug_line      0x000000        0x204 build/default/production/_ext/1344191749/main.o
 
-.debug_frame      0x000000        0x17a
+.debug_frame      0x000000        0x212
  *(.debug_frame)
- .debug_frame     0x000000        0x17a build/default/production/RX_TX_Test.o
+ .debug_frame     0x000000        0x212 build/default/production/_ext/1344191749/main.o
 
-.debug_str        0x000000         0xd6
+.debug_str        0x000000        0x177
  *(.debug_str)
- .debug_str       0x000000         0xd6 build/default/production/RX_TX_Test.o
+ .debug_str       0x000000        0x177 build/default/production/_ext/1344191749/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -351,10 +391,10 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x17d
+                  0x000000        0x297
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x17d build/default/production/RX_TX_Test.o
+                  0x000000        0x297 build/default/production/_ext/1344191749/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -362,7 +402,7 @@ __FUID3
 .debug_aranges    0x000000         0x18
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/production/RX_TX_Test.o
+                  0x000000         0x18 build/default/production/_ext/1344191749/main.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1779,29 +1819,29 @@ LOAD data_init
 LOAD shared_data_init
 
 .debug_pubtypes
-                  0x000018        0x260
+                  0x000018        0x34f
  .debug_pubtypes
-                  0x000018        0x260 build/default/production/RX_TX_Test.o
+                  0x000018        0x34f build/default/production/_ext/1344191749/main.o
 
 __c30_signature
-                  0x000278         0x2a
+                  0x000367         0x2a
  __c30_signature
-                  0x000278          0x6 build/default/production/RX_TX_Test.o
+                  0x000367          0x6 build/default/production/_ext/1344191749/main.o
  __c30_signature
-                  0x00027e          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                  0x00036d          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
-                  0x000284          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
+                  0x000373          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
  __c30_signature
-                  0x00028a          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x000379          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
  __c30_signature
-                  0x000290          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
+                  0x00037f          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
  __c30_signature
-                  0x000296          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
+                  0x000385          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
  __c30_signature
-                  0x00029c          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
+                  0x00038b          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
 
-.nbss               0x1000         0x12
- .nbss              0x1000         0x12 build/default/production/RX_TX_Test.o
+.nbss               0x1000         0x22
+ .nbss              0x1000         0x22 build/default/production/_ext/1344191749/main.o
                     0x1000                  _p
                     0x1002                  _j
                     0x1004                  _k
@@ -1810,70 +1850,97 @@ __c30_signature
                     0x100a                  _c
                     0x100c                  _success
                     0x100e                  _byteRead
+                    0x1010                  _display_commands
+                    0x1012                  _i
+                    0x1013                  _data
+                    0x1014                  _Start
+                    0x1016                  __display_state
+                    0x1018                  __config_state
+                    0x101a                  _new_data
+                    0x101b                  _displaying
+                    0x101c                  _error_counter
+                    0x101e                  _dSec
 
-.data               0x1012         0x44
- .data              0x1012         0x44 build/default/production/RX_TX_Test.o
-                    0x1012                  _ReceivedChar
-                    0x1022                  _knownTags
-                    0x102e                  _newTag
-                    0x103e                  _tagData
-                    0x104a                  _test
+.ndata              0x1022          0x2
+ .ndata             0x1022          0x2 build/default/production/_ext/1344191749/main.o
+                    0x1022                  _resend
 
-.bss                0x1056         0x18
- .bss               0x1056         0x18 build/default/production/RX_TX_Test.o
-                    0x1056                  _nTag
-                    0x1062                  _oTag
+.data               0x1024         0x5a
+ .data              0x1024         0x5a build/default/production/_ext/1344191749/main.o
+                    0x1024                  _ReceivedChar
+                    0x1034                  _knownTags
+                    0x1040                  _newTag
+                    0x1050                  _tagData
+                    0x105c                  _test
+                    0x1068                  _beef_commands
+                    0x106e                  _nums
+                    0x1074                  _lee_commands
+                    0x107a                  _config_commands
+
+.bss                0x107e         0x18
+ .bss               0x107e         0x18 build/default/production/_ext/1344191749/main.o
+                    0x107e                  _nTag
+                    0x108a                  _oTag
 
 .config_IESO      0x02aff8          0x2
- .config_IESO     0x02aff8          0x2 build/default/production/RX_TX_Test.o
+ .config_IESO     0x02aff8          0x2 build/default/production/_ext/1344191749/main.o
 
 .config_FCKSM     0x02aff6          0x2
- .config_FCKSM    0x02aff6          0x2 build/default/production/RX_TX_Test.o
+ .config_FCKSM    0x02aff6          0x2 build/default/production/_ext/1344191749/main.o
 
 .config_FWDTEN    0x02aff4          0x2
  .config_FWDTEN
-                  0x02aff4          0x2 build/default/production/RX_TX_Test.o
+                  0x02aff4          0x2 build/default/production/_ext/1344191749/main.o
 
 .config_WDTWIN    0x02aff2          0x2
  .config_WDTWIN
-                  0x02aff2          0x2 build/default/production/RX_TX_Test.o
+                  0x02aff2          0x2 build/default/production/_ext/1344191749/main.o
 
 .config_JTAGEN    0x02aff0          0x2
  .config_JTAGEN
-                  0x02aff0          0x2 build/default/production/RX_TX_Test.o
+                  0x02aff0          0x2 build/default/production/_ext/1344191749/main.o
+
+.ivt._T1Interrupt
+                  0x00001a          0x2
+ .ivt._T1Interrupt
+                  0x00001a          0x2 build/default/production/_ext/1344191749/main.o
 
 .ivt._U1RXInterrupt
                   0x00002a          0x2
  .ivt._U1RXInterrupt
-                  0x00002a          0x2 build/default/production/RX_TX_Test.o
+                  0x00002a          0x2 build/default/production/_ext/1344191749/main.o
 
-.const              0x8392          0x6 load address 0x000392  
- .const             0x8392          0x6 build/default/production/RX_TX_Test.o
+.const              0x8392         0x18 load address 0x000392  
+ .const             0x8392         0x18 build/default/production/_ext/1344191749/main.o
                     0x8392                  _tagLen
                     0x8394                  _idLen
                     0x8396                  _kTags
 
-.text             0x000398        0x2da
- .text            0x000398        0x2da build/default/production/RX_TX_Test.o
-                  0x000398                  _I2CStart
-                  0x0003b6                  _I2CStop
-                  0x0003d4                  _I2Csendbyte
-                  0x0003f0                  _I2Cinit
-                  0x0003fe                  _display
-                  0x000468                  _ConfigureModuleADC
-                  0x0004b8                  _ChangeChannelADC
-                  0x0004e2                  _getADC
-                  0x000510                  _ConfigureClock
-                  0x00056e                  _ConfigureClockSlow
-                  0x0005ce                  _main
-                  0x000610                  __U1RXInterrupt
+.text             0x0003aa        0x62a
+ .text            0x0003aa        0x62a build/default/production/_ext/1344191749/main.o
+                  0x0003aa                  _I2CStart
+                  0x0003c8                  _I2CStop
+                  0x0003e6                  _I2Csendbyte
+                  0x000402                  _I2Cinit
+                  0x000410                  _display
+                  0x00047a                  _ConfigureModuleADC
+                  0x0004ca                  _ChangeChannelADC
+                  0x0004f4                  _getADC
+                  0x000522                  _ConfigureClock
+                  0x000580                  _ConfigureClockSlow
+                  0x0005e0                  _config_tasks
+                  0x0006c4                  _display_time
+                  0x00073c                  _display_tasks
+                  0x000868                  __T1Interrupt
+                  0x000908                  _main
+                  0x000972                  __U1RXInterrupt
 
-.dinit            0x000672         0x42
- .dinit           0x000672         0x42 data_init
+.dinit            0x0009d4         0x58
+ .dinit           0x0009d4         0x58 data_init
 
-.init.delay32     0x0006b4         0x1c
- .init.delay32    0x0006b4         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                  0x0006b4                  ___delay32
+.init.delay32     0x000a2c         0x1c
+ .init.delay32    0x000a2c         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x000a2c                  ___delay32
 
-.shared.dinit     0x0006d0          0x2
- .shared.dinit    0x0006d0          0x2 shared_data_init
+.shared.dinit     0x000a48          0x2
+ .shared.dinit    0x000a48          0x2 shared_data_init

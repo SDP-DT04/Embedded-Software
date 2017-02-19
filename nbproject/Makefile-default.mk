@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=RX_TX_Test.c
+SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/main.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/RX_TX_Test.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/RX_TX_Test.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/main.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/RX_TX_Test.o
+OBJECTFILES=${OBJECTDIR}/_ext/1344191749/main.o
 
 # Source Files
-SOURCEFILES=RX_TX_Test.c
+SOURCEFILES=../Embedded-Software/main.c
 
 
 CFLAGS=
@@ -88,20 +88,20 @@ MP_LINKER_FILE_OPTION=,--script=p33EP256MC506.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/RX_TX_Test.o: RX_TX_Test.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/RX_TX_Test.o.d 
-	@${RM} ${OBJECTDIR}/RX_TX_Test.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  RX_TX_Test.c  -o ${OBJECTDIR}/RX_TX_Test.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/RX_TX_Test.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/RX_TX_Test.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+${OBJECTDIR}/_ext/1344191749/main.o: ../Embedded-Software/main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
+	@${RM} ${OBJECTDIR}/_ext/1344191749/main.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1344191749/main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/main.c  -o ${OBJECTDIR}/_ext/1344191749/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
-${OBJECTDIR}/RX_TX_Test.o: RX_TX_Test.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/RX_TX_Test.o.d 
-	@${RM} ${OBJECTDIR}/RX_TX_Test.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  RX_TX_Test.c  -o ${OBJECTDIR}/RX_TX_Test.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/RX_TX_Test.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/RX_TX_Test.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+${OBJECTDIR}/_ext/1344191749/main.o: ../Embedded-Software/main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
+	@${RM} ${OBJECTDIR}/_ext/1344191749/main.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1344191749/main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/main.c  -o ${OBJECTDIR}/_ext/1344191749/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/main.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

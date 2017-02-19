@@ -19,7 +19,6 @@
       <itemPath>../Embedded-Software/TestI2C.c</itemPath>
       <itemPath>../Embedded-Software/display.c</itemPath>
       <itemPath>../Embedded-Software/display_new.c</itemPath>
-      <itemPath>../Embedded-Software/main1.c</itemPath>
       <itemPath>../Embedded-Software/newmainADCandI2c.c</itemPath>
       <itemPath>../Embedded-Software/timertest.c</itemPath>
       <itemPath>XBEE_Test.c</itemPath>
@@ -28,6 +27,7 @@
       <itemPath>../Embedded-Software/UART test.c</itemPath>
       <itemPath>TXTest.c</itemPath>
       <itemPath>RX_TX_Test.c</itemPath>
+      <itemPath>../Embedded-Software/main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -145,7 +145,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../Embedded-Software/main1.c" ex="true" overriding="false">
+      <item path="../Embedded-Software/main.c" ex="false" overriding="false">
         <C30>
         </C30>
         <C30-AR>
@@ -315,6 +315,7 @@
         <property key="UART 1" value="true"/>
         <property key="UART 2" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>
@@ -426,6 +427,8 @@
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
       <item path="RFID.c" ex="true" overriding="false">
+      </item>
+      <item path="RX_TX_Test.c" ex="true" overriding="false">
       </item>
       <Simulator>
         <property key="codecoverage.enabled" value="Disable"/>

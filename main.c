@@ -335,89 +335,75 @@ int error_counter = 0;
 int dSec = 0;
 void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
 {
-//    if(dSec<9999)
-//        dSec++;
-//    else
-//        dSec = 0;
-//    
-//    if (!displaying)
-//    {
-//        display_time(dSec);
-//        error_counter = 0; 
-//    }
-//    else
-//        error_counter++; 
-//    
-//    if (error_counter > 5)
-//    {
-//        _display_state = SEND_STOP_D; 
-//    }
-    
-    if(Start == false)
-        {
-            if(PORTCbits.RC13 == 1)
-            {
-                Start = true;
-                TMR1=0;
-                dSec=0;
-            }
-        }
-    
-        else if(Start == true)
-        {
-            if(PORTCbits.RC13 == 0)
-            {
-                Start = false;
-                TMR1=0;
-            }
-            else{}    
-        }
-    
     if (Start == false)
-    {}
-    else if (Start == true)
     {
-        dSec++;
-        display_time(dSec);
+        if (PORTCbits.RC13 == 1)
+        {
+            Start = true;
+            TMR1=0;
+            dSec=0;
+        }
+        
+        else if (PORTCbits.RC13 == 0)
+        {}
     }
     
-    
-    _T1IF = 0;//clear  the  flag
-
+    else if(Start == true)
+    {
+        if (PORTCbits.RC13 == 1)
+        {
+            if (dSec<9999)
+            {dSec++;}
+            else 
+            {dSec = 0;}
+            
+            if (!displaying)
+            {
+                display_time(dSec);
+                error_counter = 0; 
+            }
+            else
+            {error_counter++;}
+                
+            if (error_counter > 5)
+            {_display_state = SEND_STOP_D;}
+        }
+        
+        else if (PORTCbits.RC13 == 0)
+        {
+        Start = false;
+        TMR1=0;
+        }
+    }
+ _T1IF = 0;//clear  the  flag
 }
 
 int main(void)
 {
-
-    //RCONbits.SWDTEN = 0;
-    ConfigureClock();
-    TRISAbits.TRISA0 = 0;
-    TRISDbits.TRISD8 = 0;
-    ANSELAbits.ANSA12=0;
-    TRISCbits.TRISC13 = 0b1;
+    ConfigureClock(); //Configure Clock to 60[MHz]
+    TRISAbits.TRISA0 = 0; //Set pin 13 (RA0) as output
+    TRISDbits.TRISD8 = 0; //Set pin 42 (RD8) as output
+    ANSELAbits.ANSA12=0; //Set pin 11 (RA12) as digital pin
+    TRISCbits.TRISC13 = 0b1; //Set pin 47 (RC13) as input
     U1MODEbits.STSEL = 0; //1-stop bit
     U1MODEbits.PDSEL = 0; //No parity, 8-bit data
     U1MODEbits.ABAUD = 0; //Auto baud rate is disabled
     U1MODEbits.BRGH = 0; //Standard baud rate
-
-    U1BRG = 390; //set baud rate register
+    U1BRG = 390; //Set baud rate register
     U1MODEbits.UARTEN = 1; //Enable UART
     IEC0bits.U1RXIE = 1; //Enable RX UART interrupt 
     U1STAbits.UTXEN = 1;//Set TX to Enable
-    U1STAbits.URXISEL = 0b00; //load 1 bytes in U1RXREG
+    U1STAbits.URXISEL = 0b00; //Load 1 bytes in U1RXREG
     
     RPINR18bits.U1RXR = 0b0100111; //Set pin 46 (RP39) to U1RX pin
     RPOR5bits.RP54R = 0b000001; //Set pin 50 (RP54) as U1TX pin
-    
-    PORTDbits.RD8 = 1; //Set Pin high for led
-    
+    PORTDbits.RD8 = 1; //Set pin 42 (RD8) high for LED
     __delay_ms(1000);
     new_data = false; 
-    SRbits.IPL = 0b000;
-  
-    _T1IP = 4;//interrupt setup
-    TMR1 = 0;//set timer 1 to zero
-    T1CON = 0x8030; //
+    
+    _T1IP = 4; //Interrupt setup
+    TMR1 = 0; //Set timer 1 to zero
+    T1CON = 0x8030; //Enable timer 1 and ser prescalar to 256 
     PR1 = 2360;//creates 10[ms] timer for 60[MHz]
     //PR1= 313; //creates 10[ms] timer for 8[MHz]
     _T1IF = 0;
@@ -434,19 +420,14 @@ int main(void)
 void __attribute__((__interrupt__)) _U1RXInterrupt(void)
 {
     static int i=0;
-    while(U1STAbits.URXDA){
+    while(U1STAbits.URXDA)
+    {
         byteRead=U1RXREG;       //Read in data from register
-        while(!U1STAbits.TRMT); //wait till able to transmit 
+        while(!U1STAbits.TRMT); //Wait until able to transmit 
         U1TXREG=byteRead;       //Transmit
-        while(!U1STAbits.TRMT); //wait till able to transmit 
+        while(!U1STAbits.TRMT); //Wait until able to transmit 
         newTag[i]=byteRead;
         i++;
     }
-//    if(i>15){
-//        i=0;
-//    }else{
-//        
-//    }
-
     IFS0bits.U1RXIF = 0;    //Clear Flag
 }
