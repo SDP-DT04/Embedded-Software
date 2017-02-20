@@ -28,6 +28,9 @@
       <itemPath>TXTest.c</itemPath>
       <itemPath>RX_TX_Test.c</itemPath>
       <itemPath>../Embedded-Software/main.c</itemPath>
+      <itemPath>accelData.c</itemPath>
+      <itemPath>accelData.h</itemPath>
+      <itemPath>display.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -121,7 +124,7 @@
         <C30Global>
         </C30Global>
       </item>
-      <item path="../Embedded-Software/display.c" ex="true" overriding="false">
+      <item path="../Embedded-Software/display.c" ex="false" overriding="false">
         <C30>
         </C30>
         <C30-AR>
@@ -427,8 +430,28 @@
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
       <item path="RFID.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AR>
+        </C30-AR>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
       </item>
       <item path="RX_TX_Test.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AR>
+        </C30-AR>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
       </item>
       <Simulator>
         <property key="codecoverage.enabled" value="Disable"/>
@@ -737,6 +760,16 @@
         <property key="warningmessagebreakoptions.warningmessages" value="holdstate"/>
       </Simulator>
       <item path="TXTest.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AR>
+        </C30-AR>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
       </item>
       <item path="XBEE_Test.c" ex="true" overriding="false">
         <C30>
