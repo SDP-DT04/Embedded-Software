@@ -17,7 +17,7 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/_ext/1344191749/display.o \
   build/default/production/_ext/1344191749/main.o \
-  build/default/production/accelData.o \
+  build/default/production/XBEE.o \
   --local-stack \
   --defsym=__MPLAB_BUILD=1 \
   -Tp33EP256MC506.gld.00 \
@@ -83,12 +83,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x192           0x25b  (603)
 .const                       0x392                0x18            0x24  (36)
-.dinit                       0x3aa               0x948           0xdec  (3564)
-.text                        0xcf2               0x628           0x93c  (2364)
-.init.delay32               0x131a                0x1c            0x2a  (42)
-.shared.dinit               0x1336                 0x2             0x3  (3)
+.text                        0x3aa               0x666           0x999  (2457)
+.dinit                       0xa10                0x9a            0xe7  (231)
+.text                        0xaaa                0x4e            0x75  (117)
+.init.delay32                0xaf8                0x1c            0x2a  (42)
+.shared.dinit                0xb14                 0x2             0x3  (3)
 
-                 Total program memory used (bytes):         0x19d4  (6612) 2%
+                 Total program memory used (bytes):          0xda1  (3489) 1%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0x1fc]
@@ -103,13 +104,14 @@ Data Memory  [Origin = 0x1000, Length = 0x8000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0            0x22  (34)
-.ndata                      0x1022                   0             0x2  (2)
-.data                       0x1024                   0           0xd8e  (3470)
-.bss                        0x1db2                   0            0x18  (24)
-.data                       0x1dca                   0            0x16  (22)
+.nbss                       0x1000                   0            0x26  (38)
+.ndata                      0x1026                   0             0x4  (4)
+.bss                        0x102a                   0            0xac  (172)
+.data                       0x10d6                   0            0x6a  (106)
+.bss                        0x1140                   0            0x18  (24)
+.data                       0x1158                   0            0x16  (22)
 
-                 Total data memory used (bytes):          0xde0  (3552) 10%
+                 Total data memory used (bytes):          0x16e  (366) 1%
 
 
 Dynamic Memory Usage
@@ -117,9 +119,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1de0                              0x6220  (25120)
+stack                       0x116e                              0x6e92  (28306)
 
-                 Maximum dynamic memory (bytes):         0x6220  (25120)
+                 Maximum dynamic memory (bytes):         0x6e92  (28306)
 
 
 External Symbols in Data Memory (by address):
@@ -133,7 +135,6 @@ External Symbols in Data Memory (by address):
                     0x100c                  _success
                     0x100e                  _byteRead
                     0x1012                  _display_commands
-                    0x1014                  _i
                     0x1015                  _data
                     0x1016                  _Start
                     0x1018                  __display_state
@@ -142,60 +143,71 @@ External Symbols in Data Memory (by address):
                     0x101d                  _displaying
                     0x101e                  _error_counter
                     0x1020                  _dSec
-                    0x1022                  _resend
-                    0x1024                  _accel_data
-                    0x1d6e                  _ReceivedChar
-                    0x1d7e                  _knownTags
-                    0x1d8a                  _newTag
-                    0x1d9a                  _tagData
-                    0x1da6                  _test
-                    0x1db2                  _nTag
-                    0x1dbe                  _oTag
-                    0x1dca                  _beef_commands
-                    0x1dd0                  _nums
-                    0x1dd6                  _lee_commands
-                    0x1ddc                  _config_commands
+                    0x1022                  __xbee_state
+                    0x1026                  _resend
+                    0x1028                  _xbee_new_data
+                    0x102a                  _RFID_XBEE
+                    0x104c                  _weight_XBEE
+                    0x1060                  _accel_XBEE
+                    0x10d6                  _ReceivedChar
+                    0x10e6                  _knownTags
+                    0x10f2                  _newTag
+                    0x1102                  _tagData
+                    0x110e                  _test
+                    0x111a                  _initialize_XBEE
+                    0x112d                  _done_XBEE
+                    0x1140                  _nTag
+                    0x114c                  _oTag
+                    0x1158                  _beef_commands
+                    0x115e                  _nums
+                    0x1164                  _lee_commands
+                    0x116a                  _config_commands
 
 External Symbols in Data Memory (by name):
 
-                    0x1d6e                  _ReceivedChar
+                    0x102a                  _RFID_XBEE
+                    0x10d6                  _ReceivedChar
                     0x1016                  _Start
                     0x101a                  __config_state
                     0x1018                  __display_state
-                    0x1024                  _accel_data
-                    0x1dca                  _beef_commands
+                    0x1022                  __xbee_state
+                    0x1060                  _accel_XBEE
+                    0x1158                  _beef_commands
                     0x100e                  _byteRead
                     0x100a                  _c
-                    0x1ddc                  _config_commands
+                    0x116a                  _config_commands
                     0x1020                  _dSec
                     0x1015                  _data
                     0x1012                  _display_commands
                     0x101d                  _displaying
+                    0x112d                  _done_XBEE
                     0x101e                  _error_counter
-                    0x1014                  _i
+                    0x111a                  _initialize_XBEE
                     0x1002                  _j
                     0x1004                  _k
-                    0x1d7e                  _knownTags
-                    0x1dd6                  _lee_commands
+                    0x10e6                  _knownTags
+                    0x1164                  _lee_commands
                     0x1006                  _m
                     0x1008                  _n
-                    0x1db2                  _nTag
-                    0x1d8a                  _newTag
+                    0x1140                  _nTag
+                    0x10f2                  _newTag
                     0x101c                  _new_data
-                    0x1dd0                  _nums
-                    0x1dbe                  _oTag
+                    0x115e                  _nums
+                    0x114c                  _oTag
                     0x1000                  _p
-                    0x1022                  _resend
+                    0x1026                  _resend
                     0x100c                  _success
-                    0x1d9a                  _tagData
-                    0x1da6                  _test
+                    0x1102                  _tagData
+                    0x110e                  _test
+                    0x104c                  _weight_XBEE
+                    0x1028                  _xbee_new_data
 
 External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00022c                  __psv_init
-                  0x000238                  __data_init_extended
                   0x000238                  __data_init
+                  0x000238                  __data_init_extended
                   0x0002e0                  __DefaultInterrupt
                   0x0002e4                  ___floatunsisf
                   0x0002e8                  ___floatundisf
@@ -203,40 +215,41 @@ External Symbols in Program Memory (by address):
                   0x0003a4                  _tagLen
                   0x0003a6                  _idLen
                   0x0003a8                  _kTags
-                  0x000cf2                  _config_tasks
-                  0x000dd6                  _display_time
-                  0x000e4e                  _display_tasks
-                  0x000f7a                  __T1Interrupt
-                  0x00101a                  _I2CStart
-                  0x001038                  _I2CStop
-                  0x001056                  _I2Csendbyte
-                  0x001072                  _I2Cinit
-                  0x001080                  _display
-                  0x0010ea                  _ConfigureModuleADC
-                  0x00113a                  _ChangeChannelADC
-                  0x001164                  _getADC
-                  0x001192                  _ConfigureClock
-                  0x0011f0                  _ConfigureClockSlow
-                  0x001250                  _main
-                  0x0012b8                  __U1RXInterrupt
-                  0x00131a                  ___delay32
+                  0x0003aa                  _I2CStart
+                  0x0003c8                  _I2CStop
+                  0x0003e6                  _I2Csendbyte
+                  0x000402                  _I2Cinit
+                  0x000410                  _display
+                  0x00047a                  _ConfigureModuleADC
+                  0x0004ca                  _ChangeChannelADC
+                  0x0004f4                  _getADC
+                  0x000522                  _ConfigureClock
+                  0x000580                  _ConfigureClockSlow
+                  0x0005e0                  _main
+                  0x000686                  __U1RXInterrupt
+                  0x0006e8                  _config_tasks
+                  0x0007cc                  _display_time
+                  0x000844                  _display_tasks
+                  0x000970                  __T1Interrupt
+                  0x000aaa                  _xbee_tasks
+                  0x000af8                  ___delay32
                   0x02affa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x00113a                  _ChangeChannelADC
-                  0x001192                  _ConfigureClock
-                  0x0011f0                  _ConfigureClockSlow
-                  0x0010ea                  _ConfigureModuleADC
-                  0x00101a                  _I2CStart
-                  0x001038                  _I2CStop
-                  0x001072                  _I2Cinit
-                  0x001056                  _I2Csendbyte
+                  0x0004ca                  _ChangeChannelADC
+                  0x000522                  _ConfigureClock
+                  0x000580                  _ConfigureClockSlow
+                  0x00047a                  _ConfigureModuleADC
+                  0x0003aa                  _I2CStart
+                  0x0003c8                  _I2CStop
+                  0x000402                  _I2Cinit
+                  0x0003e6                  _I2Csendbyte
                   0x0002e0                  __DefaultInterrupt
                   0x02affa                  __FGS.sec
-                  0x000f7a                  __T1Interrupt
-                  0x0012b8                  __U1RXInterrupt
-                  0x00131a                  ___delay32
+                  0x000970                  __T1Interrupt
+                  0x000686                  __U1RXInterrupt
+                  0x000af8                  ___delay32
                   0x0002e8                  ___floatundisf
                   0x0002e4                  ___floatunsisf
                   0x000238                  __data_init
@@ -244,15 +257,16 @@ External Symbols in Program Memory (by name):
                   0x000346                  __fpack
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000cf2                  _config_tasks
-                  0x001080                  _display
-                  0x000e4e                  _display_tasks
-                  0x000dd6                  _display_time
-                  0x001164                  _getADC
+                  0x0006e8                  _config_tasks
+                  0x000410                  _display
+                  0x000844                  _display_tasks
+                  0x0007cc                  _display_time
+                  0x0004f4                  _getADC
                   0x0003a6                  _idLen
                   0x0003a8                  _kTags
-                  0x001250                  _main
+                  0x0005e0                  _main
                   0x0003a4                  _tagLen
+                  0x000aaa                  _xbee_tasks
 
 Memory Configuration
 
@@ -278,7 +292,7 @@ Linker script and memory map
 
 LOAD build/default/production/_ext/1344191749/display.o
 LOAD build/default/production/_ext/1344191749/main.o
-LOAD build/default/production/accelData.o
+LOAD build/default/production/XBEE.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p33EP256MC506
 LOAD c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libfx-elf.a
@@ -370,34 +384,36 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x2e5d
+.debug_info       0x000000       0x3801
  *(.debug_info)
- .debug_info      0x000000        0xa4a build/default/production/_ext/1344191749/display.o
- .debug_info      0x000a4a       0x2333 build/default/production/_ext/1344191749/main.o
- .debug_info      0x002d7d         0xe0 build/default/production/accelData.o
+ .debug_info      0x000000        0xa3e build/default/production/_ext/1344191749/display.o
+ .debug_info      0x000a3e       0x2996 build/default/production/_ext/1344191749/main.o
+ .debug_info      0x0033d4        0x42d build/default/production/XBEE.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x322
+.debug_abbrev     0x000000        0x417
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x176 build/default/production/_ext/1344191749/display.o
- .debug_abbrev    0x000176        0x16a build/default/production/_ext/1344191749/main.o
- .debug_abbrev    0x0002e0         0x42 build/default/production/accelData.o
+ .debug_abbrev    0x000176        0x17f build/default/production/_ext/1344191749/main.o
+ .debug_abbrev    0x0002f5        0x122 build/default/production/XBEE.o
 
-.debug_line       0x000000        0x2d7
+.debug_line       0x000000        0x368
  *(.debug_line)
  .debug_line      0x000000        0x155 build/default/production/_ext/1344191749/display.o
- .debug_line      0x000155        0x159 build/default/production/_ext/1344191749/main.o
- .debug_line      0x0002ae         0x29 build/default/production/accelData.o
+ .debug_line      0x000155        0x165 build/default/production/_ext/1344191749/main.o
+ .debug_line      0x0002ba         0xae build/default/production/XBEE.o
 
-.debug_frame      0x000000        0x226
+.debug_frame      0x000000        0x256
  *(.debug_frame)
  .debug_frame     0x000000         0xac build/default/production/_ext/1344191749/display.o
  .debug_frame     0x0000ac        0x17a build/default/production/_ext/1344191749/main.o
+ .debug_frame     0x000226         0x30 build/default/production/XBEE.o
 
-.debug_str        0x000000        0x180
+.debug_str        0x000000        0x203
  *(.debug_str)
  .debug_str       0x000000         0x8c build/default/production/_ext/1344191749/display.o
- .debug_str       0x00008c         0xf4 build/default/production/_ext/1344191749/main.o
+ .debug_str       0x00008c        0x143 build/default/production/_ext/1344191749/main.o
+ .debug_str       0x0001cf         0x34 build/default/production/XBEE.o
 
 .debug_loc
  *(.debug_loc)
@@ -406,24 +422,26 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x2ca
+                  0x000000        0x335
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x12c build/default/production/_ext/1344191749/display.o
+                  0x000000        0x126 build/default/production/_ext/1344191749/display.o
  .debug_pubnames
-                  0x00012c        0x17d build/default/production/_ext/1344191749/main.o
+                  0x000126        0x17d build/default/production/_ext/1344191749/main.o
  .debug_pubnames
-                  0x0002a9         0x21 build/default/production/accelData.o
+                  0x0002a3         0x92 build/default/production/XBEE.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x30
+.debug_aranges    0x000000         0x48
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/_ext/1344191749/display.o
  .debug_aranges
                   0x000018         0x18 build/default/production/_ext/1344191749/main.o
+ .debug_aranges
+                  0x000030         0x18 build/default/production/XBEE.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1840,34 +1858,36 @@ LOAD data_init
 LOAD shared_data_init
 
 .debug_pubtypes
-                  0x000030        0x37e
+                  0x000048        0x440
  .debug_pubtypes
-                  0x000030         0xc1 build/default/production/_ext/1344191749/display.o
+                  0x000048         0xc1 build/default/production/_ext/1344191749/display.o
  .debug_pubtypes
-                  0x0000f1        0x2bd build/default/production/_ext/1344191749/main.o
+                  0x000109        0x33f build/default/production/_ext/1344191749/main.o
+ .debug_pubtypes
+                  0x000448         0x40 build/default/production/XBEE.o
 
 __c30_signature
-                  0x0003ae         0x36
+                  0x000488         0x36
  __c30_signature
-                  0x0003ae          0x6 build/default/production/_ext/1344191749/display.o
+                  0x000488          0x6 build/default/production/_ext/1344191749/display.o
  __c30_signature
-                  0x0003b4          0x6 build/default/production/_ext/1344191749/main.o
+                  0x00048e          0x6 build/default/production/_ext/1344191749/main.o
  __c30_signature
-                  0x0003ba          0x6 build/default/production/accelData.o
+                  0x000494          0x6 build/default/production/XBEE.o
  __c30_signature
-                  0x0003c0          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
+                  0x00049a          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extendedep.o)
  __c30_signature
-                  0x0003c6          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
+                  0x0004a0          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(data_init_extendedep.o)
  __c30_signature
-                  0x0003cc          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x0004a6          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
  __c30_signature
-                  0x0003d2          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
+                  0x0004ac          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatunsisf.epeo)
  __c30_signature
-                  0x0003d8          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
+                  0x0004b2          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
  __c30_signature
-                  0x0003de          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
+                  0x0004b8          0x6 c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\libm-elf.a(fpack.epeo)
 
-.nbss               0x1000         0x22
+.nbss               0x1000         0x26
  .nbss              0x1000         0x12 build/default/production/_ext/1344191749/main.o
                     0x1000                  _p
                     0x1002                  _j
@@ -1879,7 +1899,6 @@ __c30_signature
                     0x100e                  _byteRead
  .nbss              0x1012         0x10 build/default/production/_ext/1344191749/display.o
                     0x1012                  _display_commands
-                    0x1014                  _i
                     0x1015                  _data
                     0x1016                  _Start
                     0x1018                  __display_state
@@ -1888,32 +1907,43 @@ __c30_signature
                     0x101d                  _displaying
                     0x101e                  _error_counter
                     0x1020                  _dSec
+ .nbss              0x1022          0x4 build/default/production/XBEE.o
+                    0x1022                  __xbee_state
 
-.ndata              0x1022          0x2
- .ndata             0x1022          0x2 build/default/production/_ext/1344191749/display.o
-                    0x1022                  _resend
+.ndata              0x1026          0x4
+ .ndata             0x1026          0x2 build/default/production/_ext/1344191749/display.o
+                    0x1026                  _resend
+ .ndata             0x1028          0x2 build/default/production/XBEE.o
+                    0x1028                  _xbee_new_data
 
-.data               0x1024        0xd8e
- .data              0x1024        0xd4a build/default/production/accelData.o
-                    0x1024                  _accel_data
- .data              0x1d6e         0x44 build/default/production/_ext/1344191749/main.o
-                    0x1d6e                  _ReceivedChar
-                    0x1d7e                  _knownTags
-                    0x1d8a                  _newTag
-                    0x1d9a                  _tagData
-                    0x1da6                  _test
+.bss                0x102a         0xac
+ .bss               0x102a         0xac build/default/production/XBEE.o
+                    0x102a                  _RFID_XBEE
+                    0x104c                  _weight_XBEE
+                    0x1060                  _accel_XBEE
 
-.bss                0x1db2         0x18
- .bss               0x1db2         0x18 build/default/production/_ext/1344191749/main.o
-                    0x1db2                  _nTag
-                    0x1dbe                  _oTag
+.data               0x10d6         0x6a
+ .data              0x10d6         0x44 build/default/production/_ext/1344191749/main.o
+                    0x10d6                  _ReceivedChar
+                    0x10e6                  _knownTags
+                    0x10f2                  _newTag
+                    0x1102                  _tagData
+                    0x110e                  _test
+ .data              0x111a         0x26 build/default/production/XBEE.o
+                    0x111a                  _initialize_XBEE
+                    0x112d                  _done_XBEE
 
-.data               0x1dca         0x16
- .data              0x1dca         0x16 build/default/production/_ext/1344191749/display.o
-                    0x1dca                  _beef_commands
-                    0x1dd0                  _nums
-                    0x1dd6                  _lee_commands
-                    0x1ddc                  _config_commands
+.bss                0x1140         0x18
+ .bss               0x1140         0x18 build/default/production/_ext/1344191749/main.o
+                    0x1140                  _nTag
+                    0x114c                  _oTag
+
+.data               0x1158         0x16
+ .data              0x1158         0x16 build/default/production/_ext/1344191749/display.o
+                    0x1158                  _beef_commands
+                    0x115e                  _nums
+                    0x1164                  _lee_commands
+                    0x116a                  _config_commands
 
 .ivt._T1Interrupt
                   0x00001a          0x2
@@ -1950,32 +1980,36 @@ __c30_signature
                     0x83a6                  _idLen
                     0x83a8                  _kTags
 
-.dinit            0x0003aa        0x948
- .dinit           0x0003aa        0x948 data_init
+.text             0x0003aa        0x666
+ .text            0x0003aa        0x33e build/default/production/_ext/1344191749/main.o
+                  0x0003aa                  _I2CStart
+                  0x0003c8                  _I2CStop
+                  0x0003e6                  _I2Csendbyte
+                  0x000402                  _I2Cinit
+                  0x000410                  _display
+                  0x00047a                  _ConfigureModuleADC
+                  0x0004ca                  _ChangeChannelADC
+                  0x0004f4                  _getADC
+                  0x000522                  _ConfigureClock
+                  0x000580                  _ConfigureClockSlow
+                  0x0005e0                  _main
+                  0x000686                  __U1RXInterrupt
+ .text            0x0006e8        0x328 build/default/production/_ext/1344191749/display.o
+                  0x0006e8                  _config_tasks
+                  0x0007cc                  _display_time
+                  0x000844                  _display_tasks
+                  0x000970                  __T1Interrupt
 
-.text             0x000cf2        0x628
- .text            0x000cf2        0x328 build/default/production/_ext/1344191749/display.o
-                  0x000cf2                  _config_tasks
-                  0x000dd6                  _display_time
-                  0x000e4e                  _display_tasks
-                  0x000f7a                  __T1Interrupt
- .text            0x00101a        0x300 build/default/production/_ext/1344191749/main.o
-                  0x00101a                  _I2CStart
-                  0x001038                  _I2CStop
-                  0x001056                  _I2Csendbyte
-                  0x001072                  _I2Cinit
-                  0x001080                  _display
-                  0x0010ea                  _ConfigureModuleADC
-                  0x00113a                  _ChangeChannelADC
-                  0x001164                  _getADC
-                  0x001192                  _ConfigureClock
-                  0x0011f0                  _ConfigureClockSlow
-                  0x001250                  _main
-                  0x0012b8                  __U1RXInterrupt
+.dinit            0x000a10         0x9a
+ .dinit           0x000a10         0x9a data_init
 
-.init.delay32     0x00131a         0x1c
- .init.delay32    0x00131a         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
-                  0x00131a                  ___delay32
+.text             0x000aaa         0x4e
+ .text            0x000aaa         0x4e build/default/production/XBEE.o
+                  0x000aaa                  _xbee_tasks
 
-.shared.dinit     0x001336          0x2
- .shared.dinit    0x001336          0x2 shared_data_init
+.init.delay32     0x000af8         0x1c
+ .init.delay32    0x000af8         0x1c c:/program files (x86)/microchip/xc16/v1.26/bin/bin/../../lib\liblega-pic30-elf.a(delay32ep.Leo)
+                  0x000af8                  ___delay32
+
+.shared.dinit     0x000b14          0x2
+ .shared.dinit    0x000b14          0x2 shared_data_init

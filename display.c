@@ -87,7 +87,7 @@ unsigned char config_commands[] = {
     0x99
 };
 
-unsigned char i = 0; 
+static unsigned char i = 0; 
 unsigned char data = 0;
 bool resend = true; 
 bool Start = false;
@@ -315,6 +315,7 @@ void display_tasks()
 
 int error_counter = 0; 
 int dSec = 0;
+
 void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
 {
     if (Start == false)

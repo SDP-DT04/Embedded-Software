@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>../Embedded-Software/config.h</itemPath>
       <itemPath>../Embedded-Software/functions.h</itemPath>
+      <itemPath>XBEE.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -31,6 +32,7 @@
       <itemPath>accelData.c</itemPath>
       <itemPath>accelData.h</itemPath>
       <itemPath>display.h</itemPath>
+      <itemPath>XBEE.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -782,6 +784,10 @@
         </C30-LD>
         <C30Global>
         </C30Global>
+      </item>
+      <item path="accelData.c" ex="true" overriding="false">
+      </item>
+      <item path="accelData.h" ex="true" overriding="false">
       </item>
       <item path="display_lee.c" ex="true" overriding="false">
         <C30>
