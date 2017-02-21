@@ -7,7 +7,7 @@
 #include "accelData.h"
 
 
-unsigned char accel_data[ACCEL_DATA_LEN] = {
+unsigned char newAccel[ACCEL_DATA_LEN] = {
 66,
 38,
 92,

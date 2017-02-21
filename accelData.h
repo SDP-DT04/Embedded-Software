@@ -28,5 +28,5 @@
 
 #define ACCEL_DATA_LEN 3402
 
-extern unsigned char accel_data[ACCEL_DATA_LEN];
+extern unsigned char newAccel[ACCEL_DATA_LEN];
 

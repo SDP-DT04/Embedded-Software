@@ -7,6 +7,8 @@
       <itemPath>../Embedded-Software/config.h</itemPath>
       <itemPath>../Embedded-Software/functions.h</itemPath>
       <itemPath>XBEE.h</itemPath>
+      <itemPath>display.h</itemPath>
+      <itemPath>accelData.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -30,8 +32,6 @@
       <itemPath>RX_TX_Test.c</itemPath>
       <itemPath>../Embedded-Software/main.c</itemPath>
       <itemPath>accelData.c</itemPath>
-      <itemPath>accelData.h</itemPath>
-      <itemPath>display.h</itemPath>
       <itemPath>XBEE.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -784,10 +784,6 @@
         </C30-LD>
         <C30Global>
         </C30Global>
-      </item>
-      <item path="accelData.c" ex="true" overriding="false">
-      </item>
-      <item path="accelData.h" ex="true" overriding="false">
       </item>
       <item path="display_lee.c" ex="true" overriding="false">
         <C30>

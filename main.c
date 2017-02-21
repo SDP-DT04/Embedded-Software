@@ -27,7 +27,8 @@ const int kTags = 4; //total number of tags
 char nTag[12];
 char oTag[12];
 char knownTags[12] = {"82003BE82372"};
-char newTag[16]={"0000000000000000"}; //idLen = 13  because 12 data plus NULL
+
+ //={"0000000000000000"}; //idLen = 13  because 12 data plus NULL
 char tagData[12]={"000000000000"};
 char test[12] = {"82003BE82372"};
 
@@ -90,11 +91,15 @@ void __attribute__((__interrupt__)) _U1RXInterrupt(void)
     while(U1STAbits.URXDA)
     {
         byteRead=U1RXREG;       //Read in data from register
-        while(!U1STAbits.TRMT); //Wait until able to transmit 
-        U1TXREG=byteRead;       //Transmit
-        while(!U1STAbits.TRMT); //Wait until able to transmit 
+        //while(!U1STAbits.TRMT); //Wait until able to transmit 
         newTag[i]=byteRead;
+        while(!U1STAbits.TRMT); //Wait until able to transmit 
+        U1TXREG = newTag[i]; //Transmit
         i++;
+        if (i == 16)
+        {
+            i = 0;
+        }
     }
     IFS0bits.U1RXIF = 0;    //Clear Flag
 }

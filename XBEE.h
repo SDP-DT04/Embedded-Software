@@ -32,11 +32,15 @@
 #define	XC_XBEE_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
+#include <stdbool.h>
 extern unsigned char initialize_XBEE[19];
-extern unsigned char RFID_XBEE[34];
-extern unsigned char weight_XBEE[20];
-extern unsigned char accel_XBEE[118];
-extern unsigned char done_XBEE[19];
+extern unsigned char RFID_XBEE[17];
+extern unsigned char WEIGHT_XBEE[17];
+extern unsigned char ACCEL_XBEE[17];
+extern unsigned char DONE_XBEE[19];
+
+extern unsigned char newTag[16];
+extern bool xbee_new_data;
 
 void xbee_tasks();
 

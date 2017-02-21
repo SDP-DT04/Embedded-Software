@@ -8,7 +8,7 @@
 
 #include "stdbool.h"
 #include "display.h"
-
+#include "XBEE.h"
 
 static const unsigned char numberTable[] = // convert number to lit-segments
 {
@@ -354,6 +354,7 @@ void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
         
         else if (PORTCbits.RC13 == 0)
         {
+        xbee_new_data = true;     
         Start = false;
         TMR1=0;
         }
