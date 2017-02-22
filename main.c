@@ -50,7 +50,7 @@ int main(void)
     IEC0bits.U1RXIE = 1; //Enable RX UART interrupt 
     U1STAbits.UTXEN = 1;//Set TX to Enable
     U1STAbits.URXISEL = 0b00; //Load 1 bytes in U1RXREG
-    RPINR18bits.U1RXR = 0b0100111; //Set pin 46 (RP39) to U1RX pin
+    RPINR18bits.U1RXR = 0b0110111; //Set pin 51 (RP55) to U1RX pin
     RPOR5bits.RP54R = 0b000001; //Set pin 50 (RP54) as U1TX pin
     
     U2MODEbits.STSEL = 0; //1-stop bit
