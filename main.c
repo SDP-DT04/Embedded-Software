@@ -50,7 +50,8 @@ int main(void)
     IEC0bits.U1RXIE = 1; //Enable RX UART interrupt 
     U1STAbits.UTXEN = 1;//Set TX to Enable
     U1STAbits.URXISEL = 0b00; //Load 1 bytes in U1RXREG
-    RPINR18bits.U1RXR = 0b0110111; //Set pin 51 (RP55) to U1RX pin
+    //RPINR18bits.U1RXR = 0b0110111; //Set pin 51 (RP55) to U1RX pin
+    RPINR18bits.U1RXR = 0b0100111; //Set pin 46 (RP39) to U1RX
     RPOR5bits.RP54R = 0b000001; //Set pin 50 (RP54) as U1TX pin
     
     U2MODEbits.STSEL = 0; //1-stop bit
@@ -59,10 +60,11 @@ int main(void)
     U2MODEbits.BRGH = 0; //Standard baud rate
     U2BRG = 390; //Set baud rate register
     U2MODEbits.UARTEN = 1; //Enable UART
+    //IEC1bits.U2RXIE = 1;
     U2STAbits.UTXEN = 1;//Set TX to Enable
     U2STAbits.URXISEL = 0b00; //Load 1 bytes in U1RXREG
     RPINR19bits.U2RXR = 0b0101100; //Set pin 62(RPI44) to U2RX pin
-    RPOR4bits.RP43R = 0b000011; //Set pin 61 (RP43) to U1TX pin
+    RPOR4bits.RP43R = 0b000011; //Set pin 61 (RP43) to U2TX pin
     
     PORTDbits.RD8 = 1; //Set pin 42 (RD8) high for LED
     __delay_ms(1000);
@@ -87,19 +89,21 @@ int main(void)
 
 void __attribute__((__interrupt__)) _U1RXInterrupt(void)
 {
-    static int i=0;
+    U1TXREG = 'p';
+//    static int i=0;
     while(U1STAbits.URXDA)
     {
         byteRead=U1RXREG;       //Read in data from register
         //while(!U1STAbits.TRMT); //Wait until able to transmit 
-        newTag[i]=byteRead;
+        //newTag[i]=byteRead;
         while(!U1STAbits.TRMT); //Wait until able to transmit 
-        U1TXREG = newTag[i]; //Transmit
-        i++;
-        if (i == 16)
-        {
-            i = 0;
-        }
+      //  U1TXREG = newTag[i]; //Transmit
+        U1TXREG = 'p';
+//        i++;
+//        if (i == 16)
+//        {
+//            i = 0;
+//        }
     }
     IFS0bits.U1RXIF = 0;    //Clear Flag
 }
