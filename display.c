@@ -91,11 +91,13 @@ static unsigned char i = 0;
 unsigned char data = 0;
 bool resend = true; 
 bool Start = false;
+bool zero_set = false;
+bool new_data = false;
+bool displaying = false;
 
 enum I2C_Display_State _display_state = WAIT; 
 enum I2C_Config_State _config_state = INIT; 
-bool new_data = false;
-bool displaying = false; 
+ 
 void config_tasks()
 {  
     if (I2C1STATbits.TBF)
@@ -180,7 +182,11 @@ void config_tasks()
         }
         case IDLE:
         {
-           // display_time(5690);
+            if(!zero_set)
+            {
+                zero_set = true;
+                display_time(0000); 
+            }
         }
     }
 }
@@ -207,6 +213,7 @@ void display_time(int mstime)
     new_data = true; 
 }
 
+
 void display_tasks()
 {
     switch(_display_state)
@@ -220,7 +227,7 @@ void display_tasks()
                 new_data = false; 
                 _display_state = SEND_START_D; 
             }
-            break; 
+            break;
         }
         case SEND_START_D:
         {
@@ -258,6 +265,7 @@ void display_tasks()
             }
             break; 
         }
+        
         case SEND_BYTE_D:
         {
             if (I2C1STATbits.TRSTAT == 0)
