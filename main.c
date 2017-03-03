@@ -90,20 +90,20 @@ int main(void)
 void __attribute__((__interrupt__)) _U1RXInterrupt(void)
 {
     U1TXREG = 'p';
-//    static int i=0;
+    static int i=0;
     while(U1STAbits.URXDA)
     {
         byteRead=U1RXREG;       //Read in data from register
         //while(!U1STAbits.TRMT); //Wait until able to transmit 
-        //newTag[i]=byteRead;
+        newTag[i]=byteRead;
         while(!U1STAbits.TRMT); //Wait until able to transmit 
       //  U1TXREG = newTag[i]; //Transmit
         U1TXREG = 'p';
-//        i++;
-//        if (i == 16)
-//        {
-//            i = 0;
-//        }
+        i++;
+        if (i == 16)
+        {
+            i = 0;
+        }
     }
     IFS0bits.U1RXIF = 0;    //Clear Flag
 }
