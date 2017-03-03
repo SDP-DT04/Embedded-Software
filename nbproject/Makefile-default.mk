@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/display.c ../Embedded-Software/main.c accelData.c XBEE.c
+SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/display.c ../Embedded-Software/main.c accelData.c XBEE.c mc3635.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/display.o.d ${OBJECTDIR}/_ext/1344191749/main.o.d ${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/display.o.d ${OBJECTDIR}/_ext/1344191749/main.o.d ${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d ${OBJECTDIR}/mc3635.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o
+OBJECTFILES=${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o
 
 # Source Files
-SOURCEFILES=../Embedded-Software/display.c ../Embedded-Software/main.c accelData.c XBEE.c
+SOURCEFILES=../Embedded-Software/display.c ../Embedded-Software/main.c accelData.c XBEE.c mc3635.c
 
 
 CFLAGS=
@@ -116,6 +116,13 @@ ${OBJECTDIR}/XBEE.o: XBEE.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  XBEE.c  -o ${OBJECTDIR}/XBEE.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/XBEE.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/XBEE.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/mc3635.o: mc3635.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/mc3635.o.d 
+	@${RM} ${OBJECTDIR}/mc3635.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  mc3635.c  -o ${OBJECTDIR}/mc3635.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/mc3635.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/mc3635.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/_ext/1344191749/display.o: ../Embedded-Software/display.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
@@ -144,6 +151,13 @@ ${OBJECTDIR}/XBEE.o: XBEE.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/XBEE.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  XBEE.c  -o ${OBJECTDIR}/XBEE.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/XBEE.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/XBEE.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/mc3635.o: mc3635.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/mc3635.o.d 
+	@${RM} ${OBJECTDIR}/mc3635.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  mc3635.c  -o ${OBJECTDIR}/mc3635.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/mc3635.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/mc3635.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

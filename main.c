@@ -14,6 +14,7 @@
 #include "accelData.h"
 #include "XBEE.h"
 #include "stdbool.h"
+#include "mc3635.h"
 #define FCY 60000000ULL
 //#define FCY 8000000ULL
 #include <libpic30.h>
@@ -77,6 +78,8 @@ int main(void)
     //PR1= 313; //creates 10[ms] timer for 8[MHz]
     _T1IF = 0;
     _T1IE = 1;
+    
+    mc3635_init();
     
     while(1)
     {

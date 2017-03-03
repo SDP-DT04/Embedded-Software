@@ -9,6 +9,7 @@
       <itemPath>XBEE.h</itemPath>
       <itemPath>display.h</itemPath>
       <itemPath>accelData.h</itemPath>
+      <itemPath>mc3635.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -33,6 +34,7 @@
       <itemPath>../Embedded-Software/main.c</itemPath>
       <itemPath>accelData.c</itemPath>
       <itemPath>XBEE.c</itemPath>
+      <itemPath>mc3635.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -9,6 +9,7 @@
 #include "stdbool.h"
 #include "display.h"
 #include "XBEE.h"
+#include "mc3635.h"
 
 static const unsigned char numberTable[] = // convert number to lit-segments
 {
@@ -98,6 +99,28 @@ bool displaying = false;
 enum I2C_Display_State _display_state = WAIT; 
 enum I2C_Config_State _config_state = INIT; 
  
+void display_time(int mstime)
+{
+    nums[0] = mstime / 1000;
+    mstime = mstime % 1000; 
+    nums[1] = mstime / 100;
+    nums[2] = 17;
+    mstime = mstime % 100; 
+    nums[3] = mstime / 10; 
+    mstime = mstime % 10; 
+    nums[4] = mstime; 
+    
+    display_commands = nums; 
+//    int j=0;
+//    for(j=0;j<5;j++)
+//    {
+//        
+//        display_commands[j]=nums[j];
+//    }
+//    _display_state = WAIT; 
+    new_data = true; 
+}
+
 void config_tasks()
 {  
     if (I2C1STATbits.TBF)
@@ -185,33 +208,13 @@ void config_tasks()
             if(!zero_set)
             {
                 zero_set = true;
-                display_time(0000); 
+                display_time(0); 
             }
         }
     }
 }
 
-void display_time(int mstime)
-{
-    nums[0] = mstime / 1000;
-    mstime = mstime % 1000; 
-    nums[1] = mstime / 100;
-    nums[2] = 17;
-    mstime = mstime % 100; 
-    nums[3] = mstime / 10; 
-    mstime = mstime % 10; 
-    nums[4] = mstime; 
-    
-    display_commands = nums; 
-//    int j=0;
-//    for(j=0;j<5;j++)
-//    {
-//        
-//        display_commands[j]=nums[j];
-//    }
-//    _display_state = WAIT; 
-    new_data = true; 
-}
+
 
 
 void display_tasks()
@@ -330,6 +333,7 @@ void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
     {
         if (PORTCbits.RC13 == 1)
         {
+            xbee_is_transmitting = true; //start xbee transmit
             Start = true;
             TMR1=0;
             dSec=0;
@@ -341,6 +345,9 @@ void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
     
     else if(Start == true)
     {
+        mc3635_read_z_low();
+        mc3635_read_z_high();
+        
         if (PORTCbits.RC13 == 1)
         {
             if (dSec<9999)
@@ -362,7 +369,7 @@ void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
         
         else if (PORTCbits.RC13 == 0)
         {
-        xbee_new_data = true;     
+        xbee_is_transmitting = false;     
         Start = false;
         TMR1=0;
         }
