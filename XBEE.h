@@ -44,8 +44,6 @@ extern unsigned char WEIGHT_XBEE[17];
 extern unsigned char ACCEL_XBEE[17];
 extern unsigned char DONE_XBEE[19];
 
-extern bool xbee_is_transmitting; 
-
 /*
  * most recent RFID tag data
  */
@@ -63,7 +61,9 @@ extern bool mc3635_new_data;
 
 /******************************/
 
-void xbee_tasks();
+void XBEE_Tasks();
+void XBEE_begin_transmit(); 
+void XBEE_end_transmit();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

@@ -32,9 +32,13 @@
 #define	DISPLAY_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
+#include <stdbool.h>
 
-void config_tasks();
-void display_tasks();
+void DISPLAY_CONFIG_Tasks();
+void DISPLAY_Tasks();
+bool DISPLAY_is_displaying(); 
+void DISPLAY_time(int);
+void DISPLAY_error();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

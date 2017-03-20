@@ -49,7 +49,7 @@ extern "C" {
 //configuration bits below
 
 // FICD
-#pragma config ICS = PGD3               // ICD Communication Channel Select bits (Communicate on PGEC3 and PGED3)
+#pragma config ICS = PGD2               // ICD Communication Channel Select bits (Communicate on PGEC3 and PGED3)
 #pragma config JTAGEN = OFF             // JTAG Enable bit (JTAG is disabled)
 
 // FPOR
@@ -81,4 +81,3 @@ extern "C" {
 
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
-

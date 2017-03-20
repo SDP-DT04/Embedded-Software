@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/display.c ../Embedded-Software/main.c accelData.c XBEE.c mc3635.c
+SOURCEFILES_QUOTED_IF_SPACED=../Embedded-Software/main.c accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/display.o.d ${OBJECTDIR}/_ext/1344191749/main.o.d ${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d ${OBJECTDIR}/mc3635.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1344191749/main.o.d ${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d ${OBJECTDIR}/mc3635.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/display.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1344191749/display.o ${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o
+OBJECTFILES=${OBJECTDIR}/_ext/1344191749/main.o ${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o
 
 # Source Files
-SOURCEFILES=../Embedded-Software/display.c ../Embedded-Software/main.c accelData.c XBEE.c mc3635.c
+SOURCEFILES=../Embedded-Software/main.c accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c
 
 
 CFLAGS=
@@ -88,13 +88,6 @@ MP_LINKER_FILE_OPTION=,--script=p33EP256MC506.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1344191749/display.o: ../Embedded-Software/display.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display.c  -o ${OBJECTDIR}/_ext/1344191749/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/1344191749/main.o: ../Embedded-Software/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
 	@${RM} ${OBJECTDIR}/_ext/1344191749/main.o.d 
@@ -123,14 +116,28 @@ ${OBJECTDIR}/mc3635.o: mc3635.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mc3635.c  -o ${OBJECTDIR}/mc3635.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/mc3635.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/mc3635.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
-else
-${OBJECTDIR}/_ext/1344191749/display.o: ../Embedded-Software/display.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1344191749/display.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../Embedded-Software/display.c  -o ${OBJECTDIR}/_ext/1344191749/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1344191749/display.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1344191749/display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+${OBJECTDIR}/interrupts.o: interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/interrupts.o.d 
+	@${RM} ${OBJECTDIR}/interrupts.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  interrupts.c  -o ${OBJECTDIR}/interrupts.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/interrupts.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/interrupts.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/setup.o: setup.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/setup.o.d 
+	@${RM} ${OBJECTDIR}/setup.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  setup.c  -o ${OBJECTDIR}/setup.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/setup.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/setup.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/display.o: display.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/display.o.d 
+	@${RM} ${OBJECTDIR}/display.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  display.c  -o ${OBJECTDIR}/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/display.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+else
 ${OBJECTDIR}/_ext/1344191749/main.o: ../Embedded-Software/main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1344191749" 
 	@${RM} ${OBJECTDIR}/_ext/1344191749/main.o.d 
@@ -158,6 +165,27 @@ ${OBJECTDIR}/mc3635.o: mc3635.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/mc3635.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  mc3635.c  -o ${OBJECTDIR}/mc3635.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/mc3635.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/mc3635.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/interrupts.o: interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/interrupts.o.d 
+	@${RM} ${OBJECTDIR}/interrupts.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  interrupts.c  -o ${OBJECTDIR}/interrupts.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/interrupts.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/interrupts.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/setup.o: setup.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/setup.o.d 
+	@${RM} ${OBJECTDIR}/setup.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  setup.c  -o ${OBJECTDIR}/setup.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/setup.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/setup.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/display.o: display.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/display.o.d 
+	@${RM} ${OBJECTDIR}/display.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  display.c  -o ${OBJECTDIR}/display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/display.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

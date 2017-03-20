@@ -34,7 +34,7 @@ uint8_t mc3635_data[100];
 bool mc3635_new_data = false; 
 uint8_t mc3635_w_index = 0; 
 uint8_t mc3635_r_index = 0; 
-bool xbee_is_transmitting = false;
+bool is_transmitting = false;
 
 enum XBEE_state{
     WAIT,
@@ -51,17 +51,17 @@ enum XBEE_state _xbee_state = WAIT;
 static int i = 0, j = 0;;
 unsigned char checksum; 
 
-void xbee_tasks()
+void XBEE_Tasks()
 {
     switch (_xbee_state)
     {
         case WAIT:
         {
-            if (xbee_is_transmitting)
+            if (is_transmitting)
             {
                 i = 0;
                 checksum = 0; 
-                xbee_is_transmitting = false; 
+                is_transmitting = false; 
                 _xbee_state = INIT; 
             }
             break; 
@@ -172,7 +172,7 @@ void xbee_tasks()
                     if (mc3635_r_index == MC3635_BUF_LEN)//wrap index?
                         mc3635_r_index = 0;
                 }
-                else if (!xbee_is_transmitting)
+                else if (!is_transmitting)
                 {
                     //done with sending data; fill up the rest of the packet
                     U2TXREG = 0x00;
@@ -186,7 +186,7 @@ void xbee_tasks()
             else
             {
                 U2TXREG = 0xFF - checksum; 
-                if(xbee_is_transmitting){
+                if(is_transmitting){
                     _xbee_state = ACCEL;
                     checksum = 0;
                     i = 0;
@@ -219,4 +219,14 @@ void xbee_tasks()
         }
     }
     
+}
+
+void XBEE_begin_transmit( void )
+{
+    is_transmitting = true; 
+}
+
+void XBEE_end_transmit( void )
+{
+    is_transmitting = false;
 }
