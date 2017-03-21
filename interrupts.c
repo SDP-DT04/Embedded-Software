@@ -38,9 +38,6 @@ void _ISR __attribute__((auto_psv)) _T1Interrupt(void)
     
     else if(is_swimming == true)
     {
-      
-        //mc3635_read_z_high();
-        
         if (PORTCbits.RC13 == 1)
         {
             if (dSec<9999)
@@ -80,17 +77,15 @@ void _ISR __attribute__((auto_psv)) _T1Interrupt(void)
  */
 void __attribute__((__interrupt__)) _U1RXInterrupt(void)
 {
-    static uint8_t inByte; 
-    U1TXREG = 'p';
-//    static int i=0;
-    while(U1STAbits.URXDA)
+   static uint8_t inByte; 
+   static uint8_t i; 
+   
+   while(U1STAbits.URXDA) //while RX data is available 
     {
         inByte=U1RXREG;       //Read in data from register
-        //while(!U1STAbits.TRMT); //Wait until able to transmit 
-        //newTag[i]=byteRead;
         while(!U1STAbits.TRMT); //Wait until able to transmit 
       //  U1TXREG = newTag[i]; //Transmit
-        U1TXREG = 'p';
+    
 //        i++;
 //        if (i == 16)
 //        {
