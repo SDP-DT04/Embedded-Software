@@ -33,16 +33,37 @@
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdbool.h>
+#include <stdint.h>
+
+/*
+ * XBee packet formats
+ */
 extern unsigned char initialize_XBEE[19];
 extern unsigned char RFID_XBEE[17];
 extern unsigned char WEIGHT_XBEE[17];
 extern unsigned char ACCEL_XBEE[17];
 extern unsigned char DONE_XBEE[19];
 
+/*
+ * most recent RFID tag data
+ */
 extern unsigned char newTag[16];
-extern bool xbee_new_data;
 
-void xbee_tasks();
+/*
+ * acceleration data buffer
+ */
+#define MC3635_BUF_LEN 100
+
+extern uint8_t mc3635_data[100];
+extern uint8_t mc3635_w_index; 
+extern uint8_t mc3635_r_index; 
+extern bool mc3635_new_data; 
+
+/******************************/
+
+void XBEE_Tasks();
+void XBEE_begin_transmit(); 
+void XBEE_end_transmit();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

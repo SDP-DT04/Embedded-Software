@@ -28,17 +28,14 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef DISPLAY_H
-#define	DISPLAY_H
+#ifndef MC3635_H
+#define	MC3635_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-#include <stdbool.h>
 
-void DISPLAY_CONFIG_Tasks();
-void DISPLAY_Tasks();
-bool DISPLAY_is_displaying(); 
-void DISPLAY_time(int);
-void DISPLAY_error();
+void mc3635_init();
+void mc3635_read_z_low();
+void mc3635_read_z_high();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

@@ -37,7 +37,7 @@ extern "C" {
 }
 #endif /* __cplusplus */
 
-#endif	/* XC_HEADER_TEMPLATE_H */
+
 
 void I2CStart(void)
 {
@@ -150,37 +150,7 @@ float getADC(void)
     return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
 }
 
-void ConfigureClock(void)
-{
-/*  FRC (default) = 7.37[MHz]
-    Fosc = (FRC*M)/[FRCDIV*(N1*N2)]
-    M = PLLFBDbits.PLLDIV + 2
-    N1 = CLKDIVbits.PLLPRE + 2
-    N2 = 2*(CLKDIVbits.PLLPOST + 1)
-    Fosc = [(7.37E6)*(65)]/[1*(2*2)] = 119.7625[MHz]
-    Fcyc = Fosc/2 = 59.88125[MHz] ? 60[MHz]
-*/
-    //Configure OSSCON
-    OSCCONbits.COSC = 0b001; //Sets Oscillator in mode with FRC, divide by N, and PLL mode
-    OSCCONbits.NOSC = 0b001; //Sets new Oscillator in mode with FRC, divide by N, and PLL mode
-    OSCCONbits.CLKLOCK = 0b0; //Clock Lock Enable bit (0 = may be modified)
-    OSCCONbits.IOLOCK = 0b0; //I/O Lock Enable bit (0 = I/O lock is not active)
-    OSCCONbits.LOCK = 0b1; //PLL Lock Status bit (1 = PLL in lock or start-up timer is satisfied)
-    
-    //Configure CLKDIV
-    CLKDIVbits.ROI = 0; //Recover on Interrupt bit (0 = Interrupts have no effect on the DOZEN bit)
-    CLKDIVbits.DOZE = 0; //Processor Clock Reduction Select bits (000 = Fcy/1)
-    CLKDIVbits.DOZEN = 0; //Doze Mode Enable bit (0 = Fcy=Fp)
-    CLKDIVbits.FRCDIV = 0b000; //Internal Fast RC Oscillator Postscaler bits (0 = 1)
-    CLKDIVbits.PLLPOST = 0b00; //PLL VCO Output Divider Select bits (N2)
-    CLKDIVbits.PLLPRE = 0b00000; //PLL Phase Detector Input Divider Select bits (N1)
-    
-    //Configure PLLFBD
-    PLLFBDbits.PLLDIV = 0b000111111; //{63} PLL Feedback Divisor bits (M)
-    
-    //Configure OSCTUN
-    OSCTUNbits.TUN = 0b00100; //FRC Oscillator Tuning bits (4 = (FRC = 7.3838[MHz]) 
-}
+
 
 void ConfigureClockSlow(void)
 {
@@ -214,3 +184,4 @@ void ConfigureClockSlow(void)
     OSCTUNbits.TUN = 0b00100; //FRC Oscillator Tuning bits (4 = (FRC = 7.3838[MHz]) 
 }
 
+#endif	/* XC_HEADER_TEMPLATE_H */

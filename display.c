@@ -6,9 +6,10 @@
  */
 
 
-#include "stdbool.h"
+#include <stdbool.h>
 #include "display.h"
 #include "XBEE.h"
+#include "mc3635.h"
 
 static const unsigned char numberTable[] = // convert number to lit-segments
 {
@@ -53,30 +54,12 @@ enum I2C_Display_State{
 
 unsigned char* display_commands; 
 
-unsigned char beef_commands[] = {
-    0x7C,
-    0x79,
-    0x00,
-    0x79,
-    0x71,
-    0x99
-};
-
 unsigned char nums[] = {
     1,
     2,
     1,
     3,
     4,
-    0x99
-};
-
-unsigned char lee_commands[] = {
-    0x38,
-    0x79,
-    0x00,
-    0x79,
-    0x00,
     0x99
 };
 
@@ -90,15 +73,30 @@ unsigned char config_commands[] = {
 static unsigned char i = 0; 
 unsigned char data = 0;
 bool resend = true; 
-bool Start = false;
 bool zero_set = false;
 bool new_data = false;
-bool displaying = false;
+bool is_displaying = false;
 
 enum I2C_Display_State _display_state = WAIT; 
 enum I2C_Config_State _config_state = INIT; 
  
-void config_tasks()
+void DISPLAY_time(int mstime)
+{
+    nums[0] = mstime / 1000;
+    mstime = mstime % 1000; 
+    nums[1] = mstime / 100;
+    nums[2] = 17;
+    mstime = mstime % 100; 
+    nums[3] = mstime / 10; 
+    mstime = mstime % 10; 
+    nums[4] = mstime; 
+    
+    display_commands = nums; 
+
+    new_data = true; 
+}
+
+void DISPLAY_CONFIG_Tasks()
 {  
     if (I2C1STATbits.TBF)
         return;
@@ -185,36 +183,16 @@ void config_tasks()
             if(!zero_set)
             {
                 zero_set = true;
-                display_time(0000); 
+                DISPLAY_time(0); 
             }
         }
     }
 }
 
-void display_time(int mstime)
-{
-    nums[0] = mstime / 1000;
-    mstime = mstime % 1000; 
-    nums[1] = mstime / 100;
-    nums[2] = 17;
-    mstime = mstime % 100; 
-    nums[3] = mstime / 10; 
-    mstime = mstime % 10; 
-    nums[4] = mstime; 
-    
-    display_commands = nums; 
-//    int j=0;
-//    for(j=0;j<5;j++)
-//    {
-//        
-//        display_commands[j]=nums[j];
-//    }
-//    _display_state = WAIT; 
-    new_data = true; 
-}
 
 
-void display_tasks()
+
+void DISPLAY_Tasks()
 {
     switch(_display_state)
     {
@@ -223,7 +201,7 @@ void display_tasks()
             if (new_data)
             {
                 i = 0; 
-                displaying = true; 
+                is_displaying = true; 
                 new_data = false; 
                 _display_state = SEND_START_D; 
             }
@@ -307,7 +285,7 @@ void display_tasks()
                 {
                     I2C1CONbits.PEN = 1;
                     _display_state = WAIT;
-                    displaying = false; 
+                    is_displaying = false; 
                 }
                 else
                 {
@@ -321,51 +299,12 @@ void display_tasks()
     }
 }
 
-int error_counter = 0; 
-int dSec = 0;
-
-void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
+bool DISPLAY_is_displaying()
 {
-    if (Start == false)
-    {
-        if (PORTCbits.RC13 == 1)
-        {
-            Start = true;
-            TMR1=0;
-            dSec=0;
-        }
-        
-        else if (PORTCbits.RC13 == 0)
-        {}
-    }
-    
-    else if(Start == true)
-    {
-        if (PORTCbits.RC13 == 1)
-        {
-            if (dSec<9999)
-            {dSec++;}
-            else 
-            {dSec = 0;}
-            
-            if (!displaying)
-            {
-                display_time(dSec);
-                error_counter = 0; 
-            }
-            else
-            {error_counter++;}
-                
-            if (error_counter > 5)
-            {_display_state = SEND_STOP_D;}
-        }
-        
-        else if (PORTCbits.RC13 == 0)
-        {
-        xbee_new_data = true;     
-        Start = false;
-        TMR1=0;
-        }
-    }
- _T1IF = 0;//clear  the  flag
+    return is_displaying;
+}
+
+void DISPLAY_error()
+{
+    _display_state = SEND_STOP_D;
 }

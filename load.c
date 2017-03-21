@@ -1,19 +1,10 @@
 /*
- * File:   newmainADCandI2c.c
+ * File:   load.c
  * Author: DT04
  *
- * Created on January 10, 2017, 4:19 PM
+ * Created on March 20, 2017, 5:26 PM
  */
 
-
-#include "config.h"
-#include "functions.h"
-#include <xc.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#define FCY 60000000ULL
-#include <libpic30.h>
 #define ADC 4096
 #define Volt 3.25
 int  dSec = 0, Sec = 0; // two  global  variables
@@ -142,3 +133,13 @@ int main(void)
 //        while(PMMODEbits.BUSY); // wait for PMP to be available
 //        msdelay(50);
 //}
+
+float getADC(void)
+{
+    AD1CON1bits.SAMP = 1;   //ADC1 Sample enable (1 = sampling)
+    while(!AD1CON1bits.SAMP); 
+    AD1CON1bits.SAMP = 0;   //ADC1 Sample enable (0 = holding)
+    while(AD1CON1bits.SAMP)
+    while (!AD1CON1bits.DONE);  //ADC1 Conversion Status (0 = not started/in progress, 1 = completed)
+    return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
+}

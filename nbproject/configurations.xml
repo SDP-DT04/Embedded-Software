@@ -9,6 +9,9 @@
       <itemPath>XBEE.h</itemPath>
       <itemPath>display.h</itemPath>
       <itemPath>accelData.h</itemPath>
+      <itemPath>mc3635.h</itemPath>
+      <itemPath>setup.h</itemPath>
+      <itemPath>config.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -17,22 +20,13 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>../Embedded-Software/ADCtest.c</itemPath>
-      <itemPath>../Embedded-Software/I2Ctest.c</itemPath>
-      <itemPath>../Embedded-Software/TestI2C.c</itemPath>
-      <itemPath>../Embedded-Software/display.c</itemPath>
-      <itemPath>../Embedded-Software/display_new.c</itemPath>
-      <itemPath>../Embedded-Software/newmainADCandI2c.c</itemPath>
-      <itemPath>../Embedded-Software/timertest.c</itemPath>
-      <itemPath>XBEE_Test.c</itemPath>
-      <itemPath>display_lee.c</itemPath>
-      <itemPath>RFID.c</itemPath>
-      <itemPath>../Embedded-Software/UART test.c</itemPath>
-      <itemPath>TXTest.c</itemPath>
-      <itemPath>RX_TX_Test.c</itemPath>
-      <itemPath>../Embedded-Software/main.c</itemPath>
       <itemPath>accelData.c</itemPath>
       <itemPath>XBEE.c</itemPath>
+      <itemPath>mc3635.c</itemPath>
+      <itemPath>interrupts.c</itemPath>
+      <itemPath>setup.c</itemPath>
+      <itemPath>load.c</itemPath>
+      <itemPath>display.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -68,8 +62,6 @@
           <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
-        <subordinates>
-        </subordinates>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
