@@ -42,29 +42,3 @@ int main(void)
     }
     return 0;
 }
-
-void __attribute__((__interrupt__)) _U1RXInterrupt(void)
-{
-    U1TXREG = 'p';
-//    static int i=0;
-    while(U1STAbits.URXDA)
-    {
-        byteRead=U1RXREG;       //Read in data from register
-        //while(!U1STAbits.TRMT); //Wait until able to transmit 
-        //newTag[i]=byteRead;
-        while(!U1STAbits.TRMT); //Wait until able to transmit 
-      //  U1TXREG = newTag[i]; //Transmit
-        U1TXREG = 'p';
-//        i++;
-//        if (i == 16)
-//        {
-//            i = 0;
-//        }
-    }
-    IFS0bits.U1RXIF = 0;    //Clear Flag
-}
-
-//void _ISR __attribute__((auto_psv))  _T1Interrupt(void)
-//{
-//    _T1IF = 0;//clear  the  flag
-//}

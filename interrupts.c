@@ -7,9 +7,11 @@
 
 #include "xc.h"
 #include <stdbool.h>
+
 #include "XBEE.h"
 #include "mc3635.h"
 #include "display.h"
+#include "rfid.h"
 
 static int error_counter = 0; 
 static int dSec = 0;
@@ -77,20 +79,13 @@ void _ISR __attribute__((auto_psv)) _T1Interrupt(void)
  */
 void __attribute__((__interrupt__)) _U1RXInterrupt(void)
 {
-   static uint8_t inByte; 
-   static uint8_t i; 
+   static uint8_t inByte;  
    
    while(U1STAbits.URXDA) //while RX data is available 
     {
         inByte=U1RXREG;       //Read in data from register
         while(!U1STAbits.TRMT); //Wait until able to transmit 
-      //  U1TXREG = newTag[i]; //Transmit
-    
-//        i++;
-//        if (i == 16)
-//        {
-//            i = 0;
-//        }
+        RFID_new_byte(inByte);
     }
     IFS0bits.U1RXIF = 0;    //Clear Flag
 }
