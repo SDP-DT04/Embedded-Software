@@ -13,6 +13,13 @@
 #include "display.h"
 #include "rfid.h"
 
+enum Swimmer_State 
+{
+    IDLE, 
+    SWIMMING, 
+    
+};
+
 static int error_counter = 0; 
 static int dSec = 0;
 static bool is_swimming = false;
@@ -26,7 +33,7 @@ void _ISR __attribute__((auto_psv)) _T1Interrupt(void)
     {
         if (PORTCbits.RC13 == 1)
         {
-            XBEE_begin_transmit(); //start xbee transmit
+           // XBEE_begin_transmit(); //start xbee transmit
             is_swimming = true;
             TMR1=0;
             dSec=0;
@@ -65,7 +72,7 @@ void _ISR __attribute__((auto_psv)) _T1Interrupt(void)
         
         else if (PORTCbits.RC13 == 0)
         {
-            XBEE_end_transmit();     
+//            XBEE_end_transmit();     
             is_swimming = false;
             TMR1=0;
         }

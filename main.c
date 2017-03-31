@@ -1,5 +1,5 @@
 /*
- * File:   I2C_State_Machine.c
+ * File:   main.c
  * Author: DT04
  *
  * Created on February 6, 2017, 12:50 PM

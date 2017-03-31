@@ -36,6 +36,7 @@
 
 void DISPLAY_CONFIG_Tasks();
 void DISPLAY_Tasks();
+void DISPLAY_weight();
 bool DISPLAY_is_displaying(); 
 void DISPLAY_time(int);
 void DISPLAY_error();

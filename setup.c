@@ -89,7 +89,7 @@ void LED_init( void )
     PORTDbits.RD8 = 1; //Set pin 42 (RD8) high for LED
 }
 
-void ADC_init(void)
+void ADC_init( void )
 {
     AD1CON1bits.ADON = 0;   //ADC1 Operation Mode (0 = ADC is off)
     AD1CON1bits.ADSIDL = 0; //Stop in idle mode (0 = continues module in Idle mode)

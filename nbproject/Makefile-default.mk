@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c
+SOURCEFILES_QUOTED_IF_SPACED=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c system.c load.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d ${OBJECTDIR}/mc3635.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/rfid.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o ${OBJECTDIR}/system.o ${OBJECTDIR}/load.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d ${OBJECTDIR}/mc3635.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/rfid.o.d ${OBJECTDIR}/system.o.d ${OBJECTDIR}/load.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o
+OBJECTFILES=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o ${OBJECTDIR}/system.o ${OBJECTDIR}/load.o
 
 # Source Files
-SOURCEFILES=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c
+SOURCEFILES=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c system.c load.c
 
 
 CFLAGS=
@@ -138,6 +138,20 @@ ${OBJECTDIR}/rfid.o: rfid.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  rfid.c  -o ${OBJECTDIR}/rfid.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/rfid.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/rfid.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/system.o: system.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/system.o.d 
+	@${RM} ${OBJECTDIR}/system.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  system.c  -o ${OBJECTDIR}/system.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/system.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/system.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/load.o: load.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/load.o.d 
+	@${RM} ${OBJECTDIR}/load.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  load.c  -o ${OBJECTDIR}/load.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/load.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/load.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/accelData.o: accelData.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -194,6 +208,20 @@ ${OBJECTDIR}/rfid.o: rfid.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/rfid.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  rfid.c  -o ${OBJECTDIR}/rfid.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/rfid.o.d"      -mno-eds-warn  -g -omf=elf -legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/rfid.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/system.o: system.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/system.o.d 
+	@${RM} ${OBJECTDIR}/system.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  system.c  -o ${OBJECTDIR}/system.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/system.o.d"      -mno-eds-warn  -g -omf=elf -legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/system.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/load.o: load.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/load.o.d 
+	@${RM} ${OBJECTDIR}/load.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  load.c  -o ${OBJECTDIR}/load.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/load.o.d"      -mno-eds-warn  -g -omf=elf -legacy-libc  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/load.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

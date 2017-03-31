@@ -79,7 +79,23 @@ bool is_displaying = false;
 
 enum I2C_Display_State _display_state = WAIT; 
 enum I2C_Config_State _config_state = INIT; 
- 
+
+void DISPLAY_weight(int weight)
+{
+    nums[0] = weight / 1000;
+    weight = weight % 1000; 
+    nums[1] = weight / 100;
+    nums[2] = 17;
+    weight = weight % 100; 
+    nums[3] = weight / 10; 
+    weight = weight % 10; 
+    nums[4] = weight; 
+    
+    display_commands = nums; 
+
+    new_data = true; 
+}
+
 void DISPLAY_time(int mstime)
 {
     nums[0] = mstime / 1000;

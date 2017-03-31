@@ -5,26 +5,12 @@
  * Created on March 3, 2017, 1:36 PM
  */
 
-
 #include "xc.h"
 #include <stdint.h>
 #include "XBEE.h"
 
 #define FCY 60000000ULL
 #include <libpic30.h>
-
-void __attribute__((__interrupt__)) _SPI1Interrupt(void)
-{
-    mc3635_data[mc3635_w_index++] = SPI1BUF; //store new data in buffer
-    
-     while(!U1STAbits.TRMT);
-            U1TXREG = mc3635_data[mc3635_w_index-1];
-    
-    if (mc3635_w_index == MC3635_BUF_LEN)//wrap index?
-        mc3635_w_index = 0; 
-    
-    IFS0bits.SPI1EIF = 0; //clear the interrupt flag
-}
 
 uint16_t mc3635_send(uint16_t x)
 {     
@@ -34,9 +20,6 @@ uint16_t mc3635_send(uint16_t x)
     //wait for receive buffer to be full
     while (!SPI1STATbits.SPIRBF);
     uint16_t y = SPI1BUF; 
-    
-         while(!U1STAbits.TRMT);
-            U1TXREG = 'C';
     
     PORTBbits.RB0 = 1;
     return y; 
@@ -88,25 +71,17 @@ void mc3635_init()
     mc3635_send(0x5505); //set range and resolution - 14bits, 2g
 }
 
-void mc3635_read_z_low()
+uint16_t mc3635_read_z_low()
 {    
-    mc3635_send(0xC700); //read x_out msb
-    mc3635_send(0xC600); //read x_out lsb
+    return ( mc3635_send(0xC700) ); //read x_out msb 
 }
 
-void mc3635_read_z_high()
+uint16_t mc3635_read_z_high()
 {
-    mc3635_send(0x87);
+    return ( mc3635_send(0xC600) ); //read x_out lsb
 }
 
 void mc3635_enable_spi()
 {
     mc3635_send(0x4D80);
-}
-
-//void mc3635_set
-
-void mc3635_tasks()
-{
-    
 }
