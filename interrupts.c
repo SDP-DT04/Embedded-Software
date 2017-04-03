@@ -12,6 +12,7 @@
 #include "mc3635.h"
 #include "display.h"
 #include "rfid.h"
+#include "system.h"
 
 enum Swimmer_State 
 {
@@ -29,54 +30,55 @@ static bool is_swimming = false;
  */
 void _ISR __attribute__((auto_psv)) _T1Interrupt(void)
 {
-    if (is_swimming == false)
-    {
-        if (PORTCbits.RC13 == 1)
-        {
-           // XBEE_begin_transmit(); //start xbee transmit
-            is_swimming = true;
-            TMR1=0;
-            dSec=0;
-            
-            mc3635_read_z_low();
-        }
-        
-        else if (PORTCbits.RC13 == 0)
-        {}
-    }
-    
-    else if(is_swimming == true)
-    {
-        if (PORTCbits.RC13 == 1)
-        {
-            if (dSec<9999)
-            {dSec++;}
-            else 
-            {dSec = 0;}
-            
-            if (!DISPLAY_is_displaying())
-            {
-                DISPLAY_time(dSec);
-                error_counter = 0; 
-            }
-            else
-            {
-                error_counter++;
-            }
-                
-            if (error_counter > 5)
-            {
-                DISPLAY_error();
-            }
-        }
-        
-        else if (PORTCbits.RC13 == 0)
-        {
-//            XBEE_end_transmit();     
-            is_swimming = false;
-            TMR1=0;
-        }
-    }
+    system_tasks();
+//    if (is_swimming == false)
+//    {
+//        if (PORTCbits.RC13 == 1)
+//        {
+//           // XBEE_begin_transmit(); //start xbee transmit
+//            is_swimming = true;
+//            TMR1=0;
+//            dSec=0;
+//            
+//            mc3635_read_z_low();
+//        }
+//        
+//        else if (PORTCbits.RC13 == 0)
+//        {}
+//    }
+//    
+//    else if(is_swimming == true)
+//    {
+//        if (PORTCbits.RC13 == 1)
+//        {
+//            if (dSec<9999)
+//            {dSec++;}
+//            else 
+//            {dSec = 0;}
+//            
+//            if (!DISPLAY_is_displaying())
+//            {
+//                DISPLAY_time(dSec);
+//                error_counter = 0; 
+//            }
+//            else
+//            {
+//                error_counter++;
+//            }
+//                
+//            if (error_counter > 5)
+//            {
+//                DISPLAY_error();
+//            }
+//        }
+//        
+//        else if (PORTCbits.RC13 == 0)
+//        {
+////            XBEE_end_transmit();     
+//            is_swimming = false;
+//            TMR1=0;
+//        }
+//    }
  _T1IF = 0;//clear  the  flag
 }
 

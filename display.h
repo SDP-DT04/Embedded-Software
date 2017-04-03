@@ -40,6 +40,8 @@ void DISPLAY_weight();
 bool DISPLAY_is_displaying(); 
 void DISPLAY_time(int);
 void DISPLAY_error();
+bool DISPLAY_config_done();
+void DISPLAY_blank();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

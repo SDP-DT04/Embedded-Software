@@ -80,19 +80,50 @@ bool is_displaying = false;
 enum I2C_Display_State _display_state = WAIT; 
 enum I2C_Config_State _config_state = INIT; 
 
+bool DISPLAY_config_done( void )
+{
+    return zero_set; 
+}
+
+void DISPLAY_blank()
+{
+    nums[0] = 16; 
+    nums[1] = 16;
+    nums[2] = 16; 
+    nums[3] = 16;  
+    nums[4] = 16; 
+    display_commands = nums; 
+    new_data = true; 
+}
+
 void DISPLAY_weight(int weight)
 {
-    nums[0] = weight / 1000;
-    weight = weight % 1000; 
-    nums[1] = weight / 100;
-    nums[2] = 17;
+    int val = weight / 1000; 
+    if (val == 0)
+        nums[0] = 16;
+    else
+        nums[0] = weight / 1000;
+    
+    weight = weight % 1000;
+    val = weight / 100; 
+    if (val == 0)
+        nums[1] = 16;
+    else
+        nums[1] = val;
+    
+    nums[2] = 16;
+    
     weight = weight % 100; 
-    nums[3] = weight / 10; 
+    val = weight / 10;
+    if (val == 0)
+        nums[3] = 16;
+    else
+        nums[3] = val; 
+    
     weight = weight % 10; 
     nums[4] = weight; 
     
     display_commands = nums; 
-
     new_data = true; 
 }
 
@@ -198,14 +229,11 @@ void DISPLAY_CONFIG_Tasks()
         {
             if(!zero_set)
             {
-                zero_set = true;
-                DISPLAY_time(0); 
+                zero_set = true; 
             }
         }
     }
 }
-
-
 
 
 void DISPLAY_Tasks()

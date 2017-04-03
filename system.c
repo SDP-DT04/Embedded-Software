@@ -42,30 +42,35 @@ bool isWeightStable(uint32_t weight)
 
 System_State systemStateReset( void )
 {
-    DISPLAY_weight(0);
-    timer = 0; 
+    if (DISPLAY_config_done())
+    {
+        DISPLAY_weight(0);
+        timer = 0; 
     
-    return WEIGH; 
+        return WEIGH;   
+    }
+    return RESET; 
 }
 
 System_State systemStateWeigh( void )
 {
      DISPLAY_weight( LOAD_get() );
-     if ( isWeightStable( LOAD_get() ) )
+     if (  timer > 500)//isWeightStable( LOAD_get() ) )
      {
          timer = 0; 
 
          return BLINK;
      }
+     timer++; 
      return WEIGH;
 }
 
 System_State systemStateBlink( void )
 {
     if ( (timer / 100) % 2 )
-         DISPLAY_weight( 0 );
+         DISPLAY_blank();
      else
-         DISPLAY_weight( last_weight );
+         DISPLAY_weight( 50 );
 
      if (timer > 1000)
      {
@@ -82,7 +87,7 @@ System_State systemStateWait( void )
     {
         uint8_t tag[RFID_TAG_LEN];
         RFID_get( tag );
-        XBEE_transmit(tag, RFID_TAG_LEN);
+        XBEE_transmit(tag, RFID_TAG_LEN, 0x01);
         timer = 0; 
         return SWIM; 
     }
@@ -95,10 +100,10 @@ System_State systemStateSwim( void )
     DISPLAY_time(timer);
  
     uint8_t accel[2];
-    accel[0] = mc3635_read_z_low(); 
-    accel[1] = mc3635_read_z_high(); 
+    //accel[0] = mc3635_read_z_low(); 
+    //accel[1] = mc3635_read_z_high(); 
     
-    XBEE_transmit(accel, 2);
+   // XBEE_transmit(accel, 2, 0x03);
     
     if ( !isSwimming() )
     {

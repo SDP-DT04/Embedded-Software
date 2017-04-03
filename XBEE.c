@@ -9,6 +9,8 @@
 #include <libpic30.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
+#include <stdio.h>
 
 #include "XBEE.h"
 #define FCY 60000000ULL
@@ -22,18 +24,36 @@ const uint8_t XBEE_ADDR_PACKET[MIN_PACKET_LEN] = {0x10,0x01,0x00,0x13,0xA2,0x00,
 xbee_data_t this; 
 Xbee_State xbee_state = XBEE_RESET;
 
-void XBEE_transmit(uint8_t* data, uint8_t data_len)
+void XBEE_transmit(uint8_t* data, uint8_t data_len, uint8_t id)
 {
-    this.data = data;
-    this.data_len = data_len; 
-    this.packet_len = data_len + MIN_PACKET_LEN; 
+    strncpy((char*)this.data, (char*)data, data_len);
+    this.data_len = data_len + 1; 
+    this.id = id; 
+    this.packet_len = this.data_len + MIN_PACKET_LEN; 
     this.start = true; 
+}
+
+void debug(uint8_t x)
+{
+    uint8_t buf[10];
+    memset(buf, 0x00, 10);
+    sprintf(buf, "%d", x);
+    uint8_t i = 0; 
+    for (; i < 10; ++i)
+    {
+        while(!U1STAbits.TRMT); //wait until transmit buffer empty
+        U1TXREG = buf[i];
+    }
+    while(!U1STAbits.TRMT); //wait until transmit buffer empty
+        U1TXREG = '\n';
 }
 
 void xbee_send(uint8_t x)
 {
     while(!U2STAbits.TRMT); //wait until transmit buffer empty
     U2TXREG = x; //load buffer with data
+    
+    debug(x);
 }
 
 Xbee_State xbeeStateReset( void )
@@ -79,6 +99,10 @@ Xbee_State xbeeStateAddr( void )
     }
     else
     {
+        // send the packet identifier
+        xbee_send(this.id);
+        this.checksum += this.id;
+        
         this.index = 0;
         return XBEE_DATA;
     }
@@ -86,7 +110,7 @@ Xbee_State xbeeStateAddr( void )
 
 Xbee_State xbeeStateData( void )
 {
-    if (this.index < this.data_len)
+    if (this.index < this.data_len - 1) //-1 since id was already sent!
     {
         xbee_send(this.data[this.index]);
         this.checksum += this.data[this.index];
@@ -102,7 +126,7 @@ Xbee_State xbeeStateData( void )
 
 Xbee_State xbeeStateChecksum( void )
 {
-    xbee_send(this.checksum);
+    xbee_send(0xFF - this.checksum);
     this.index = 0; 
     this.checksum = 0; 
     return XBEE_IDLE; 

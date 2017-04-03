@@ -48,15 +48,16 @@ typedef enum
 
 typedef struct 
 {
-    uint8_t* data;
+    uint8_t data[100];
     uint8_t index;
     uint8_t checksum; 
     uint8_t data_len; 
+    uint8_t id; 
     uint16_t packet_len;
     bool start; 
 } xbee_data_t;
 
 void XBEE_Tasks();
-void XBEE_transmit(uint8_t* data, uint8_t data_len);
+void XBEE_transmit(uint8_t*, uint8_t, uint8_t);
 
 #endif	/* XC_HEADER_TEMPLATE_H */
