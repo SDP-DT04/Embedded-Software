@@ -34,7 +34,7 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 
-int ALG_Calculate_R(short a);
+float ALG_Calculate_R(short a);
 void ALG_Init_R();
 
 

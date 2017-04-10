@@ -42,6 +42,8 @@ typedef enum
     BLINK,
     WAIT, 
     SWIM, 
+    END,
+    RETURN,
     ERROR    
 } System_State;
 

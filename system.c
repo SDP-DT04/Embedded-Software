@@ -10,12 +10,15 @@
 
 #define MIN_STABLE_TIME 500 // 5 seconds
 #define CUSHION 5
-#define R_STOP_VALUE 0.001
-#define R_START_VALUE 1
-
+#define R_STOP_VALUE 3
+#define R_START_VALUE 25
+#define ACCEL_LEN 50
 
 static uint32_t timer = 0;
+static uint32_t swim_time = 0; 
 uint32_t last_weight = 0; 
+uint8_t a_index = 0; 
+uint8_t accel[ACCEL_LEN];
 
 System_State sys_state = RESET; 
 
@@ -46,7 +49,7 @@ System_State systemStateReset( void )
         DISPLAY_weight(0);
         timer = 0; 
     
-        return BLINK;   
+        return WEIGH;   
     }
     return RESET; 
 }
@@ -54,7 +57,7 @@ System_State systemStateReset( void )
 System_State systemStateWeigh( void )
 {
      DISPLAY_weight( LOAD_get() );
-     if (  timer > 500)//isWeightStable( LOAD_get() ) )
+     if (  timer > 100)//isWeightStable( LOAD_get() ) )
      {
          timer = 0; 
 
@@ -73,8 +76,9 @@ System_State systemStateBlink( void )
 
      if (timer > 100)
      {
-         uint8_t temp; 
-         XBEE_transmit(&temp, 0, 0x00); //let the server know to initialize
+         uint8_t temp = 0; 
+         XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
+         timer = 0; 
          DISPLAY_time(0);
          ALG_Init_R();
          return WAIT; 
@@ -85,20 +89,23 @@ System_State systemStateBlink( void )
 
 System_State systemStateWait( void )
 {
-    uint8_t accel[2];
+    timer++; 
     accel[0] = mc3635_read_z_low(); 
     accel[1] = mc3635_read_z_high(); 
     
     short value = (accel[1] << 8) | accel[0];
+    //debug(value);
+    float R = ALG_Calculate_R(value);
+  
+    //if (timer < 500)
+      //  return;     //give some time for the algorithm to adjust
     
-    
-    debug(ALG_Calculate_R(value));
-    if (false)
-   // if ( ALG_Calculate_R(value) > R_START_VALUE )
+    if ( R > R_START_VALUE )//&& timer > swim_time)
     {
         uint8_t tag[RFID_TAG_LEN];
         RFID_get( tag );
         XBEE_transmit(tag, RFID_TAG_LEN, 0x01);
+        a_index = 0; 
         timer = 0; 
         return SWIM; 
     }
@@ -110,20 +117,45 @@ System_State systemStateSwim( void )
     timer++; 
     DISPLAY_time(timer);
  
-    uint8_t accel[2];
-    accel[0] = mc3635_read_z_low(); 
-    accel[1] = mc3635_read_z_high(); 
-        
-    short value = (accel[1] << 8) | accel[0];
-    XBEE_transmit(accel, 2, 0x03);
+    accel[a_index++] = mc3635_read_z_low(); 
+    accel[a_index++] = mc3635_read_z_high(); 
     
-    if ( ALG_Calculate_R(value) < R_STOP_VALUE )
+        
+    short value = (accel[a_index-1] << 8) | accel[a_index-2];
+   
+    if (a_index == ACCEL_LEN)
     {
-       XBEE_transmit(accel, 0, 0x03); //let the server know the workout is over
-        timer = 0; 
-        return WAIT; 
+        XBEE_transmit(accel, ACCEL_LEN, 0x03);
+        a_index = 0; 
+    }
+    
+    float R = ALG_Calculate_R(value);
+    //debug(value);
+    
+    //if (timer > 1002)
+    if ( R < R_STOP_VALUE )
+    {
+        XBEE_transmit(accel, a_index, 0x03);
+        a_index = 0;
+        swim_time = timer; 
+        timer = 0;
+        return END;
     }
     return SWIM; 
+}
+
+System_State systemStateEnd( void )
+{
+    uint8_t temp = 0; 
+    XBEE_transmit(&temp, 1, 0x03); //let the server know the workout is over
+    return RETURN; 
+}
+
+System_State systemStateReturn( void )
+{
+    uint8_t temp = 0; 
+    XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
+    return WAIT;
 }
 
 void system_tasks( void )
@@ -149,5 +181,16 @@ void system_tasks( void )
         case SWIM: 
             sys_state = systemStateSwim(); 
             break; 
+            
+        case END:
+            sys_state = systemStateEnd(); 
+            break;
+            
+        case RETURN:
+            sys_state = systemStateReturn(); 
+            break;
+            
+        case ERROR:
+            break;
     };
 }

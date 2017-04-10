@@ -29,7 +29,6 @@ void RFID_new_byte( uint8_t x )
         case LF:
             break;
         case END_BYTE:
-            XBEE_transmit(tag, RFID_TAG_LEN, 0x01);
             break;
             
         default:

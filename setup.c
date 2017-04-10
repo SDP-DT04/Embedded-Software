@@ -32,7 +32,7 @@ void UART2_init( void )
     U2MODEbits.PDSEL = 0; //No parity, 8-bit data
     U2MODEbits.ABAUD = 0; //Auto baud rate is disabled
     U2MODEbits.BRGH = 0; //Standard baud rate
-    U2BRG = 390; //Set baud rate register
+    U2BRG = 32; //Set baud rate register (115200)
     U2MODEbits.UARTEN = 1; //Enable UART
     //IEC1bits.U2RXIE = 1;
     U2STAbits.UTXEN = 1;//Set TX to Enable
