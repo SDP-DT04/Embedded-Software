@@ -33,7 +33,7 @@ void XBEE_transmit(uint8_t* data, uint8_t data_len, uint8_t id)
     this.start = true; 
 }
 
-void debug(uint8_t x)
+void debug(int x)
 {
     uint8_t buf[10];
     memset(buf, 0x00, 10);
@@ -41,19 +41,17 @@ void debug(uint8_t x)
     uint8_t i = 0; 
     for (; i < 10; ++i)
     {
-        while(!U1STAbits.TRMT); //wait until transmit buffer empty
-        U1TXREG = buf[i];
+        while(!U2STAbits.TRMT); //wait until transmit buffer empty
+        U2TXREG = buf[i];
     }
-    while(!U1STAbits.TRMT); //wait until transmit buffer empty
-        U1TXREG = '\n';
+    while(!U2STAbits.TRMT); //wait until transmit buffer empty
+        U2TXREG = '\n';
 }
 
 void xbee_send(uint8_t x)
 {
     while(!U2STAbits.TRMT); //wait until transmit buffer empty
     U2TXREG = x; //load buffer with data
-    
-    debug(x);
 }
 
 Xbee_State xbeeStateReset( void )

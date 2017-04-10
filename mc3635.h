@@ -34,8 +34,8 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 
 void mc3635_init();
-uint16_t mc3635_read_z_low();
-uint16_t mc3635_read_z_high();
+uint8_t mc3635_read_z_low();
+uint8_t mc3635_read_z_high();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

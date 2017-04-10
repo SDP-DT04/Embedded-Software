@@ -6,19 +6,18 @@
 #include "XBEE.h"
 #include "system.h"
 #include "rfid.h"
+#include "algorithm.h"
 
 #define MIN_STABLE_TIME 500 // 5 seconds
 #define CUSHION 5
+#define R_STOP_VALUE 0.001
+#define R_START_VALUE 1
+
 
 static uint32_t timer = 0;
 uint32_t last_weight = 0; 
 
 System_State sys_state = RESET; 
-
-bool isSwimming( void )
-{
-    return (PORTCbits.RC13 == 1);
-}
 
 bool isWeightStable(uint32_t weight)
 {
@@ -47,7 +46,7 @@ System_State systemStateReset( void )
         DISPLAY_weight(0);
         timer = 0; 
     
-        return WEIGH;   
+        return BLINK;   
     }
     return RESET; 
 }
@@ -72,9 +71,12 @@ System_State systemStateBlink( void )
      else
          DISPLAY_weight( 50 );
 
-     if (timer > 1000)
+     if (timer > 100)
      {
+         uint8_t temp; 
+         XBEE_transmit(&temp, 0, 0x00); //let the server know to initialize
          DISPLAY_time(0);
+         ALG_Init_R();
          return WAIT; 
      }
      timer++;
@@ -83,7 +85,16 @@ System_State systemStateBlink( void )
 
 System_State systemStateWait( void )
 {
-    if ( isSwimming() )
+    uint8_t accel[2];
+    accel[0] = mc3635_read_z_low(); 
+    accel[1] = mc3635_read_z_high(); 
+    
+    short value = (accel[1] << 8) | accel[0];
+    
+    
+    debug(ALG_Calculate_R(value));
+    if (false)
+   // if ( ALG_Calculate_R(value) > R_START_VALUE )
     {
         uint8_t tag[RFID_TAG_LEN];
         RFID_get( tag );
@@ -100,13 +111,15 @@ System_State systemStateSwim( void )
     DISPLAY_time(timer);
  
     uint8_t accel[2];
-    //accel[0] = mc3635_read_z_low(); 
-    //accel[1] = mc3635_read_z_high(); 
+    accel[0] = mc3635_read_z_low(); 
+    accel[1] = mc3635_read_z_high(); 
+        
+    short value = (accel[1] << 8) | accel[0];
+    XBEE_transmit(accel, 2, 0x03);
     
-   // XBEE_transmit(accel, 2, 0x03);
-    
-    if ( !isSwimming() )
+    if ( ALG_Calculate_R(value) < R_STOP_VALUE )
     {
+       XBEE_transmit(accel, 0, 0x03); //let the server know the workout is over
         timer = 0; 
         return WAIT; 
     }

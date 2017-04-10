@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c system.c load.c
+SOURCEFILES_QUOTED_IF_SPACED=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c system.c load.c algorithm.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o ${OBJECTDIR}/system.o ${OBJECTDIR}/load.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d ${OBJECTDIR}/mc3635.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/rfid.o.d ${OBJECTDIR}/system.o.d ${OBJECTDIR}/load.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o ${OBJECTDIR}/system.o ${OBJECTDIR}/load.o ${OBJECTDIR}/algorithm.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/accelData.o.d ${OBJECTDIR}/XBEE.o.d ${OBJECTDIR}/mc3635.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/rfid.o.d ${OBJECTDIR}/system.o.d ${OBJECTDIR}/load.o.d ${OBJECTDIR}/algorithm.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o ${OBJECTDIR}/system.o ${OBJECTDIR}/load.o
+OBJECTFILES=${OBJECTDIR}/accelData.o ${OBJECTDIR}/XBEE.o ${OBJECTDIR}/mc3635.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/display.o ${OBJECTDIR}/main.o ${OBJECTDIR}/rfid.o ${OBJECTDIR}/system.o ${OBJECTDIR}/load.o ${OBJECTDIR}/algorithm.o
 
 # Source Files
-SOURCEFILES=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c system.c load.c
+SOURCEFILES=accelData.c XBEE.c mc3635.c interrupts.c setup.c display.c main.c rfid.c system.c load.c algorithm.c
 
 
 CFLAGS=
@@ -158,6 +158,13 @@ ${OBJECTDIR}/load.o: load.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  load.c  -o ${OBJECTDIR}/load.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/load.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/load.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/algorithm.o: algorithm.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/algorithm.o.d 
+	@${RM} ${OBJECTDIR}/algorithm.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  algorithm.c  -o ${OBJECTDIR}/algorithm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/algorithm.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/algorithm.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/accelData.o: accelData.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -228,6 +235,13 @@ ${OBJECTDIR}/load.o: load.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/load.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  load.c  -o ${OBJECTDIR}/load.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/load.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/load.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/algorithm.o: algorithm.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/algorithm.o.d 
+	@${RM} ${OBJECTDIR}/algorithm.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  algorithm.c  -o ${OBJECTDIR}/algorithm.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/algorithm.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/algorithm.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

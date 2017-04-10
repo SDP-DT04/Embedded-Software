@@ -59,5 +59,6 @@ typedef struct
 
 void XBEE_Tasks();
 void XBEE_transmit(uint8_t*, uint8_t, uint8_t);
+void debug(int);
 
 #endif	/* XC_HEADER_TEMPLATE_H */

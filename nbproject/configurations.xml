@@ -14,6 +14,7 @@
       <itemPath>rfid.h</itemPath>
       <itemPath>load.h</itemPath>
       <itemPath>system.h</itemPath>
+      <itemPath>algorithm.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -32,6 +33,7 @@
       <itemPath>rfid.c</itemPath>
       <itemPath>system.c</itemPath>
       <itemPath>load.c</itemPath>
+      <itemPath>algorithm.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -52,7 +54,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>1.30</languageToolchainVersion>
+        <languageToolchainVersion>1.26</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -209,7 +211,6 @@
         <property key="UART 1" value="true"/>
         <property key="UART 2" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

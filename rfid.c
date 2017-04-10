@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "rfid.h"
+#include "XBEE.h"
 
 #define START_BYTE 0x02
 #define CR 0x0D
@@ -26,7 +27,9 @@ void RFID_new_byte( uint8_t x )
       
         case CR: 
         case LF:
+            break;
         case END_BYTE:
+            XBEE_transmit(tag, RFID_TAG_LEN, 0x01);
             break;
             
         default:

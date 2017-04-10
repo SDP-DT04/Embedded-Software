@@ -12,6 +12,11 @@
 #define FCY 60000000ULL
 #include <libpic30.h>
 
+#define READ 0xC000
+#define WRITE 0x4000
+
+void mc3635_enable_spi();
+
 uint16_t mc3635_send(uint16_t x)
 {     
     while (SPI1STATbits.SPITBF);
@@ -60,28 +65,59 @@ void mc3635_init()
     TRISBbits.TRISB0 = 0; 
     PORTBbits.RB0 = 1; 
     
-    //mc3635_enable_spi();
+    mc3635_enable_spi();
     
    // IFS2bits.SPI2EIF = 0; //clear the interrupt flag
    // IEC2bits.SPI2EIE = 1; //enable the interrupt
-    mc3635_send(0x4F42); 
-    mc3635_send(0x4D80); //set feature 1 register - enable spi mode
-    mc3635_send(0x5108); //set rate register - rate to 100Hz
-    mc3635_send(0x5005); //set status 1 register - accelerometer in "wake" mode
-    mc3635_send(0x5505); //set range and resolution - 14bits, 2g
-}
+}    
 
-uint16_t mc3635_read_z_low()
+            
+
+
+uint8_t mc3635_read_z_low()
 {    
-    return ( mc3635_send(0xC700) ); //read x_out msb 
+    return ( (uint8_t)mc3635_send(0xC600) ); //read x_out msb 
 }
 
-uint16_t mc3635_read_z_high()
+uint8_t mc3635_read_z_high()
 {
-    return ( mc3635_send(0xC600) ); //read x_out lsb
+    return ( (uint8_t)mc3635_send(0xC700)); //read x_out lsb
 }
 
 void mc3635_enable_spi()
 {
-    mc3635_send(0x4D80);
+    mc3635_send(WRITE | 0x1001); //go to standby
+    
+    /* force a rest of the accelerometer */
+   // mc3635_send(WRITE | 0x2440);
+    
+    __delay_ms(10);
+    
+    /* initialization */
+    mc3635_send(WRITE | 0x0F42); //set initialization register 1
+    mc3635_send(WRITE | 0x2001); //turn off x test mode
+    mc3635_send(WRITE | 0x2180); //turn off y test mode 
+    mc3635_send(WRITE | 0x2200); //turn off z test mode 
+    mc3635_send(WRITE | 0x2800); //set initialize register 2
+    mc3635_send(WRITE | 0x1A00); //set initialize register 3
+    
+            
+    /* setup */        
+    mc3635_send(WRITE | 0x1001); //go to standby
+    mc3635_send(WRITE | 0x1505); //set range and resolution - 14bits, 2g
+    mc3635_send(WRITE | 0x1600); //turn off FIFO
+    mc3635_send(WRITE | 0x1C44); //high power precise mode
+    mc3635_send(WRITE | 0x1505); //set range and resolution - 14bits, 2g
+    mc3635_send(WRITE | 0x0D80); //set feature 1 register - enable spi mode
+    mc3635_send(WRITE | 0x1108); //set rate register - rate to 100Hz
+    mc3635_send(WRITE | 0x1005); //set status 1 register - accelerometer in "wake" mode
+    
+
+//    debug(mc3635_send(READ | 0x1000));
+//    debug(mc3635_send(READ | 0x1500));
+//    debug(mc3635_send(READ | 0x1600));
+//    debug(mc3635_send(READ | 0x1500));
+//    debug(mc3635_send(READ | 0x0D00));
+//    debug(mc3635_send(READ | 0x1100));
+//    debug(mc3635_send(READ | 0x1000));
 }
