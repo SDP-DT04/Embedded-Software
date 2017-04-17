@@ -71,8 +71,25 @@ void mc3635_init()
    // IEC2bits.SPI2EIE = 1; //enable the interrupt
 }    
 
-            
+uint8_t mc3635_read_x_low()
+{    
+    return ( (uint8_t)mc3635_send(0xC200) ); //read x_out msb 
+}
 
+uint8_t mc3635_read_x_high()
+{
+    return ( (uint8_t)mc3635_send(0xC300)); //read x_out lsb
+}            
+
+uint8_t mc3635_read_y_low()
+{    
+    return ( (uint8_t)mc3635_send(0xC400) ); //read x_out msb 
+}
+
+uint8_t mc3635_read_y_high()
+{
+    return ( (uint8_t)mc3635_send(0xC500)); //read x_out lsb
+}       
 
 uint8_t mc3635_read_z_low()
 {    

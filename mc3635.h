@@ -36,6 +36,10 @@
 void mc3635_init();
 uint8_t mc3635_read_z_low();
 uint8_t mc3635_read_z_high();
+uint8_t mc3635_read_x_low();
+uint8_t mc3635_read_x_high();
+uint8_t mc3635_read_y_low();
+uint8_t mc3635_read_y_high();
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

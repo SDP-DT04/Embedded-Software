@@ -10,12 +10,14 @@
 
 #define MIN_STABLE_TIME 500 // 5 seconds
 #define CUSHION 5
-#define R_STOP_VALUE 3
-#define R_START_VALUE 25
+#define R_STOP_VALUE 1.25
+#define R_START_VALUE 3.5
 #define ACCEL_LEN 50
 
 static uint32_t timer = 0;
-static uint32_t swim_time = 0; 
+static uint32_t swim_time = 0;  
+static uint32_t start_time = 0;  
+static uint32_t stop_time = 0;  
 uint32_t last_weight = 0; 
 uint8_t a_index = 0; 
 uint8_t accel[ACCEL_LEN];
@@ -49,7 +51,7 @@ System_State systemStateReset( void )
         DISPLAY_weight(0);
         timer = 0; 
     
-        return WEIGH;   
+       return WEIGH;   
     }
     return RESET; 
 }
@@ -79,6 +81,7 @@ System_State systemStateBlink( void )
          uint8_t temp = 0; 
          XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
          timer = 0; 
+         swim_time = 0;
          DISPLAY_time(0);
          ALG_Init_R();
          return WAIT; 
@@ -90,26 +93,44 @@ System_State systemStateBlink( void )
 System_State systemStateWait( void )
 {
     timer++; 
+    
     accel[0] = mc3635_read_z_low(); 
     accel[1] = mc3635_read_z_high(); 
-    
     short value = (accel[1] << 8) | accel[0];
-    //debug(value);
+  
     float R = ALG_Calculate_R(value);
   
-    //if (timer < 500)
-      //  return;     //give some time for the algorithm to adjust
-    
-    if ( R > R_START_VALUE )//&& timer > swim_time)
+    /* wait for at least 3 seconds or the amount of time it took to swim */
+    if (timer > swim_time && timer > 300) 
     {
-        uint8_t tag[RFID_TAG_LEN];
-        RFID_get( tag );
-        XBEE_transmit(tag, RFID_TAG_LEN, 0x01);
-        a_index = 0; 
-        timer = 0; 
-        return SWIM; 
+        /* R value must be consistent for 300ms */
+        if ( R > R_START_VALUE)
+        {
+            if (start_time == 0)
+            {
+                start_time = timer; 
+            }
+            else
+            {
+                if (start_time - timer > 30)
+                {
+                    uint8_t tag[RFID_TAG_LEN];
+                    RFID_get( tag );
+                    XBEE_transmit(tag, RFID_TAG_LEN, 0x01);
+                    stop_time = 0; 
+                    a_index = 0; 
+                    timer = 30; 
+                    return SWIM;    
+                }
+            }
+        }
+        else
+        {
+            start_time = 0;
+        }
     }
-    return WAIT; 
+    
+    return WAIT;
 }
 
 System_State systemStateSwim( void )
@@ -130,16 +151,42 @@ System_State systemStateSwim( void )
     }
     
     float R = ALG_Calculate_R(value);
-    //debug(value);
     
-    //if (timer > 1002)
-    if ( R < R_STOP_VALUE )
+    /* wait at least 3s, since no swim will be quicker*/
+    if (timer > 300)
     {
-        XBEE_transmit(accel, a_index, 0x03);
-        a_index = 0;
-        swim_time = timer; 
-        timer = 0;
-        return END;
+        /* special case: the swimmer never actually started */
+        if (R < R_STOP_VALUE && timer == 301)
+        {
+            DISPLAY_time(0);
+            a_index = 0; 
+            swim_time = 0; 
+            timer = 0; 
+            start_time = 0; 
+            return WAIT;             
+        }
+        else if (R < R_STOP_VALUE)
+        {
+            if (stop_time == 0)
+            {
+                stop_time = timer; 
+            }
+            else
+            {
+                if (stop_time - timer > 30)
+                {
+                    XBEE_transmit(accel, a_index, 0x03); // transmit the remaining acceleration data
+                    a_index = 0;
+                    swim_time = timer; 
+                    timer = 0;
+                    return END;
+                }
+            }
+        }
+        else
+        {
+            stop_time = 0; 
+        }   
     }
     return SWIM; 
 }
@@ -155,6 +202,8 @@ System_State systemStateReturn( void )
 {
     uint8_t temp = 0; 
     XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
+    
+    start_time = 0; 
     return WAIT;
 }
 

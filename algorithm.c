@@ -9,8 +9,8 @@
 #include "algorithm.h"
 
 const static float L1 = .1; 
-const static float L2 = .2;
-const static float L3 = .2;
+const static float L2 = .02;
+const static float L3 = .02;
 
 static float R, Rm1, xf, vi, si, xfm1, vim1, sim1, am1 = 0; 
 
