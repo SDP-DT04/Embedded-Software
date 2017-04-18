@@ -21,9 +21,6 @@ enum Swimmer_State
     
 };
 
-static int error_counter = 0; 
-static int dSec = 0;
-static bool is_swimming = false;
 /**
  * Timer 1 interrupt service routine
  * Used for display and accelerometer

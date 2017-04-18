@@ -24,6 +24,27 @@ uint8_t accel[ACCEL_LEN];
 
 System_State sys_state = RESET; 
 
+bool bucket_tilted( void )
+{
+    /* read the x axis */
+    accel[0] = mc3635_read_x_low(); 
+    accel[1] = mc3635_read_x_high(); 
+    short value = (accel[1] << 8) | accel[0];
+    
+    if (value > 2000 || value < -2000 )
+        return true; 
+    
+    /* read the y axis */
+    accel[0] = mc3635_read_y_low(); 
+    accel[1] = mc3635_read_y_high(); 
+    value = (accel[1] << 8) | accel[0];
+    
+    if (value > 2000 || value < -2000 )
+        return true; 
+    
+    return false; 
+}
+
 bool isWeightStable(uint32_t weight)
 {
     uint32_t diff = 0; 
@@ -45,7 +66,7 @@ bool isWeightStable(uint32_t weight)
 }
 
 System_State systemStateReset( void )
-{
+{   
     if (DISPLAY_config_done())
     {
         DISPLAY_weight(0);
@@ -96,8 +117,8 @@ System_State systemStateWait( void )
     
     accel[0] = mc3635_read_z_low(); 
     accel[1] = mc3635_read_z_high(); 
+ 
     short value = (accel[1] << 8) | accel[0];
-  
     float R = ALG_Calculate_R(value);
   
     /* wait for at least 3 seconds or the amount of time it took to swim */
@@ -112,7 +133,11 @@ System_State systemStateWait( void )
             }
             else
             {
-                if (start_time - timer > 30)
+                if (bucket_tilted())
+                {
+                    start_time = 0; 
+                }
+                else if (start_time - timer > 30)
                 {
                     uint8_t tag[RFID_TAG_LEN];
                     RFID_get( tag );
@@ -141,7 +166,6 @@ System_State systemStateSwim( void )
     accel[a_index++] = mc3635_read_z_low(); 
     accel[a_index++] = mc3635_read_z_high(); 
     
-        
     short value = (accel[a_index-1] << 8) | accel[a_index-2];
    
     if (a_index == ACCEL_LEN)
@@ -163,6 +187,7 @@ System_State systemStateSwim( void )
             swim_time = 0; 
             timer = 0; 
             start_time = 0; 
+            ALG_Init_R();
             return WAIT;             
         }
         else if (R < R_STOP_VALUE)
@@ -175,6 +200,7 @@ System_State systemStateSwim( void )
             {
                 if (stop_time - timer > 30)
                 {
+                    DISPLAY_time(timer - 30);
                     XBEE_transmit(accel, a_index, 0x03); // transmit the remaining acceleration data
                     a_index = 0;
                     swim_time = timer; 
@@ -204,6 +230,7 @@ System_State systemStateReturn( void )
     XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
     
     start_time = 0; 
+    ALG_Init_R();
     return WAIT;
 }
 
