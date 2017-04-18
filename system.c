@@ -103,6 +103,7 @@ System_State systemStateBlink( void )
          XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
          timer = 0; 
          swim_time = 0;
+         start_time = 0; 
          DISPLAY_time(0);
          ALG_Init_R();
          return WAIT; 
@@ -137,14 +138,14 @@ System_State systemStateWait( void )
                 {
                     start_time = 0; 
                 }
-                else if (start_time - timer > 30)
+                else if (start_time - timer > 50)
                 {
                     uint8_t tag[RFID_TAG_LEN];
                     RFID_get( tag );
                     XBEE_transmit(tag, RFID_TAG_LEN, 0x01);
                     stop_time = 0; 
                     a_index = 0; 
-                    timer = 30; 
+                    timer = 50; 
                     return SWIM;    
                 }
             }
