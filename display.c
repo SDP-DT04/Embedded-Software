@@ -66,7 +66,7 @@ unsigned char nums[] = {
 unsigned char config_commands[] = {
     0x21,
     0x81,
-    0xEF,
+    0xE2,
     0x99
 };
 

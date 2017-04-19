@@ -11,7 +11,7 @@
 #define MIN_STABLE_TIME 500 // 5 seconds
 #define CUSHION 5
 #define R_STOP_VALUE 1.25
-#define R_START_VALUE 3.5
+#define R_START_VALUE 3.25
 #define ACCEL_LEN 50
 
 static uint32_t timer = 0;
@@ -31,16 +31,16 @@ bool bucket_tilted( void )
     accel[1] = mc3635_read_x_high(); 
     short value = (accel[1] << 8) | accel[0];
     
-    if (value > 2000 || value < -2000 )
+    if (value > 500 || value < -500 )
         return true; 
     
     /* read the y axis */
-    accel[0] = mc3635_read_y_low(); 
-    accel[1] = mc3635_read_y_high(); 
-    value = (accel[1] << 8) | accel[0];
-    
-    if (value > 2000 || value < -2000 )
-        return true; 
+//    accel[0] = mc3635_read_y_low(); 
+//    accel[1] = mc3635_read_y_high(); 
+//    value = (accel[1] << 8) | accel[0];
+//    
+//    if (value > 1000 || value < -1000 )
+//        return true; 
     
     return false; 
 }
@@ -121,8 +121,12 @@ System_State systemStateWait( void )
  
     short value = (accel[1] << 8) | accel[0];
     float R = ALG_Calculate_R(value);
-  
+    //debug(R);
+    if (timer > swim_time)
+        DISPLAY_time(0);
+    
     /* wait for at least 3 seconds or the amount of time it took to swim */
+    //if (0)
     if (timer > swim_time && timer > 300) 
     {
         /* R value must be consistent for 300ms */
@@ -136,7 +140,9 @@ System_State systemStateWait( void )
             {
                 if (bucket_tilted())
                 {
-                    start_time = 0; 
+                    start_time = 0;
+					swim_time = timer + 1000; //time out for 5s 
+                     ALG_Init_R();
                 }
                 else if (start_time - timer > 50)
                 {
@@ -181,7 +187,7 @@ System_State systemStateSwim( void )
     if (timer > 300)
     {
         /* special case: the swimmer never actually started */
-        if (R < R_STOP_VALUE && timer == 301)
+        if (R < R_STOP_VALUE && timer < 400)
         {
             DISPLAY_time(0);
             a_index = 0; 
@@ -199,12 +205,12 @@ System_State systemStateSwim( void )
             }
             else
             {
-                if (stop_time - timer > 30)
+                if (stop_time - timer > 35)
                 {
-                    DISPLAY_time(timer - 30);
+                    DISPLAY_time(timer - 35);
                     XBEE_transmit(accel, a_index, 0x03); // transmit the remaining acceleration data
                     a_index = 0;
-                    swim_time = timer; 
+                    swim_time = timer + 500; 
                     timer = 0;
                     return END;
                 }

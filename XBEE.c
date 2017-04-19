@@ -33,11 +33,11 @@ void XBEE_transmit(uint8_t* data, uint8_t data_len, uint8_t id)
     this.start = true; 
 }
 
-void debug(short x)
+void debug(float x)
 {
     uint8_t buf[10];
     memset(buf, 0x00, 10);
-    sprintf(buf, "%d", x);
+    sprintf(buf, "%f", x);
     uint8_t i = 0; 
     for (; i < 10; ++i)
     {

@@ -8,7 +8,7 @@
 #include "xc.h"
 #include "algorithm.h"
 
-const static double L1 = .1; 
+const static double L1 = .101; 
 const static double L2 = .02;
 const static double L3 = .02;
 
