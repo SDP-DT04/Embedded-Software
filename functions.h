@@ -140,16 +140,6 @@ void ChangeChannelADC(unsigned char channel)
     AD1CON1bits.ADON = 1;   //ADC1 Operation Mode (1 = ADC is on)
 }
 
-float getADC(void)
-{
-    AD1CON1bits.SAMP = 1;   //ADC1 Sample enable (1 = sampling)
-    while(!AD1CON1bits.SAMP); 
-    AD1CON1bits.SAMP = 0;   //ADC1 Sample enable (0 = holding)
-    while(AD1CON1bits.SAMP)
-    while (!AD1CON1bits.DONE);  //ADC1 Conversion Status (0 = not started/in progress, 1 = completed)
-    return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
-}
-
 
 
 void ConfigureClockSlow(void)

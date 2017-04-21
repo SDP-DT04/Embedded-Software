@@ -7,6 +7,80 @@
 
 #include <stdint.h>
 #include "load.h"
+
+Load_State load_state = ZERO; 
+
+uint16_t getADC(void)
+{
+    AD1CON1bits.SAMP = 1;   //ADC1 Sample enable (1 = sampling)
+    while(!AD1CON1bits.SAMP); 
+    AD1CON1bits.SAMP = 0;   //ADC1 Sample enable (0 = holding)
+    while(AD1CON1bits.SAMP)
+    while (!AD1CON1bits.DONE);  //ADC1 Conversion Status (0 = not started/in progress, 1 = completed)
+    return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
+}
+
+static float weight = 0; 
+static uint32_t weight_running = 0; 
+static uint32_t offset = 0; 
+static uint16_t i; 
+static uint16_t timer = 0; 
+float c = 1;
+
+void LOAD_Init()
+{
+    ANSELEbits.ANSE13 = 1; //Set pin 28 as analog input
+    i = 0; 
+    offset = 0; 
+    weight_running = 0; 
+}
+
+void LOAD_Tasks()
+{
+    /* space out the readings over time */
+    timer++; 
+    if (timer != 100)
+        return; 
+    
+    timer = 0; 
+    switch(load_state)
+    {
+        case ZERO:
+            if (i < 100)
+            {
+                offset += getADC();
+            }
+            else 
+            {
+                offset = (offset / 100);
+                load_state = SAMPLE;
+                i = 0;
+                break;
+            }
+            ++i; 
+            break; 
+            
+        case SAMPLE:
+            if (i < 100)
+            {
+                int x = offset - getADC();
+                if (x < 0)
+                    x = 0; 
+                weight_running += (uint32_t)x;
+            }
+            else
+            {
+                weight_running = (weight_running /100);
+                //debug_i(weight_running);
+                weight = (uint8_t)(weight_running * 0.0536 + 2.5782);     
+                weight_running = 0; 
+                i = 0;
+                break;
+            }
+            ++i; 
+            break; 
+    }
+}
 //#define ADC 4096
 //#define Volt 3.25
 //int  dSec = 0, Sec = 0; // two  global  variables
@@ -136,9 +210,7 @@
 //        msdelay(50);
 //}
 
-static uint32_t weight = 0;
-
-uint32_t LOAD_get( void )
+uint8_t LOAD_get( void )
 {
     return weight;
 }

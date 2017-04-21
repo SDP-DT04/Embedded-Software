@@ -31,6 +31,7 @@ static const unsigned char numberTable[] = // convert number to lit-segments
  0x71, // F
  0x00, //<blank>
  0x02, //Center Colon
+ 0x37  // n
 };
 
 enum I2C_Config_State{
@@ -94,6 +95,18 @@ void DISPLAY_blank()
     nums[4] = 16; 
     display_commands = nums; 
     new_data = true; 
+}
+
+void DISPLAY_scan()
+{
+    nums[0] = 5; 
+    nums[1] = 12;
+    nums[2] = 16; 
+    nums[3] = 10;  
+    nums[4] = 18; 
+    display_commands = nums; 
+    new_data = true;  
+    
 }
 
 void DISPLAY_weight(int weight)

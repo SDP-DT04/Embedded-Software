@@ -8,13 +8,14 @@
 #include "rfid.h"
 #include "algorithm.h"
 
-#define MIN_STABLE_TIME 500 // 5 seconds
-#define CUSHION 5
+#define MIN_STABLE_TIME 1000 // 10 seconds
+#define CUSHION 2
 #define R_STOP_VALUE 1.25
 #define R_START_VALUE 3.25
 #define ACCEL_LEN 50
 
 static uint32_t timer = 0;
+static uint32_t timer2 = 0;
 static uint32_t swim_time = 0;  
 static uint32_t start_time = 0;  
 static uint32_t stop_time = 0;  
@@ -49,44 +50,58 @@ bool isWeightStable(uint32_t weight)
 {
     uint32_t diff = 0; 
             
-    DISPLAY_weight( weight );
     if ( last_weight > weight )
         diff = last_weight - weight; 
     else
         diff = weight - last_weight; 
             
     if (diff <= CUSHION )
-        timer++; 
+        timer2++; 
     else
-        timer = 0;
+        timer2 = 0;
     
     last_weight = weight; 
     
-    return ( timer > MIN_STABLE_TIME );
+    return ( timer2 > MIN_STABLE_TIME );
 }
 
 System_State systemStateReset( void )
 {   
     if (DISPLAY_config_done())
     {
-        DISPLAY_weight(0);
+        DISPLAY_scan();
         timer = 0; 
     
-       return WEIGH;   
+       return SCAN;   
     }
     return RESET; 
 }
 
+System_State systemStateScan( void )
+{   
+    if (RFID_new_scan())
+    {
+       return WEIGH;   
+    }
+    return SCAN; 
+}
+
 System_State systemStateWeigh( void )
 {
-     DISPLAY_weight( LOAD_get() );
-     if (  timer > 100)//isWeightStable( LOAD_get() ) )
+    timer++; 
+    if (timer % 100 == 0)
+        DISPLAY_weight( LOAD_get() ); // display weight every 1s
+    
+    if (LOAD_get() < 5) //wait until weight is applied
+        return WEIGH; 
+    
+    if ( isWeightStable( LOAD_get() ))
      {
          timer = 0; 
-
+         timer2 = 0; 
          return BLINK;
      }
-     timer++; 
+     
      return WEIGH;
 }
 
@@ -95,12 +110,12 @@ System_State systemStateBlink( void )
     if ( (timer / 100) % 2 )
          DISPLAY_blank();
      else
-         DISPLAY_weight( 50 );
+         DISPLAY_weight( last_weight );
 
-     if (timer > 100)
+     if (timer > 600)
      {
          uint8_t temp = 0; 
-         XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
+         //XBEE_transmit(&temp, 1, 0x00); //let the server know to initialize
          timer = 0; 
          swim_time = 0;
          start_time = 0; 
@@ -126,9 +141,14 @@ System_State systemStateWait( void )
         DISPLAY_time(0);
     
     /* wait for at least 3 seconds or the amount of time it took to swim */
-    //if (0)
+   
     if (timer > swim_time && timer > 300) 
     {
+        if (LOAD_get() > last_weight + CUSHION + 5)
+        {
+            timer = 0; 
+            return WEIGH;
+        }
         /* R value must be consistent for 300ms */
         if ( R > R_START_VALUE)
         {
@@ -140,9 +160,8 @@ System_State systemStateWait( void )
             {
                 if (bucket_tilted())
                 {
-                    start_time = 0;
-					swim_time = timer + 1000; //time out for 5s 
-                     ALG_Init_R();
+                    timer = 0; 
+                    return WEIGH; 
                 }
                 else if (start_time - timer > 50)
                 {
@@ -249,6 +268,10 @@ void system_tasks( void )
             sys_state = systemStateReset(); 
             break; 
        
+        case SCAN:
+            sys_state = systemStateScan(); 
+            break;
+            
         case WEIGH:
             sys_state = systemStateWeigh(); 
             break;

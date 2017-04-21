@@ -31,11 +31,13 @@ int main(void)
     UART2_init(); 
     TIMER1_init(); 
     mc3635_init();
+    LOAD_Init(); 
     ADC_init(); 
     __delay_ms(1000); //wait for sensors to start up
     
     while(1)
     {
+        LOAD_Tasks(); 
         DISPLAY_CONFIG_Tasks();
         DISPLAY_Tasks();
         XBEE_Tasks();

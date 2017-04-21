@@ -48,6 +48,21 @@ void debug(float x)
         U2TXREG = '\n';
 }
 
+void debug_i(uint32_t x)
+{
+    uint8_t buf[10];
+    memset(buf, 0x00, 10);
+    sprintf(buf, "%lu", x);
+    uint8_t i = 0; 
+    for (; i < 10; ++i)
+    {
+        while(!U2STAbits.TRMT); //wait until transmit buffer empty
+        U2TXREG = buf[i];
+    }
+    while(!U2STAbits.TRMT); //wait until transmit buffer empty
+        U2TXREG = '\n';
+}
+
 void xbee_send(uint8_t x)
 {
     while(!U2STAbits.TRMT); //wait until transmit buffer empty

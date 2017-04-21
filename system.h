@@ -38,6 +38,7 @@ void system_tasks();
 typedef enum
 {
     RESET,
+    SCAN,
     WEIGH,
     BLINK,
     WAIT, 

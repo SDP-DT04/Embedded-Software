@@ -34,7 +34,15 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 
-uint32_t LOAD_get( void );
+typedef enum
+{
+    ZERO,
+    SAMPLE        
+} Load_State;
+
+uint8_t LOAD_get( void );
+void LOAD_Tasks();
+void LOAD_Init(); 
 
 #endif	/* XC_LOAD_H */
 

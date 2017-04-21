@@ -97,15 +97,15 @@ void ADC_init( void )
     AD1CON1bits.FORM = 0b00;    //Data output format (00 = integer)
     AD1CON1bits.SSRC = 0b111;
     AD1CON1bits.ASAM = 1;   //SAMP is auto-set
-    AD1CON2 = 0x0404;
+    AD1CON2 = 0x0400;
     AD1CON3bits.ADRC = 0;   //ADC1 Conversion Clock Source (0 = clock derived from system clock)
     AD1CON3bits.SAMC = 0b01111;  //Auto-sample time bits (0b01111 = 15TAD)
     AD1CON3bits.ADCS = 0b00001111;   //Conversion Clock Select
     AD1CON4 = 0x0000;
     AD1CSSH = 0x0000;
-    AD1CSSL = 0x0200;
+    AD1CSSL = 0x2000;
     //AD1CSSL = 0x0202;
-    AD1CHS0bits.CH0SA = 0;
+    AD1CHS0bits.CH0SA = 0b01101;
     AD1CHS0bits.CH0NA = 0;
     AD1CON1bits.ADON = 1;
 }  
