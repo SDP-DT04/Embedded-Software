@@ -20,7 +20,8 @@ uint16_t getADC(void)
     return(ADC1BUF0);   //ADC1BUF0 = AN0 data buffer
 }
 
-static float weight = 0; 
+static uint8_t weight = 0; 
+static uint16_t weight_real = 0; 
 static uint32_t weight_running = 0; 
 static uint32_t offset = 0; 
 static uint16_t i; 
@@ -53,6 +54,7 @@ void LOAD_Tasks()
             else 
             {
                 offset = (offset / 100);
+                //debug_u(offset);
                 load_state = SAMPLE;
                 i = 0;
                 break;
@@ -63,16 +65,24 @@ void LOAD_Tasks()
         case SAMPLE:
             if (i < 100)
             {
-                int x = offset - getADC();
+                int x = (offset - getADC());
                 if (x < 0)
                     x = 0; 
-                weight_running += (uint32_t)x;
+                
+                weight_running += x; 
             }
             else
-            {
+            { 
                 weight_running = (weight_running /100);
                 //debug_i(weight_running);
-                weight = (uint8_t)(weight_running * 0.0536 + 2.5782);     
+//                if (weight_running < 0)
+//                    weight_running = 0;                 else
+            
+                if (weight_running < 20)
+                    weight = 0;
+                else
+                    //weight = (uint8_t)(weight_running * 0.081 + 1.52);   
+                    weight = (uint8_t)(weight_running * 0.077 + 2);  
                 weight_running = 0; 
                 i = 0;
                 break;
@@ -212,7 +222,8 @@ void LOAD_Tasks()
 
 uint8_t LOAD_get( void )
 {
-    return weight;
+    return weight; 
+    //return getADC();//weight;
 }
 
 //float getADC(void)

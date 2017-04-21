@@ -91,14 +91,20 @@ System_State systemStateWeigh( void )
     timer++; 
     if (timer % 100 == 0)
         DISPLAY_weight( LOAD_get() ); // display weight every 1s
-    
+        //debug_u(LOAD_get());
+        
+    //return WEIGH;
     if (LOAD_get() < 5) //wait until weight is applied
         return WEIGH; 
     
+    //if (false)
     if ( isWeightStable( LOAD_get() ))
      {
+        uint8_t w[1];
+        w[0] = 50; 
          timer = 0; 
          timer2 = 0; 
+         XBEE_transmit(w, 1, 0x02);
          return BLINK;
      }
      
@@ -245,8 +251,11 @@ System_State systemStateSwim( void )
 
 System_State systemStateEnd( void )
 {
-    uint8_t temp = 0; 
-    XBEE_transmit(&temp, 1, 0x03); //let the server know the workout is over
+    uint16_t x = swim_time - 500 - 35;
+    uint8_t temp[2];
+    temp[0] = (uint8_t)x; 
+    temp[1] = (uint8_t)(x >> 8);
+    XBEE_transmit(temp, 2, 0x04); //transmit the swim time
     return RETURN; 
 }
 

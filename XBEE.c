@@ -48,11 +48,26 @@ void debug(float x)
         U2TXREG = '\n';
 }
 
-void debug_i(uint32_t x)
+void debug_i(int x)
 {
     uint8_t buf[10];
     memset(buf, 0x00, 10);
-    sprintf(buf, "%lu", x);
+    sprintf(buf, "%d", x);
+    uint8_t i = 0; 
+    for (; i < 10; ++i)
+    {
+        while(!U2STAbits.TRMT); //wait until transmit buffer empty
+        U2TXREG = buf[i];
+    }
+    while(!U2STAbits.TRMT); //wait until transmit buffer empty
+        U2TXREG = '\n';
+}
+
+void debug_u(uint16_t x)
+{
+    uint8_t buf[10];
+    memset(buf, 0x00, 10);
+    sprintf(buf, "%u", x);
     uint8_t i = 0; 
     for (; i < 10; ++i)
     {
