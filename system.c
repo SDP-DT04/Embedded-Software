@@ -9,7 +9,7 @@
 #include "algorithm.h"
 
 #define MIN_STABLE_TIME 1000 // 10 seconds
-#define CUSHION 2
+#define CUSHION 1
 #define R_STOP_VALUE 1.25
 #define R_START_VALUE 3.25
 #define ACCEL_LEN 50
@@ -100,11 +100,8 @@ System_State systemStateWeigh( void )
     //if (false)
     if ( isWeightStable( LOAD_get() ))
      {
-        uint8_t w[1];
-        w[0] = 50; 
          timer = 0; 
-         timer2 = 0; 
-         XBEE_transmit(w, 1, 0x02);
+         timer2 = 0;       
          return BLINK;
      }
      
@@ -150,7 +147,7 @@ System_State systemStateWait( void )
    
     if (timer > swim_time && timer > 300) 
     {
-        if (LOAD_get() > last_weight + CUSHION + 5)
+        if (LOAD_get() > last_weight + CUSHION + 9)
         {
             timer = 0; 
             return WEIGH;
@@ -177,7 +174,7 @@ System_State systemStateWait( void )
                     stop_time = 0; 
                     a_index = 0; 
                     timer = 50; 
-                    return SWIM;    
+                    return SEND;    
                 }
             }
         }
@@ -188,6 +185,14 @@ System_State systemStateWait( void )
     }
     
     return WAIT;
+}
+
+System_State systemStateSend( void )
+{
+       uint8_t w[1];
+       w[0] = (uint8_t)last_weight; 
+       XBEE_transmit(w, 1, 0x02);
+       return SWIM;
 }
 
 System_State systemStateSwim( void )
@@ -291,6 +296,10 @@ void system_tasks( void )
            
         case WAIT:
             sys_state = systemStateWait(); 
+            break;
+            
+        case SEND:
+            sys_state = systemStateSend();
             break;
             
         case SWIM: 

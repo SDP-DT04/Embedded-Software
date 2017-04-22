@@ -42,6 +42,7 @@ typedef enum
     WEIGH,
     BLINK,
     WAIT, 
+    SEND,
     SWIM, 
     END,
     RETURN,
