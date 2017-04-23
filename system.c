@@ -12,7 +12,7 @@
 #define CUSHION 1
 #define R_STOP_VALUE 1.25
 #define R_START_VALUE 3.25
-#define ACCEL_LEN 50
+#define ACCEL_LEN 6
 
 static uint32_t timer = 0;
 static uint32_t timer2 = 0;
@@ -20,7 +20,9 @@ static uint32_t swim_time = 0;
 static uint32_t start_time = 0;  
 static uint32_t stop_time = 0;  
 uint32_t last_weight = 0; 
+uint8_t a_start_index = 0;
 uint8_t a_index = 0; 
+uint8_t accel_start[50];
 uint8_t accel[ACCEL_LEN];
 
 System_State sys_state = RESET; 
@@ -134,10 +136,10 @@ System_State systemStateWait( void )
 {
     timer++; 
     
-    accel[0] = mc3635_read_z_low(); 
-    accel[1] = mc3635_read_z_high(); 
+    uint8_t av0 = mc3635_read_z_low(); 
+    uint8_t av1 = mc3635_read_z_high(); 
  
-    short value = (accel[1] << 8) | accel[0];
+    short value = (av1 << 8) | av0;
     float R = ALG_Calculate_R(value);
     //debug(R);
     if (timer > swim_time)
@@ -161,6 +163,7 @@ System_State systemStateWait( void )
             }
             else
             {
+                accel_start[a_start_index++] = value;
                 if (bucket_tilted())
                 {
                     timer = 0; 
@@ -174,12 +177,13 @@ System_State systemStateWait( void )
                     stop_time = 0; 
                     a_index = 0; 
                     timer = 50; 
-                    return SEND;    
+                    return ACCEL;    
                 }
             }
         }
         else
         {
+            a_start_index = 0;
             start_time = 0;
         }
     }
@@ -187,7 +191,13 @@ System_State systemStateWait( void )
     return WAIT;
 }
 
-System_State systemStateSend( void )
+System_State systemStateSendAccel( void )
+{
+    XBEE_transmit(accel_start, 50, 0x03);
+    return WEIGHT;
+}
+
+System_State systemStateSendWeight( void )
 {
        uint8_t w[1];
        w[0] = (uint8_t)last_weight; 
@@ -298,8 +308,12 @@ void system_tasks( void )
             sys_state = systemStateWait(); 
             break;
             
-        case SEND:
-            sys_state = systemStateSend();
+        case ACCEL:
+            sys_state = systemStateSendAccel(); 
+            break;
+            
+        case WEIGHT:
+            sys_state = systemStateSendWeight();
             break;
             
         case SWIM: 
