@@ -40,7 +40,7 @@ void LOAD_Tasks()
 {
     /* space out the readings over time */
     timer++; 
-    if (timer != 500)
+    if (timer != 100)
         return; 
     
     timer = 0; 
